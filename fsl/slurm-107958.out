@@ -198,3 +198,9 @@ Starting Training
 (    25.024s) Epoch 005/ 10: Loss=7.625234
 (    25.056s) Epoch 006/ 10: Loss=7.605436
 (    25.074s) Epoch 007/ 10: Loss=7.591925
+(    25.103s) Epoch 008/ 10: Loss=7.582410
+(    25.112s) Epoch 009/ 10: Loss=7.575038
+(    25.294s) Epoch 010/ 10: Loss=7.570847
+Training for 10 epochs took 252.663s total and 25.266s average
+done!!!
+~/FewShot/fsl
