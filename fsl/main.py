@@ -39,38 +39,54 @@ if __name__ == '__main__':
 
     base_optimizer = getattr(optim, options.base_optimizer)(model.parameters(),
                                 lr=0.3*options.batch_size/256,
-                                weight_decay=1e-6)
-    optimizer = getattr(sys.modules[__name__], options.secondary_optimizer)(optimizer=base_optimizer)
-    scheduler = getattr(optim.lr_scheduler, options.scheduler)(optimizer,T_max=options.T_max)
+                                momentum=options.momentum,
+                                weight_decay=options.weight_decay,
+                                dampening=options.dampening,
+                                nesterov=options.nesterov)
+    final_optimizer = base_optimizer
+    scheduler = None
+    if not options.simple_opt:
+        final_optimizer = getattr(sys.modules[__name__],
+                                  options.secondary_optimizer)(optimizer=base_optimizer)
+        scheduler = getattr(optim.lr_scheduler, options.scheduler)(optimizer,T_max=options.T_max)
 
     print(("Starting Training\n"
            "-----------------"))
     time_track = AverageMeter()
+    best_model_state = model.state_dict()
+    min_loss = 1e5
     for epoch in range(options.num_epochs):
         loss_track = AverageMeter()
         epoch_start = time.time()
 
         for aug1, aug2, targets in train_loader:
-            optimizer.zero_grad()
+            final_optimizer.zero_grad()
             feat1 = model(aug1.cuda())
             feat2 = model(aug2.cuda())
             loss = criterion(feat1, feat2)
             loss.backward()
-            optimizer.step()
+            final_optimizer.step()
             loss_track.accumulate(loss.item())
 
-        scheduler.step()
+        if scheduler is not None: scheduler.step()
         time_track.accumulate(time.time() - epoch_start)
 
         print((f"({time_track.latest():>10.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}: "
-               f"Loss={loss_track.value():<f}"))
+               f"Loss={loss_track.value():<f}"), end='')
+
+        if loss_track.value() < min_loss:
+            print(" (Best so far)", end='')
+            min_loss = loss_track.latest()
+            best_model_state = model.state_dict()
+        print()
+
     print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
            f"and {time_track.value():.3f}s average"))
 
     print(f"Saving model and options to {options.save_path}")
     torch.save({
         'options': options,
-        'model_state_dict': model.state_dict(),
+        'model_state_dict': best_model_state,
     }, options.save_path)
 
     # for data, labels in test_loader:

@@ -7,8 +7,23 @@ def parse_args():
     train_args = parser.add_argument_group("Train Arguments")
     train_args.add_argument("--num_epochs", type=int, default=10)
     train_args.add_argument("--save_path", type=str, default='exp0.pth')
-    train_args.add_argument("--base_optimizer", type=str, default="SGD")
-    train_args.add_argument("--secondary_optimizer", type=str, default="LARS")
+
+    # Optimizer Arguments
+    opt_args = parser.add_argument_group("Optimizer Arguments")
+    opt_args.add_argument("--simple_opt", dest='simple_opt', action='store_true')
+    opt_args.add_argument("--complex_opt", dest='simple_opt', action='store_false')
+    opt_args.set_defaults(simple_opt=False)
+
+    opt_args.add_argument("--base_optimizer", type=str, default="SGD")
+    opt_args.add_argument("--secondary_optimizer", type=str, default="LARS")
+
+    opt_args.add_argument("--momentum", type=float, default=0.0)
+    opt_args.add_argument("--weight_decay", type=float, default=0.0)
+    opt_args.add_argument("--dampening", type=float, default=0.0)
+
+    opt_args.add_argument("--nesterov", dest='nesterov', action='store_true')
+    opt_args.add_argument("--no_nesterov", dest='nesterov', action='store_false')
+    opt_args.set_defaults(nesterov=False)
 
     # Scheduler Arguments
     sched_args = parser.add_argument_group("Scheduler Arguements")
@@ -47,7 +62,7 @@ def parse_args():
 
     dataloader_args.add_argument("--shuffle", dest='shuffle', action='store_true')
     dataloader_args.add_argument("--no_shuffle", dest='shuffle', action='store_false')
-    dataloader_args.set_defaults(shuffle=False)
+    dataloader_args.set_defaults(shuffle=True)
 
     dataloader_args.add_argument("--num_workers", type=int, default=4)
 
