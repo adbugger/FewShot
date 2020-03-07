@@ -1,10 +1,10 @@
 ==========================================
-SLURM_JOB_ID = 107983
-SLURM_NODELIST = gnode37
+SLURM_JOB_ID = 107985
+SLURM_NODELIST = gnode20
 SLURM_JOB_GPUS = 0
 ==========================================
 ~/FewShot/fsl ~/FewShot/fsl
-Namespace(backbone='resnet50', batch_size=2048, dataset='cifar100fs', dataset_root=None, first_augment='CropResize', head='SimpleMLP', image_channels=3, image_mean=(0.5071, 0.4867, 0.4408), image_size=32, image_std=(0.2675, 0.2565, 0.2761), jitter_strength=1.0, loss_function='NTXent', model='SimCLRModel', ntxent_temp=1.0, num_epochs=2, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_path='exp0.pth', second_augment='GaussBlur', shuffle=True)
+Namespace(backbone='resnet50', batch_size=2048, dataset='cifar100fs', dataset_root=None, first_augment='CropResize', head='SimpleMLP', image_channels=3, image_mean=(0.5071, 0.4867, 0.4408), image_size=32, image_std=(0.2675, 0.2565, 0.2761), jitter_strength=1.0, loss_function='NTXent', model='SimCLRModel', ntxent_temp=1.0, num_epochs=100, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_path='exp0.pth', second_augment='GaussBlur', shuffle=True)
 SimCLRModel(
   (backbone): ResNet(
     (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
@@ -190,9 +190,107 @@ SimCLRModel(
 )
 Starting Training
 -----------------
-(    26.865s) Epoch 001/  2: Loss=7.930503
-(    25.488s) Epoch 002/  2: Loss=7.813726
-Training for 2 epochs took 52.353s total and 26.176s average
+(    26.731s) Epoch 001/100: Loss=7.930503
+(    25.378s) Epoch 002/100: Loss=7.800615
+(    24.996s) Epoch 003/100: Loss=7.704945
+(    25.075s) Epoch 004/100: Loss=7.654589
+(    25.108s) Epoch 005/100: Loss=7.623586
+(    25.194s) Epoch 006/100: Loss=7.603906
+(    25.359s) Epoch 007/100: Loss=7.592040
+(    25.157s) Epoch 008/100: Loss=7.582031
+(    25.170s) Epoch 009/100: Loss=7.575780
+(    25.209s) Epoch 010/100: Loss=7.570882
+(    25.167s) Epoch 011/100: Loss=7.567417
+(    25.211s) Epoch 012/100: Loss=7.563724
+(    25.219s) Epoch 013/100: Loss=7.561093
+(    25.244s) Epoch 014/100: Loss=7.558604
+(    25.262s) Epoch 015/100: Loss=7.557052
+(    25.241s) Epoch 016/100: Loss=7.555255
+(    25.281s) Epoch 017/100: Loss=7.553066
+(    25.276s) Epoch 018/100: Loss=7.551469
+(    25.254s) Epoch 019/100: Loss=7.550119
+(    25.285s) Epoch 020/100: Loss=7.549042
+(    25.291s) Epoch 021/100: Loss=7.546952
+(    25.286s) Epoch 022/100: Loss=7.545819
+(    25.295s) Epoch 023/100: Loss=7.545674
+(    25.286s) Epoch 024/100: Loss=7.543201
+(    25.238s) Epoch 025/100: Loss=7.541962
+(    25.299s) Epoch 026/100: Loss=7.541299
+(    25.317s) Epoch 027/100: Loss=7.540804
+(    25.293s) Epoch 028/100: Loss=7.539165
+(    25.276s) Epoch 029/100: Loss=7.538134
+(    25.279s) Epoch 030/100: Loss=7.537472
+(    25.274s) Epoch 031/100: Loss=7.535870
+(    25.292s) Epoch 032/100: Loss=7.534765
+(    25.300s) Epoch 033/100: Loss=7.534275
+(    25.289s) Epoch 034/100: Loss=7.533131
+(    25.278s) Epoch 035/100: Loss=7.532424
+(    25.299s) Epoch 036/100: Loss=7.531847
+(    25.299s) Epoch 037/100: Loss=7.531331
+(    25.258s) Epoch 038/100: Loss=7.530238
+(    25.292s) Epoch 039/100: Loss=7.529580
+(    25.248s) Epoch 040/100: Loss=7.528779
+(    25.294s) Epoch 041/100: Loss=7.528306
+(    25.299s) Epoch 042/100: Loss=7.527793
+(    25.333s) Epoch 043/100: Loss=7.527699
+(    25.278s) Epoch 044/100: Loss=7.526350
+(    25.323s) Epoch 045/100: Loss=7.526758
+(    25.608s) Epoch 046/100: Loss=7.525273
+(    25.462s) Epoch 047/100: Loss=7.526422
+(    25.351s) Epoch 048/100: Loss=7.524991
+(    25.517s) Epoch 049/100: Loss=7.524568
+(    25.486s) Epoch 050/100: Loss=7.523726
+(    25.509s) Epoch 051/100: Loss=7.524215
+(    25.466s) Epoch 052/100: Loss=7.523566
+(    25.315s) Epoch 053/100: Loss=7.523923
+(    25.291s) Epoch 054/100: Loss=7.523278
+(    25.289s) Epoch 055/100: Loss=7.521980
+(    25.488s) Epoch 056/100: Loss=7.522115
+(    25.575s) Epoch 057/100: Loss=7.521636
+(    25.556s) Epoch 058/100: Loss=7.521094
+(    25.493s) Epoch 059/100: Loss=7.521380
+(    25.528s) Epoch 060/100: Loss=7.521037
+(    25.482s) Epoch 061/100: Loss=7.521030
+(    25.482s) Epoch 062/100: Loss=7.520821
+(    25.497s) Epoch 063/100: Loss=7.520530
+(    25.524s) Epoch 064/100: Loss=7.520552
+(    25.524s) Epoch 065/100: Loss=7.520149
+(    25.289s) Epoch 066/100: Loss=7.520303
+(    25.367s) Epoch 067/100: Loss=7.519217
+(    25.290s) Epoch 068/100: Loss=7.519187
+(    25.340s) Epoch 069/100: Loss=7.519955
+(    25.285s) Epoch 070/100: Loss=7.518967
+(    25.324s) Epoch 071/100: Loss=7.519020
+(    25.276s) Epoch 072/100: Loss=7.518788
+(    25.300s) Epoch 073/100: Loss=7.518074
+(    25.352s) Epoch 074/100: Loss=7.518805
+(    25.296s) Epoch 075/100: Loss=7.519027
+(    25.306s) Epoch 076/100: Loss=7.518679
+(    25.549s) Epoch 077/100: Loss=7.518451
+(    25.280s) Epoch 078/100: Loss=7.517865
+(    25.311s) Epoch 079/100: Loss=7.518483
+(    25.292s) Epoch 080/100: Loss=7.517939
+(    25.317s) Epoch 081/100: Loss=7.517793
+(    25.379s) Epoch 082/100: Loss=7.518257
+(    25.345s) Epoch 083/100: Loss=7.517945
+(    25.522s) Epoch 084/100: Loss=7.517990
+(    25.485s) Epoch 085/100: Loss=7.518264
+(    25.507s) Epoch 086/100: Loss=7.517546
+(    25.353s) Epoch 087/100: Loss=7.517988
+(    25.512s) Epoch 088/100: Loss=7.517878
+(    25.557s) Epoch 089/100: Loss=7.517268
+(    25.501s) Epoch 090/100: Loss=7.517691
+(    25.529s) Epoch 091/100: Loss=7.517602
+(    25.503s) Epoch 092/100: Loss=7.517798
+(    25.569s) Epoch 093/100: Loss=7.517108
+(    25.491s) Epoch 094/100: Loss=7.517309
+(    25.323s) Epoch 095/100: Loss=7.516753
+(    25.546s) Epoch 096/100: Loss=7.517358
+(    25.508s) Epoch 097/100: Loss=7.517771
+(    25.525s) Epoch 098/100: Loss=7.517603
+(    25.519s) Epoch 099/100: Loss=7.516818
+(    25.507s) Epoch 100/100: Loss=7.517253
+Training for 100 epochs took 2536.824s total and 25.368s average
 Saving model and options to exp0.pth
 done!!!
 ~/FewShot/fsl

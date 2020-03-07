@@ -7,9 +7,13 @@ def parse_args():
     train_args = parser.add_argument_group("Train Arguments")
     train_args.add_argument("--num_epochs", type=int, default=10)
     train_args.add_argument("--save_path", type=str, default='exp0.pth')
-    # train_args.add_argument("--base_optimizer", type=str, default="SGD")
-    # train_args.add_argument("--secondary_optimizer", type=str, default="LARS")
-    # train_args.add_argument("--scheduler", type=str)
+    train_args.add_argument("--base_optimizer", type=str, default="SGD")
+    train_args.add_argument("--secondary_optimizer", type=str, default="LARS")
+
+    # Scheduler Arguments
+    sched_args = parser.add_argument_group("Scheduler Arguements")
+    sched_args.add_argument("--scheduler", type=str, default="CosineAnnealingLR")
+    sched_args.add_argument("--T_max", type=int, default=20)
 
     # Model Arugments
     model_args = parser.add_argument_group("Model Arguments")

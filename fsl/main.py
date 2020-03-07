@@ -1,6 +1,7 @@
 from __future__ import division
 
 import time
+import sys
 
 import torch
 DataLoader = torch.utils.data.DataLoader
@@ -36,11 +37,11 @@ if __name__ == '__main__':
 
     criterion = getattr(losses, options.loss_function)(options)
 
-    base_optimizer = optim.SGD(model.parameters(),
+    base_optimizer = getattr(optim, options.base_optimizer)(model.parameters(),
                                 lr=0.3*options.batch_size/256,
                                 weight_decay=1e-6)
-    optimizer = LARS(optimizer=base_optimizer)
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=options.num_epochs)
+    optimizer = getattr(sys.modules[__name__], options.secondary_optimizer)(optimizer=base_optimizer)
+    scheduler = getattr(optim.lr_scheduler, options.scheduler)(optimizer,T_max=options.T_max)
 
     print(("Starting Training\n"
            "-----------------"))
