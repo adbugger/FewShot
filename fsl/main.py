@@ -2,13 +2,15 @@ from __future__ import division
 
 import time
 
-from torch.utils.data import DataLoader
-import torch.optim as optim
+import torch
+DataLoader = torch.utils.data.DataLoader
+optim = torch.optim
 
 from utils import getattr_or_default, get_loader, seed_everything, AverageMeter
 from arguments import parse_args
 import datasets
 import models
+import losses
 
 from torchlars import LARS
 
@@ -32,14 +34,16 @@ if __name__ == '__main__':
     model = getattr(models, options.model)(options).cuda()
     print(model)
 
-    base_optimizer = getattr(optim, options.base_optimizer)(
-                                model.parameters(),
-                                lr=0.3*options.batch_size/256)
+    criterion = getattr(losses, options.loss_function)(options)
+
+    base_optimizer = optim.SGD(model.parameters(),
+                                lr=0.3*options.batch_size/256,
+                                weight_decay=1e-6)
     optimizer = LARS(optimizer=base_optimizer)
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=options.num_epochs)
 
     print(("Starting Training\n"
            "-----------------"))
-
     time_track = AverageMeter()
     for epoch in range(options.num_epochs):
         loss_track = AverageMeter()
@@ -47,20 +51,27 @@ if __name__ == '__main__':
 
         for aug1, aug2, targets in train_loader:
             optimizer.zero_grad()
-            aug1 = aug1.cuda()
-            aug2 = aug2.cuda()
-            loss = model(aug1, aug2)
+            feat1 = model(aug1.cuda())
+            feat2 = model(aug2.cuda())
+            loss = criterion(feat1, feat2)
             loss.backward()
             optimizer.step()
-
             loss_track.accumulate(loss.item())
 
+        scheduler.step()
         time_track.accumulate(time.time() - epoch_start)
 
         print((f"({time_track.latest():>10.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}: "
                f"Loss={loss_track.value():<f}"))
     print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
            f"and {time_track.value():.3f}s average"))
+
+    print(f"Saving model and options to {options.save_path}")
+    torch.save({
+        'options': options,
+        'model_state_dict': model.state_dict(),
+    }, options.save_path)
+
     # for data, labels in test_loader:
     #     print(data.shape, labels.shape)
     #     print('test loader works!!')

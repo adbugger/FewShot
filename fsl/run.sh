@@ -8,5 +8,5 @@ source "/home/aditya.bharti/python_env/bin/activate";
 
 pushd "/home/aditya.bharti/FewShot/fsl";
 # commands
-python main.py --shuffle --num_epochs=10;
+python main.py --shuffle --num_epochs=2;
 popd;
