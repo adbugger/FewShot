@@ -4,7 +4,7 @@
 #SBATCH --gpus=4
 #SBATCH --time=2-00:00:00
 
-EXP_NAME="exp12";
+EXP_NAME="exp13";
 
 source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot/fsl";

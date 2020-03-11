@@ -1,0 +1,393 @@
+Namespace(T_max=200, backbone='resnet50', base_learning_rate=1.0, base_optimizer='SGD', batch_size=2048, dampening=0.0, dataset='cifar100fs', dataset_root=None, first_augment='CropResize', head='SimpleMLP', jitter_strength=1.0, local_rank=0, loss_function='NTXent', model='SimCLRModel', momentum=0.05, nesterov=True, ntxent_temp=1.0, num_epochs=200, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_path='saves/exp12.pth', scheduler='CosineAnnealingLR', second_augment='GaussBlur', secondary_optimizer='LARS', shuffle=True, simple_opt=False, weight_decay=1e-06)
+DistributedDataParallel(
+  (module): SimCLRModel(
+    (backbone): ResNet(
+      (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+      (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+      (layer1): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer2): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer3): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (4): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (5): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer4): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+      (fc): Linear(in_features=2048, out_features=1000, bias=True)
+    )
+    (head): SimpleMLP(
+      (l1): Linear(in_features=1000, out_features=512, bias=True)
+      (relu): ReLU(inplace=True)
+      (l2): Linear(in_features=512, out_features=128, bias=True)
+    )
+  )
+)
+Starting Training
+-----------------
+(  19.970s) Epoch 001/200: Loss=8.014118 (best so far)
+(  11.130s) Epoch 002/200: Loss=7.821718 (best so far)
+(  10.820s) Epoch 003/200: Loss=7.715981 (best so far)
+(  10.873s) Epoch 004/200: Loss=7.681422 (best so far)
+(  10.826s) Epoch 005/200: Loss=7.640749 (best so far)
+(  10.881s) Epoch 006/200: Loss=7.615672 (best so far)
+(  10.946s) Epoch 007/200: Loss=7.599707 (best so far)
+(  10.840s) Epoch 008/200: Loss=7.587216 (best so far)
+(  10.919s) Epoch 009/200: Loss=7.567986 (best so far)
+(  10.922s) Epoch 010/200: Loss=7.568068
+(  10.923s) Epoch 011/200: Loss=7.560095 (best so far)
+(  10.961s) Epoch 012/200: Loss=7.549540 (best so far)
+(  10.922s) Epoch 013/200: Loss=7.547196 (best so far)
+(  10.935s) Epoch 014/200: Loss=7.542405 (best so far)
+(  10.949s) Epoch 015/200: Loss=7.537808 (best so far)
+(  10.905s) Epoch 016/200: Loss=7.535592 (best so far)
+(  10.981s) Epoch 017/200: Loss=7.530006 (best so far)
+(  10.965s) Epoch 018/200: Loss=7.526889 (best so far)
+(  11.011s) Epoch 019/200: Loss=7.525440 (best so far)
+(  10.953s) Epoch 020/200: Loss=7.524102 (best so far)
+(  11.011s) Epoch 021/200: Loss=7.521224 (best so far)
+(  10.995s) Epoch 022/200: Loss=7.517515 (best so far)
+(  10.995s) Epoch 023/200: Loss=7.517409 (best so far)
+(  10.945s) Epoch 024/200: Loss=7.514210 (best so far)
+(  10.995s) Epoch 025/200: Loss=7.512707 (best so far)
+(  10.970s) Epoch 026/200: Loss=7.512562 (best so far)
+(  11.047s) Epoch 027/200: Loss=7.509291 (best so far)
+(  10.931s) Epoch 028/200: Loss=7.506495 (best so far)
+(  10.971s) Epoch 029/200: Loss=7.506298 (best so far)
+(  10.964s) Epoch 030/200: Loss=7.504526 (best so far)
+(  10.993s) Epoch 031/200: Loss=7.505643
+(  11.004s) Epoch 032/200: Loss=7.502621 (best so far)
+(  11.017s) Epoch 033/200: Loss=7.500137 (best so far)
+(  11.030s) Epoch 034/200: Loss=7.499127 (best so far)
+(  11.072s) Epoch 035/200: Loss=7.496703 (best so far)
+(  11.020s) Epoch 036/200: Loss=7.496970
+(  11.125s) Epoch 037/200: Loss=7.495372 (best so far)
+(  11.068s) Epoch 038/200: Loss=7.494328 (best so far)
+(  11.051s) Epoch 039/200: Loss=7.494745
+(  11.112s) Epoch 040/200: Loss=7.493103 (best so far)
+(  11.093s) Epoch 041/200: Loss=7.491501 (best so far)
+(  11.054s) Epoch 042/200: Loss=7.489940 (best so far)
+(  11.096s) Epoch 043/200: Loss=7.489476 (best so far)
+(  11.041s) Epoch 044/200: Loss=7.487936 (best so far)
+(  11.040s) Epoch 045/200: Loss=7.487935 (best so far)
+(  11.095s) Epoch 046/200: Loss=7.487615 (best so far)
+(  11.073s) Epoch 047/200: Loss=7.486380 (best so far)
+(  11.066s) Epoch 048/200: Loss=7.485524 (best so far)
+(  11.107s) Epoch 049/200: Loss=7.483785 (best so far)
+(  11.073s) Epoch 050/200: Loss=7.483846
+(  11.100s) Epoch 051/200: Loss=7.482390 (best so far)
+(  11.129s) Epoch 052/200: Loss=7.482090 (best so far)
+(  11.093s) Epoch 053/200: Loss=7.480555 (best so far)
+(  11.039s) Epoch 054/200: Loss=7.480642
+(  11.093s) Epoch 055/200: Loss=7.479937 (best so far)
+(  11.065s) Epoch 056/200: Loss=7.478180 (best so far)
+(  11.081s) Epoch 057/200: Loss=7.478527
+(  11.079s) Epoch 058/200: Loss=7.478178 (best so far)
+(  11.064s) Epoch 059/200: Loss=7.478828
+(  11.057s) Epoch 060/200: Loss=7.475733 (best so far)
+(  11.115s) Epoch 061/200: Loss=7.477206
+(  11.043s) Epoch 062/200: Loss=7.476351
+(  11.031s) Epoch 063/200: Loss=7.474786 (best so far)
+(  11.064s) Epoch 064/200: Loss=7.474602 (best so far)
+(  11.081s) Epoch 065/200: Loss=7.472900 (best so far)
+(  11.057s) Epoch 066/200: Loss=7.474727
+(  11.125s) Epoch 067/200: Loss=7.472396 (best so far)
+(  11.085s) Epoch 068/200: Loss=7.471874 (best so far)
+(  11.113s) Epoch 069/200: Loss=7.471288 (best so far)
+(  11.068s) Epoch 070/200: Loss=7.472075
+(  11.077s) Epoch 071/200: Loss=7.470891 (best so far)
+(  10.973s) Epoch 072/200: Loss=7.468529 (best so far)
+(  11.100s) Epoch 073/200: Loss=7.470346
+(  11.077s) Epoch 074/200: Loss=7.468696
+(  11.083s) Epoch 075/200: Loss=7.468220 (best so far)
+(  11.061s) Epoch 076/200: Loss=7.467943 (best so far)
+(  11.063s) Epoch 077/200: Loss=7.468338
+(  11.080s) Epoch 078/200: Loss=7.467178 (best so far)
+(  11.095s) Epoch 079/200: Loss=7.467648
+(  11.055s) Epoch 080/200: Loss=7.467436
+(  11.066s) Epoch 081/200: Loss=7.466526 (best so far)
+(  11.141s) Epoch 082/200: Loss=7.465504 (best so far)
+(  11.098s) Epoch 083/200: Loss=7.464229 (best so far)
+(  11.079s) Epoch 084/200: Loss=7.465353
+(  11.067s) Epoch 085/200: Loss=7.464760
+(  11.066s) Epoch 086/200: Loss=7.463812 (best so far)
+(  11.076s) Epoch 087/200: Loss=7.465181
+(  11.053s) Epoch 088/200: Loss=7.463613 (best so far)
+(  11.080s) Epoch 089/200: Loss=7.463691
+(  11.104s) Epoch 090/200: Loss=7.463621
+(  11.086s) Epoch 091/200: Loss=7.462509 (best so far)
+(  11.090s) Epoch 092/200: Loss=7.462805
+(  11.054s) Epoch 093/200: Loss=7.462808
+(  11.074s) Epoch 094/200: Loss=7.461929 (best so far)
+(  11.061s) Epoch 095/200: Loss=7.461926 (best so far)
+(  11.067s) Epoch 096/200: Loss=7.460001 (best so far)
+(  11.108s) Epoch 097/200: Loss=7.461106
+(  11.103s) Epoch 098/200: Loss=7.460527
+(  11.013s) Epoch 099/200: Loss=7.459368 (best so far)
+(  11.074s) Epoch 100/200: Loss=7.459988
+(  11.017s) Epoch 101/200: Loss=7.459271 (best so far)
+(  11.095s) Epoch 102/200: Loss=7.458152 (best so far)
+(  11.084s) Epoch 103/200: Loss=7.459918
+(  11.038s) Epoch 104/200: Loss=7.459612
+(  11.028s) Epoch 105/200: Loss=7.459228
+(  11.060s) Epoch 106/200: Loss=7.457681 (best so far)
+(  11.073s) Epoch 107/200: Loss=7.457652 (best so far)
+(  11.148s) Epoch 108/200: Loss=7.458358
+(  11.051s) Epoch 109/200: Loss=7.457440 (best so far)
+(  11.028s) Epoch 110/200: Loss=7.457396 (best so far)
+(  11.122s) Epoch 111/200: Loss=7.456749 (best so far)
+(  11.134s) Epoch 112/200: Loss=7.457048
+(  11.066s) Epoch 113/200: Loss=7.456604 (best so far)
+(  11.083s) Epoch 114/200: Loss=7.456918
+(  11.076s) Epoch 115/200: Loss=7.455758 (best so far)
+(  11.087s) Epoch 116/200: Loss=7.457028
+(  11.042s) Epoch 117/200: Loss=7.455202 (best so far)
+(  11.118s) Epoch 118/200: Loss=7.454955 (best so far)
+(  11.075s) Epoch 119/200: Loss=7.454902 (best so far)
+(  11.044s) Epoch 120/200: Loss=7.455380
+(  11.062s) Epoch 121/200: Loss=7.455112
+(  11.022s) Epoch 122/200: Loss=7.454327 (best so far)
+(  11.111s) Epoch 123/200: Loss=7.453826 (best so far)
+(  11.072s) Epoch 124/200: Loss=7.453765 (best so far)
+(  10.986s) Epoch 125/200: Loss=7.453797
+(  11.078s) Epoch 126/200: Loss=7.454020
+(  11.024s) Epoch 127/200: Loss=7.453636 (best so far)
+(  11.044s) Epoch 128/200: Loss=7.453470 (best so far)
+(  11.060s) Epoch 129/200: Loss=7.453312 (best so far)
+(  11.075s) Epoch 130/200: Loss=7.454037
+(  11.102s) Epoch 131/200: Loss=7.453851
+(  11.051s) Epoch 132/200: Loss=7.453073 (best so far)
+(  11.073s) Epoch 133/200: Loss=7.453790
+(  11.069s) Epoch 134/200: Loss=7.452147 (best so far)
+(  11.098s) Epoch 135/200: Loss=7.452276
+(  11.065s) Epoch 136/200: Loss=7.452491
+(  11.074s) Epoch 137/200: Loss=7.452809
+(  11.095s) Epoch 138/200: Loss=7.452077 (best so far)
+(  11.078s) Epoch 139/200: Loss=7.452639
+(  11.053s) Epoch 140/200: Loss=7.451612 (best so far)
+(  11.046s) Epoch 141/200: Loss=7.451629
+(  11.068s) Epoch 142/200: Loss=7.451480 (best so far)
+(  10.998s) Epoch 143/200: Loss=7.453005
+(  11.045s) Epoch 144/200: Loss=7.450808 (best so far)
+(  11.022s) Epoch 145/200: Loss=7.451262
+(  11.120s) Epoch 146/200: Loss=7.452202
+(  11.029s) Epoch 147/200: Loss=7.452047
+(  11.103s) Epoch 148/200: Loss=7.450753 (best so far)
+(  11.063s) Epoch 149/200: Loss=7.451666
+(  11.068s) Epoch 150/200: Loss=7.450321 (best so far)
+(  11.042s) Epoch 151/200: Loss=7.450618
+(  10.998s) Epoch 152/200: Loss=7.449086 (best so far)
+(  11.126s) Epoch 153/200: Loss=7.450951
+(  11.136s) Epoch 154/200: Loss=7.450028
+(  11.077s) Epoch 155/200: Loss=7.451113
+(  11.074s) Epoch 156/200: Loss=7.450788
+(  11.081s) Epoch 157/200: Loss=7.450622
+(  11.050s) Epoch 158/200: Loss=7.449541
+(  11.131s) Epoch 159/200: Loss=7.450471
+(  11.058s) Epoch 160/200: Loss=7.450139
+(  11.102s) Epoch 161/200: Loss=7.450998
+(  11.052s) Epoch 162/200: Loss=7.448921 (best so far)
+(  11.053s) Epoch 163/200: Loss=7.449106
+(  11.075s) Epoch 164/200: Loss=7.448881 (best so far)
+(  11.066s) Epoch 165/200: Loss=7.449199
+(  11.064s) Epoch 166/200: Loss=7.449706
+(  11.109s) Epoch 167/200: Loss=7.449035
+(  11.004s) Epoch 168/200: Loss=7.447997 (best so far)
+(  11.070s) Epoch 169/200: Loss=7.450336
+(  11.036s) Epoch 170/200: Loss=7.449794
+(  11.029s) Epoch 171/200: Loss=7.449629
+(  11.093s) Epoch 172/200: Loss=7.449842
+(  11.048s) Epoch 173/200: Loss=7.449049
+(  11.089s) Epoch 174/200: Loss=7.448930
+(  11.066s) Epoch 175/200: Loss=7.449198
+(  11.000s) Epoch 176/200: Loss=7.449457
+(  11.082s) Epoch 177/200: Loss=7.448649
+(  11.072s) Epoch 178/200: Loss=7.449108
+(  11.052s) Epoch 179/200: Loss=7.448494
+(  11.093s) Epoch 180/200: Loss=7.448929
+(  11.063s) Epoch 181/200: Loss=7.448798
+(  11.055s) Epoch 182/200: Loss=7.448212
+(  11.096s) Epoch 183/200: Loss=7.449178
+(  11.072s) Epoch 184/200: Loss=7.448238
+(  11.094s) Epoch 185/200: Loss=7.448616
+(  11.094s) Epoch 186/200: Loss=7.449322
+(  11.026s) Epoch 187/200: Loss=7.448790
+(  11.085s) Epoch 188/200: Loss=7.449174
+(  11.055s) Epoch 189/200: Loss=7.448296
+(  11.086s) Epoch 190/200: Loss=7.448141
+(  11.094s) Epoch 191/200: Loss=7.449247
+(  11.061s) Epoch 192/200: Loss=7.448910
+(  11.024s) Epoch 193/200: Loss=7.447703 (best so far)
+(  11.104s) Epoch 194/200: Loss=7.447632 (best so far)
+(  11.017s) Epoch 195/200: Loss=7.449854
+(  11.060s) Epoch 196/200: Loss=7.448323
+(  11.039s) Epoch 197/200: Loss=7.449193
+(  11.043s) Epoch 198/200: Loss=7.448725
+(  11.081s) Epoch 199/200: Loss=7.449423
+(  11.026s) Epoch 200/200: Loss=7.448637
+Training for 200 epochs took 2219.123s total and 11.096s average
+Saving best model and options to saves/exp12.pth
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
