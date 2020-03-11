@@ -79,11 +79,6 @@ if __name__ == '__main__':
             print(" (best so far)", end='')
             min_loss = loss_value
             best_model_state = model.state_dict()
-
-            torch.save({
-                'options': options,
-                'model_state_dict': best_model_state,
-            }, options.save_path)
         print()
 
     print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
@@ -110,5 +105,3 @@ if __name__ == '__main__':
     #     print(out.shape)
     #     print('single valid batch went through model!!')
     #     break
-
-    print('done!!!')
