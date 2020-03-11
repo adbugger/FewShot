@@ -3,6 +3,9 @@ import argparse
 def parse_args():
     parser = argparse.ArgumentParser(description="Two Phase Few Shot Learning")
 
+    # Distributed stuff
+    parser.add_argument("--local_rank", type=int, default=0)
+
     # Train Arguments
     train_args = parser.add_argument_group("Train Arguments")
     train_args.add_argument("--num_epochs", type=int, default=10)
@@ -10,6 +13,8 @@ def parse_args():
 
     # Optimizer Arguments
     opt_args = parser.add_argument_group("Optimizer Arguments")
+    opt_args.add_argument("--base_learning_rate", type=float, default=1.0)
+
     opt_args.add_argument("--simple_opt", dest='simple_opt', action='store_true')
     opt_args.add_argument("--complex_opt", dest='simple_opt', action='store_false')
     opt_args.set_defaults(simple_opt=False)

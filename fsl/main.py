@@ -1,28 +1,44 @@
 from __future__ import division
 
 import time
-import sys
 
 import torch
-nn = torch.nn
-DataLoader = torch.utils.data.DataLoader
-optim = torch.optim
 
-from utils import getattr_or_default, get_loader, seed_everything, AverageMeter
-from arguments import parse_args
+from utils import ( getattr_or_default,
+                    get_loader,
+                    seed_everything,
+                    AverageMeter,
+                    get_gpu_ids
+                )
+
 import datasets
-import models
 import losses
 
-from torchlars import LARS
+from arguments import parse_args
+from models import get_model
+from optimizers import get_optimizer, get_scheduler
+
 
 if __name__ == '__main__':
     seed_everything(1337)
 
     options = parse_args()
+    if options.local_rank==0: print(options)
+
+    # distributed stuff
+    gpus = get_gpu_ids()
+    torch.cuda.set_device(options.local_rank)
+    torch.distributed.init_process_group(
+        backend='nccl',
+        init_method="env://",
+        world_size=len(gpus),
+        rank=options.local_rank
+    )
+
+    model = get_model(options)
+    if options.local_rank==0: print(model)
 
     dataset = getattr(datasets, options.dataset)(options)
-    print(options)
 
     train_loader = get_loader(dataset.train_set, options)
 
@@ -33,26 +49,14 @@ if __name__ == '__main__':
     # valid_loader = get_loader(dataset.valid_set, options)
     # print('got valid_loader!!')
 
-    model = nn.DataParallel(getattr(models, options.model)(options).cuda())
-    print(model)
-
     criterion = getattr(losses, options.loss_function)(options)
 
-    base_optimizer = getattr(optim, options.base_optimizer)(model.parameters(),
-                                lr=0.3*options.batch_size/256,
-                                momentum=options.momentum,
-                                weight_decay=options.weight_decay,
-                                dampening=options.dampening,
-                                nesterov=options.nesterov)
-    final_optimizer = base_optimizer
-    scheduler = None
-    if not options.simple_opt:
-        final_optimizer = getattr(sys.modules[__name__],
-                                  options.secondary_optimizer)(optimizer=base_optimizer)
-        scheduler = getattr(optim.lr_scheduler, options.scheduler)(final_optimizer,T_max=options.T_max)
+    final_optimizer = get_optimizer(model, options)
+    scheduler = get_scheduler(final_optimizer, options)
 
-    print(("Starting Training\n"
-           "-----------------"))
+    if options.local_rank==0:
+        print(("Starting Training\n"
+               "-----------------"))
     time_track = AverageMeter()
     best_model_state = model.state_dict()
     min_loss = 1e5
@@ -61,34 +65,40 @@ if __name__ == '__main__':
         epoch_start = time.time()
 
         for aug1, aug2, targets in train_loader:
+            aug1 = aug1.to(device=f"cuda:{options.local_rank}")
+            aug2 = aug2.to(device=f"cuda:{options.local_rank}")
+
             final_optimizer.zero_grad()
-            feat1 = model(aug1.cuda())
-            feat2 = model(aug2.cuda())
+            feat1 = model(aug1)
+            feat2 = model(aug2)
             loss = criterion(feat1, feat2)
             loss.backward()
             final_optimizer.step()
             loss_track.accumulate(loss.item())
 
-        if scheduler is not None: scheduler.step()
+        scheduler.step()
         time_track.accumulate(time.time() - epoch_start)
 
         loss_value = loss_track.value()
-        print((f"({time_track.latest():>8.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}: "
-               f"Loss={loss_value:<f}"), end='')
+
+        if options.local_rank==0:
+            print((f"({time_track.latest():>8.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}: "
+                   f"Loss={loss_value:<f}"), end='')
         if loss_value < min_loss:
-            print(" (best so far)", end='')
+            if options.local_rank==0: print(" (best so far)", end='')
             min_loss = loss_value
             best_model_state = model.state_dict()
-        print()
+        if options.local_rank==0: print()
 
-    print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
-           f"and {time_track.value():.3f}s average"))
+    if options.local_rank==0:
+        print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
+               f"and {time_track.value():.3f}s average"))
 
-    print(f"Saving best model and options to {options.save_path}")
-    torch.save({
-        'options': options,
-        'model_state_dict': best_model_state,
-    }, options.save_path)
+        print(f"Saving best model and options to {options.save_path}")
+        torch.save({
+            'options': options,
+            'model_state_dict': best_model_state,
+        }, options.save_path)
 
     # for data, labels in test_loader:
     #     print(data.shape, labels.shape)

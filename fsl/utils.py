@@ -6,6 +6,10 @@ import abc
 
 import torch
 from torch.utils.data import DataLoader
+from torch.utils.data.distributed import DistributedSampler
+
+def get_gpu_ids():
+    return [int(x) for x in os.environ['CUDA_VISIBLE_DEVICES'].split(',')]
 
 def getattr_or_default(obj, prop, def_val):
     if not hasattr(obj, prop):
@@ -18,11 +22,18 @@ def getattr_or_default(obj, prop, def_val):
     return value
 
 def get_loader(dataset, options):
+    sampler = DistributedSampler(
+        dataset,
+        num_replicas=len(get_gpu_ids()),
+        rank=options.local_rank
+    )
     return DataLoader(dataset,
                       batch_size=options.batch_size,
-                      shuffle=options.shuffle,
+                      # shuffle=options.shuffle,
                       num_workers=options.num_workers,
-                      pin_memory=options.pin_memory)
+                      pin_memory=options.pin_memory,
+                      sampler=sampler,
+                    )
 
 def seed_everything(seed, high_speed=False):
     random.seed(seed)
