@@ -4,6 +4,7 @@ import time
 import sys
 
 import torch
+nn = torch.nn
 DataLoader = torch.utils.data.DataLoader
 optim = torch.optim
 
@@ -32,7 +33,7 @@ if __name__ == '__main__':
     # valid_loader = get_loader(dataset.valid_set, options)
     # print('got valid_loader!!')
 
-    model = getattr(models, options.model)(options).cuda()
+    model = nn.DataParallel(getattr(models, options.model)(options).cuda())
     print(model)
 
     criterion = getattr(losses, options.loss_function)(options)
@@ -48,7 +49,7 @@ if __name__ == '__main__':
     if not options.simple_opt:
         final_optimizer = getattr(sys.modules[__name__],
                                   options.secondary_optimizer)(optimizer=base_optimizer)
-        scheduler = getattr(optim.lr_scheduler, options.scheduler)(optimizer,T_max=options.T_max)
+        scheduler = getattr(optim.lr_scheduler, options.scheduler)(final_optimizer,T_max=options.T_max)
 
     print(("Starting Training\n"
            "-----------------"))
@@ -71,19 +72,24 @@ if __name__ == '__main__':
         if scheduler is not None: scheduler.step()
         time_track.accumulate(time.time() - epoch_start)
 
-        print((f"({time_track.latest():>10.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}: "
-               f"Loss={loss_track.value():<f}"), end='')
-
-        if loss_track.value() < min_loss:
-            print(" (Best so far)", end='')
-            min_loss = loss_track.latest()
+        loss_value = loss_track.value()
+        print((f"({time_track.latest():>8.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}: "
+               f"Loss={loss_value:<f}"), end='')
+        if loss_value < min_loss:
+            print(" (best so far)", end='')
+            min_loss = loss_value
             best_model_state = model.state_dict()
+
+            torch.save({
+                'options': options,
+                'model_state_dict': best_model_state,
+            }, options.save_path)
         print()
 
     print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
            f"and {time_track.value():.3f}s average"))
 
-    print(f"Saving model and options to {options.save_path}")
+    print(f"Saving best model and options to {options.save_path}")
     torch.save({
         'options': options,
         'model_state_dict': best_model_state,
