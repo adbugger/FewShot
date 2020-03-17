@@ -11,12 +11,14 @@ from torch.utils.data.distributed import DistributedSampler
 def get_gpu_ids():
     return [int(x) for x in os.environ['CUDA_VISIBLE_DEVICES'].split(',')]
 
+def get_func_on_master(func, options):
+    if options.local_rank==0:
+        return func
 
-def get_printer(options):
-    if options.local_rank==0: return print
-    else:
-        def f(*args, **kwargs): pass
-        return f
+    def do_nothing(*args, **kwargs):
+        pass
+
+    return do_nothing
 
 def getattr_or_default(obj, prop, def_val):
     if not hasattr(obj, prop):
