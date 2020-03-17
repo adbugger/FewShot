@@ -90,5 +90,13 @@ def parse_args():
     loss_args.add_argument("--loss_function", type=str, default="NTXent", choices=["NTXent"])
     loss_args.add_argument("--ntxent_temp", type=float, default=1.0)
 
+    # Test set kmeans evaluation
+    eval_args = parser.add_argument_group("Test Evaluation Arguments")
+    eval_args.add_argument("--eval_freq", type=int, default=1, help="Evaluate KMeans on test set after these many epochs")
+    eval_args.add_argument("--cluters_iters", type=int, default=3, help="Run KMeans for these many iterations")
+
+    eval_args.add_argument("--verbose_cluster", dest='verbose_cluster', action='store_true')
+    eval_args.set_defaults(verbose_cluster=False)
+
     options = parser.parse_args()
     return options

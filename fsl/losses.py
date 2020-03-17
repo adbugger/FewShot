@@ -1,31 +1,18 @@
 from __future__ import division
 
+import time
+import math
+
+import numpy as np
+
 import torch
+nn = torch.nn
+
 from pytorch_metric_learning.losses import NTXentLoss
+from pykeops.torch import LazyTensor
 
 __all__ = ["NTXent"]
 
-# def NTXent(options):
-#     loss_func = NTXentLoss(temperature=options.ntxent_temp)
-#
-#     def compute_loss(x, y):
-#         assert x.shape == y.shape, (f"Input to loss functions must be of same shape. "
-#             "Got {x.shape} and {y.shape}.")
-#         assert x.device == y.device, (f"Both x and y must be on the same device. "
-#             "Got {x.device} and {y.device}.")
-#
-#         num_data = x.shape[0]
-#         feat_dim = x.shape[1]
-#
-#         all_feat = torch.cat((x, y), dim=0)
-#         match_idx = torch.arange(0, num_data, device=x.device)
-#         labels = torch.cat((match_idx, match_idx))
-#
-#         return loss_func(all_feat, labels)
-#     return compute_loss
-
-import math
-nn = torch.nn
 
 class NTXent(nn.Module):
     """

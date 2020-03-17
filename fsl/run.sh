@@ -6,14 +6,15 @@
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=ALL
 
-EXP_NAME="exp14";
-NUM_EPOCHS=100;
+EXP_NAME="exp15";
+NUM_EPOCHS=10;
 
 source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot/fsl";
 # commands
 python -m torch.distributed.launch --nproc_per_node=4 main.py \
     --complex_opt \
+    --eval_freq=1 --cluster_iters=3 \
     --first_augment="CropResize" --second_augment="GaussBlur" \
     --num_epochs=$NUM_EPOCHS --batch_size=2048 \
     --nesterov --momentum=5e-2 --weight_decay=1e-6 \
