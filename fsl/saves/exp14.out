@@ -1,0 +1,1217 @@
+Namespace(T_max=1000, backbone='resnet50', base_learning_rate=1.0, base_optimizer='SGD', batch_size=2048, dampening=0.0, dataset='cifar100fs', dataset_root=None, first_augment='CropResize', head='SimpleMLP', jitter_strength=1.0, local_rank=0, loss_function='NTXent', model='SimCLRModel', momentum=0.05, nesterov=True, ntxent_temp=1.0, num_epochs=1000, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_path='saves/exp14.pth', scheduler='CosineAnnealingLR', second_augment='GaussBlur', secondary_optimizer='LARS', shuffle=True, simple_opt=False, weight_decay=1e-06)
+THCudaCheck FAIL file=/pytorch/torch/csrc/cuda/Module.cpp line=37 error=10 : invalid device ordinal
+THCudaCheck FAIL file=/pytorch/torch/csrc/cuda/Module.cpp line=37 error=10 : invalid device ordinal
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "main.py", line 33, in <module>
+  File "main.py", line 33, in <module>
+        torch.cuda.set_device(options.local_rank)torch.cuda.set_device(options.local_rank)
+
+  File "/home/aditya.bharti/python_env/lib/python3.7/site-packages/torch/cuda/__init__.py", line 281, in set_device
+  File "/home/aditya.bharti/python_env/lib/python3.7/site-packages/torch/cuda/__init__.py", line 281, in set_device
+        torch._C._cuda_setDevice(device)torch._C._cuda_setDevice(device)
+
+RuntimeErrorRuntimeError: : cuda runtime error (10) : invalid device ordinal at /pytorch/torch/csrc/cuda/Module.cpp:37cuda runtime error (10) : invalid device ordinal at /pytorch/torch/csrc/cuda/Module.cpp:37
+
+DistributedDataParallel(
+  (module): SimCLRModel(
+    (backbone): ResNet(
+      (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+      (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+      (layer1): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer2): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer3): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (4): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (5): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer4): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): SyncBatchNorm(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): SyncBatchNorm(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+      (fc): Linear(in_features=2048, out_features=1000, bias=True)
+    )
+    (head): SimpleMLP(
+      (l1): Linear(in_features=1000, out_features=512, bias=True)
+      (relu): ReLU(inplace=True)
+      (l2): Linear(in_features=512, out_features=128, bias=True)
+    )
+  )
+)
+Starting Training
+-----------------
+(  19.458s) Epoch 001/1000: Loss=7.906214 (best so far)
+(  15.838s) Epoch 002/1000: Loss=7.709696 (best so far)
+(  15.469s) Epoch 003/1000: Loss=7.629724 (best so far)
+(  15.533s) Epoch 004/1000: Loss=7.591800 (best so far)
+(  15.603s) Epoch 005/1000: Loss=7.566472 (best so far)
+(  15.581s) Epoch 006/1000: Loss=7.547441 (best so far)
+(  15.644s) Epoch 007/1000: Loss=7.533981 (best so far)
+(  15.697s) Epoch 008/1000: Loss=7.522305 (best so far)
+(  15.694s) Epoch 009/1000: Loss=7.515357 (best so far)
+(  15.757s) Epoch 010/1000: Loss=7.510686 (best so far)
+(  15.902s) Epoch 011/1000: Loss=7.505084 (best so far)
+(  15.763s) Epoch 012/1000: Loss=7.500873 (best so far)
+(  15.774s) Epoch 013/1000: Loss=7.496045 (best so far)
+(  15.839s) Epoch 014/1000: Loss=7.492357 (best so far)
+(  15.931s) Epoch 015/1000: Loss=7.490598 (best so far)
+(  15.941s) Epoch 016/1000: Loss=7.487238 (best so far)
+(  15.797s) Epoch 017/1000: Loss=7.485045 (best so far)
+(  15.962s) Epoch 018/1000: Loss=7.481052 (best so far)
+(  15.951s) Epoch 019/1000: Loss=7.479043 (best so far)
+(  15.981s) Epoch 020/1000: Loss=7.477553 (best so far)
+(  15.973s) Epoch 021/1000: Loss=7.475149 (best so far)
+(  15.982s) Epoch 022/1000: Loss=7.473459 (best so far)
+(  15.965s) Epoch 023/1000: Loss=7.472439 (best so far)
+(  16.015s) Epoch 024/1000: Loss=7.468174 (best so far)
+(  15.966s) Epoch 025/1000: Loss=7.467897 (best so far)
+(  15.981s) Epoch 026/1000: Loss=7.466693 (best so far)
+(  15.940s) Epoch 027/1000: Loss=7.464748 (best so far)
+(  15.971s) Epoch 028/1000: Loss=7.465714
+(  15.975s) Epoch 029/1000: Loss=7.463099 (best so far)
+(  15.999s) Epoch 030/1000: Loss=7.461432 (best so far)
+(  16.143s) Epoch 031/1000: Loss=7.461347 (best so far)
+(  15.988s) Epoch 032/1000: Loss=7.459232 (best so far)
+(  15.969s) Epoch 033/1000: Loss=7.459118 (best so far)
+(  15.961s) Epoch 034/1000: Loss=7.456029 (best so far)
+(  15.990s) Epoch 035/1000: Loss=7.456427
+(  15.970s) Epoch 036/1000: Loss=7.455043 (best so far)
+(  15.969s) Epoch 037/1000: Loss=7.454198 (best so far)
+(  15.984s) Epoch 038/1000: Loss=7.453955 (best so far)
+(  15.951s) Epoch 039/1000: Loss=7.453152 (best so far)
+(  15.992s) Epoch 040/1000: Loss=7.453602
+(  15.950s) Epoch 041/1000: Loss=7.452061 (best so far)
+(  15.793s) Epoch 042/1000: Loss=7.450423 (best so far)
+(  15.991s) Epoch 043/1000: Loss=7.451281
+(  15.957s) Epoch 044/1000: Loss=7.450152 (best so far)
+(  15.980s) Epoch 045/1000: Loss=7.448667 (best so far)
+(  15.969s) Epoch 046/1000: Loss=7.448697
+(  15.979s) Epoch 047/1000: Loss=7.447706 (best so far)
+(  15.794s) Epoch 048/1000: Loss=7.447092 (best so far)
+(  15.948s) Epoch 049/1000: Loss=7.446659 (best so far)
+(  16.012s) Epoch 050/1000: Loss=7.446142 (best so far)
+(  15.938s) Epoch 051/1000: Loss=7.445524 (best so far)
+(  15.964s) Epoch 052/1000: Loss=7.445396 (best so far)
+(  15.992s) Epoch 053/1000: Loss=7.445319 (best so far)
+(  15.951s) Epoch 054/1000: Loss=7.444625 (best so far)
+(  16.003s) Epoch 055/1000: Loss=7.444808
+(  15.956s) Epoch 056/1000: Loss=7.443843 (best so far)
+(  15.979s) Epoch 057/1000: Loss=7.442840 (best so far)
+(  15.990s) Epoch 058/1000: Loss=7.442810 (best so far)
+(  15.996s) Epoch 059/1000: Loss=7.441059 (best so far)
+(  15.976s) Epoch 060/1000: Loss=7.440763 (best so far)
+(  15.934s) Epoch 061/1000: Loss=7.442146
+(  15.967s) Epoch 062/1000: Loss=7.441121
+(  15.968s) Epoch 063/1000: Loss=7.441219
+(  15.994s) Epoch 064/1000: Loss=7.440275 (best so far)
+(  15.978s) Epoch 065/1000: Loss=7.440446
+(  15.959s) Epoch 066/1000: Loss=7.440154 (best so far)
+(  15.968s) Epoch 067/1000: Loss=7.439660 (best so far)
+(  15.959s) Epoch 068/1000: Loss=7.438616 (best so far)
+(  15.994s) Epoch 069/1000: Loss=7.438301 (best so far)
+(  15.983s) Epoch 070/1000: Loss=7.439061
+(  15.951s) Epoch 071/1000: Loss=7.438194 (best so far)
+(  15.958s) Epoch 072/1000: Loss=7.438067 (best so far)
+(  16.015s) Epoch 073/1000: Loss=7.437351 (best so far)
+(  15.974s) Epoch 074/1000: Loss=7.437834
+(  15.944s) Epoch 075/1000: Loss=7.436542 (best so far)
+(  15.998s) Epoch 076/1000: Loss=7.436970
+(  15.952s) Epoch 077/1000: Loss=7.436278 (best so far)
+(  15.983s) Epoch 078/1000: Loss=7.436082 (best so far)
+(  16.050s) Epoch 079/1000: Loss=7.436249
+(  15.926s) Epoch 080/1000: Loss=7.436326
+(  15.938s) Epoch 081/1000: Loss=7.434665 (best so far)
+(  15.990s) Epoch 082/1000: Loss=7.435194
+(  15.971s) Epoch 083/1000: Loss=7.435018
+(  15.972s) Epoch 084/1000: Loss=7.434950
+(  16.018s) Epoch 085/1000: Loss=7.434186 (best so far)
+(  15.938s) Epoch 086/1000: Loss=7.434126 (best so far)
+(  15.983s) Epoch 087/1000: Loss=7.434053 (best so far)
+(  15.949s) Epoch 088/1000: Loss=7.433883 (best so far)
+(  15.858s) Epoch 089/1000: Loss=7.433860 (best so far)
+(  15.956s) Epoch 090/1000: Loss=7.433386 (best so far)
+(  15.963s) Epoch 091/1000: Loss=7.433391
+(  15.992s) Epoch 092/1000: Loss=7.433387
+(  15.934s) Epoch 093/1000: Loss=7.432573 (best so far)
+(  15.939s) Epoch 094/1000: Loss=7.432598
+(  15.970s) Epoch 095/1000: Loss=7.432835
+(  15.973s) Epoch 096/1000: Loss=7.432449 (best so far)
+(  15.976s) Epoch 097/1000: Loss=7.431893 (best so far)
+(  15.958s) Epoch 098/1000: Loss=7.431919
+(  15.974s) Epoch 099/1000: Loss=7.431157 (best so far)
+(  16.012s) Epoch 100/1000: Loss=7.432519
+(  15.935s) Epoch 101/1000: Loss=7.431956
+(  15.909s) Epoch 102/1000: Loss=7.431395
+(  15.891s) Epoch 103/1000: Loss=7.431303
+(  15.991s) Epoch 104/1000: Loss=7.430903 (best so far)
+(  15.930s) Epoch 105/1000: Loss=7.431082
+(  15.985s) Epoch 106/1000: Loss=7.431621
+(  15.961s) Epoch 107/1000: Loss=7.430262 (best so far)
+(  15.979s) Epoch 108/1000: Loss=7.430254 (best so far)
+(  15.962s) Epoch 109/1000: Loss=7.429352 (best so far)
+(  15.997s) Epoch 110/1000: Loss=7.429814
+(  15.990s) Epoch 111/1000: Loss=7.430409
+(  15.940s) Epoch 112/1000: Loss=7.429393
+(  15.999s) Epoch 113/1000: Loss=7.429270 (best so far)
+(  15.939s) Epoch 114/1000: Loss=7.429222 (best so far)
+(  15.996s) Epoch 115/1000: Loss=7.429351
+(  15.951s) Epoch 116/1000: Loss=7.429604
+(  15.999s) Epoch 117/1000: Loss=7.428532 (best so far)
+(  15.947s) Epoch 118/1000: Loss=7.429591
+(  15.997s) Epoch 119/1000: Loss=7.428642
+(  15.959s) Epoch 120/1000: Loss=7.428406 (best so far)
+(  15.994s) Epoch 121/1000: Loss=7.428023 (best so far)
+(  15.970s) Epoch 122/1000: Loss=7.428080
+(  15.965s) Epoch 123/1000: Loss=7.428107
+(  15.989s) Epoch 124/1000: Loss=7.428762
+(  15.953s) Epoch 125/1000: Loss=7.428225
+(  16.007s) Epoch 126/1000: Loss=7.427048 (best so far)
+(  15.937s) Epoch 127/1000: Loss=7.427616
+(  15.974s) Epoch 128/1000: Loss=7.427965
+(  15.997s) Epoch 129/1000: Loss=7.428069
+(  15.967s) Epoch 130/1000: Loss=7.426526 (best so far)
+(  15.987s) Epoch 131/1000: Loss=7.427359
+(  15.945s) Epoch 132/1000: Loss=7.426615
+(  16.033s) Epoch 133/1000: Loss=7.427619
+(  15.952s) Epoch 134/1000: Loss=7.427347
+(  15.993s) Epoch 135/1000: Loss=7.426749
+(  15.936s) Epoch 136/1000: Loss=7.428195
+(  15.980s) Epoch 137/1000: Loss=7.427401
+(  15.948s) Epoch 138/1000: Loss=7.426581
+(  16.000s) Epoch 139/1000: Loss=7.427123
+(  15.964s) Epoch 140/1000: Loss=7.426735
+(  16.001s) Epoch 141/1000: Loss=7.426374 (best so far)
+(  15.995s) Epoch 142/1000: Loss=7.426266 (best so far)
+(  15.953s) Epoch 143/1000: Loss=7.425644 (best so far)
+(  15.984s) Epoch 144/1000: Loss=7.425682
+(  15.930s) Epoch 145/1000: Loss=7.426135
+(  16.004s) Epoch 146/1000: Loss=7.425926
+(  15.953s) Epoch 147/1000: Loss=7.426129
+(  15.988s) Epoch 148/1000: Loss=7.426180
+(  15.950s) Epoch 149/1000: Loss=7.426147
+(  16.007s) Epoch 150/1000: Loss=7.425482 (best so far)
+(  15.931s) Epoch 151/1000: Loss=7.425378 (best so far)
+(  16.000s) Epoch 152/1000: Loss=7.424570 (best so far)
+(  15.952s) Epoch 153/1000: Loss=7.425502
+(  15.841s) Epoch 154/1000: Loss=7.424673
+(  16.104s) Epoch 155/1000: Loss=7.424699
+(  15.999s) Epoch 156/1000: Loss=7.424493 (best so far)
+(  15.976s) Epoch 157/1000: Loss=7.425741
+(  16.025s) Epoch 158/1000: Loss=7.424619
+(  15.969s) Epoch 159/1000: Loss=7.425030
+(  15.948s) Epoch 160/1000: Loss=7.424360 (best so far)
+(  15.938s) Epoch 161/1000: Loss=7.425004
+(  15.990s) Epoch 162/1000: Loss=7.423704 (best so far)
+(  15.949s) Epoch 163/1000: Loss=7.423893
+(  15.994s) Epoch 164/1000: Loss=7.424118
+(  15.990s) Epoch 165/1000: Loss=7.424483
+(  15.977s) Epoch 166/1000: Loss=7.424236
+(  16.007s) Epoch 167/1000: Loss=7.423666 (best so far)
+(  15.927s) Epoch 168/1000: Loss=7.423427 (best so far)
+(  15.980s) Epoch 169/1000: Loss=7.423594
+(  15.981s) Epoch 170/1000: Loss=7.424253
+(  15.950s) Epoch 171/1000: Loss=7.423394 (best so far)
+(  15.991s) Epoch 172/1000: Loss=7.424030
+(  15.952s) Epoch 173/1000: Loss=7.423736
+(  15.986s) Epoch 174/1000: Loss=7.424096
+(  15.996s) Epoch 175/1000: Loss=7.423354 (best so far)
+(  15.960s) Epoch 176/1000: Loss=7.422635 (best so far)
+(  15.992s) Epoch 177/1000: Loss=7.422698
+(  15.937s) Epoch 178/1000: Loss=7.423160
+(  15.975s) Epoch 179/1000: Loss=7.422157 (best so far)
+(  15.975s) Epoch 180/1000: Loss=7.422999
+(  16.017s) Epoch 181/1000: Loss=7.422448
+(  15.952s) Epoch 182/1000: Loss=7.423689
+(  15.953s) Epoch 183/1000: Loss=7.422447
+(  16.035s) Epoch 184/1000: Loss=7.422333
+(  15.925s) Epoch 185/1000: Loss=7.422771
+(  16.004s) Epoch 186/1000: Loss=7.422417
+(  15.965s) Epoch 187/1000: Loss=7.421693 (best so far)
+(  15.950s) Epoch 188/1000: Loss=7.421773
+(  16.029s) Epoch 189/1000: Loss=7.421752
+(  15.928s) Epoch 190/1000: Loss=7.422056
+(  15.985s) Epoch 191/1000: Loss=7.421855
+(  15.988s) Epoch 192/1000: Loss=7.421670 (best so far)
+(  15.970s) Epoch 193/1000: Loss=7.421775
+(  15.964s) Epoch 194/1000: Loss=7.421139 (best so far)
+(  15.989s) Epoch 195/1000: Loss=7.421858
+(  15.985s) Epoch 196/1000: Loss=7.421180
+(  15.928s) Epoch 197/1000: Loss=7.421482
+(  16.031s) Epoch 198/1000: Loss=7.421212
+(  15.925s) Epoch 199/1000: Loss=7.421694
+(  16.018s) Epoch 200/1000: Loss=7.421706
+(  15.938s) Epoch 201/1000: Loss=7.421254
+(  15.977s) Epoch 202/1000: Loss=7.421749
+(  15.972s) Epoch 203/1000: Loss=7.421703
+(  15.971s) Epoch 204/1000: Loss=7.421095 (best so far)
+(  15.964s) Epoch 205/1000: Loss=7.420693 (best so far)
+(  16.005s) Epoch 206/1000: Loss=7.421095
+(  15.969s) Epoch 207/1000: Loss=7.421034
+(  15.951s) Epoch 208/1000: Loss=7.420962
+(  16.019s) Epoch 209/1000: Loss=7.421087
+(  15.938s) Epoch 210/1000: Loss=7.420976
+(  15.997s) Epoch 211/1000: Loss=7.420518 (best so far)
+(  15.987s) Epoch 212/1000: Loss=7.420133 (best so far)
+(  15.950s) Epoch 213/1000: Loss=7.420313
+(  15.974s) Epoch 214/1000: Loss=7.421020
+(  16.001s) Epoch 215/1000: Loss=7.420138
+(  15.956s) Epoch 216/1000: Loss=7.420893
+(  16.032s) Epoch 217/1000: Loss=7.420411
+(  15.903s) Epoch 218/1000: Loss=7.419871 (best so far)
+(  15.989s) Epoch 219/1000: Loss=7.420083
+(  15.961s) Epoch 220/1000: Loss=7.419940
+(  15.976s) Epoch 221/1000: Loss=7.420463
+(  16.003s) Epoch 222/1000: Loss=7.420297
+(  15.953s) Epoch 223/1000: Loss=7.419981
+(  15.973s) Epoch 224/1000: Loss=7.419899
+(  15.982s) Epoch 225/1000: Loss=7.419763 (best so far)
+(  16.003s) Epoch 226/1000: Loss=7.419699 (best so far)
+(  15.926s) Epoch 227/1000: Loss=7.420307
+(  15.996s) Epoch 228/1000: Loss=7.419684 (best so far)
+(  15.977s) Epoch 229/1000: Loss=7.419493 (best so far)
+(  15.982s) Epoch 230/1000: Loss=7.419620
+(  15.980s) Epoch 231/1000: Loss=7.419767
+(  15.972s) Epoch 232/1000: Loss=7.420107
+(  15.992s) Epoch 233/1000: Loss=7.419342 (best so far)
+(  15.940s) Epoch 234/1000: Loss=7.418908 (best so far)
+(  15.992s) Epoch 235/1000: Loss=7.419263
+(  15.940s) Epoch 236/1000: Loss=7.418379 (best so far)
+(  15.990s) Epoch 237/1000: Loss=7.419679
+(  15.951s) Epoch 238/1000: Loss=7.418600
+(  15.986s) Epoch 239/1000: Loss=7.419134
+(  15.994s) Epoch 240/1000: Loss=7.419148
+(  15.964s) Epoch 241/1000: Loss=7.418673
+(  15.986s) Epoch 242/1000: Loss=7.418216 (best so far)
+(  15.948s) Epoch 243/1000: Loss=7.418912
+(  15.990s) Epoch 244/1000: Loss=7.419435
+(  15.997s) Epoch 245/1000: Loss=7.418977
+(  15.938s) Epoch 246/1000: Loss=7.418926
+(  16.010s) Epoch 247/1000: Loss=7.418908
+(  16.007s) Epoch 248/1000: Loss=7.418125 (best so far)
+(  15.935s) Epoch 249/1000: Loss=7.418348
+(  15.950s) Epoch 250/1000: Loss=7.417951 (best so far)
+(  16.037s) Epoch 251/1000: Loss=7.418461
+(  15.911s) Epoch 252/1000: Loss=7.417676 (best so far)
+(  15.972s) Epoch 253/1000: Loss=7.418325
+(  16.000s) Epoch 254/1000: Loss=7.418312
+(  15.944s) Epoch 255/1000: Loss=7.418421
+(  16.007s) Epoch 256/1000: Loss=7.417972
+(  15.931s) Epoch 257/1000: Loss=7.417862
+(  16.016s) Epoch 258/1000: Loss=7.418202
+(  16.014s) Epoch 259/1000: Loss=7.418044
+(  15.959s) Epoch 260/1000: Loss=7.418387
+(  15.956s) Epoch 261/1000: Loss=7.418118
+(  15.943s) Epoch 262/1000: Loss=7.417546 (best so far)
+(  15.980s) Epoch 263/1000: Loss=7.417143 (best so far)
+(  16.004s) Epoch 264/1000: Loss=7.417839
+(  15.960s) Epoch 265/1000: Loss=7.417331
+(  16.004s) Epoch 266/1000: Loss=7.417247
+(  15.926s) Epoch 267/1000: Loss=7.417701
+(  15.993s) Epoch 268/1000: Loss=7.418187
+(  15.970s) Epoch 269/1000: Loss=7.417152
+(  16.014s) Epoch 270/1000: Loss=7.417461
+(  15.940s) Epoch 271/1000: Loss=7.417393
+(  15.972s) Epoch 272/1000: Loss=7.416936 (best so far)
+(  15.949s) Epoch 273/1000: Loss=7.417087
+(  16.022s) Epoch 274/1000: Loss=7.416521 (best so far)
+(  15.936s) Epoch 275/1000: Loss=7.417528
+(  16.045s) Epoch 276/1000: Loss=7.417474
+(  15.938s) Epoch 277/1000: Loss=7.416872
+(  15.955s) Epoch 278/1000: Loss=7.416986
+(  15.991s) Epoch 279/1000: Loss=7.417446
+(  15.953s) Epoch 280/1000: Loss=7.416434 (best so far)
+(  15.942s) Epoch 281/1000: Loss=7.416735
+(  16.000s) Epoch 282/1000: Loss=7.416628
+(  15.985s) Epoch 283/1000: Loss=7.417476
+(  15.951s) Epoch 284/1000: Loss=7.417008
+(  15.998s) Epoch 285/1000: Loss=7.416452
+(  15.990s) Epoch 286/1000: Loss=7.417111
+(  15.972s) Epoch 287/1000: Loss=7.417136
+(  16.024s) Epoch 288/1000: Loss=7.416662
+(  15.891s) Epoch 289/1000: Loss=7.416211 (best so far)
+(  16.000s) Epoch 290/1000: Loss=7.415694 (best so far)
+(  15.939s) Epoch 291/1000: Loss=7.416663
+(  15.988s) Epoch 292/1000: Loss=7.416483
+(  16.034s) Epoch 293/1000: Loss=7.416527
+(  15.919s) Epoch 294/1000: Loss=7.417097
+(  16.020s) Epoch 295/1000: Loss=7.416142
+(  15.915s) Epoch 296/1000: Loss=7.416422
+(  15.995s) Epoch 297/1000: Loss=7.416192
+(  15.974s) Epoch 298/1000: Loss=7.416421
+(  15.986s) Epoch 299/1000: Loss=7.416156
+(  15.993s) Epoch 300/1000: Loss=7.415702
+(  15.930s) Epoch 301/1000: Loss=7.416062
+(  16.009s) Epoch 302/1000: Loss=7.416077
+(  15.992s) Epoch 303/1000: Loss=7.415848
+(  15.992s) Epoch 304/1000: Loss=7.415414 (best so far)
+(  15.925s) Epoch 305/1000: Loss=7.415310 (best so far)
+(  15.978s) Epoch 306/1000: Loss=7.415546
+(  15.997s) Epoch 307/1000: Loss=7.415392
+(  15.982s) Epoch 308/1000: Loss=7.415749
+(  15.961s) Epoch 309/1000: Loss=7.415946
+(  15.971s) Epoch 310/1000: Loss=7.415289 (best so far)
+(  16.044s) Epoch 311/1000: Loss=7.415484
+(  15.909s) Epoch 312/1000: Loss=7.415025 (best so far)
+(  15.991s) Epoch 313/1000: Loss=7.415624
+(  15.920s) Epoch 314/1000: Loss=7.415136
+(  16.006s) Epoch 315/1000: Loss=7.415948
+(  16.017s) Epoch 316/1000: Loss=7.414988 (best so far)
+(  15.931s) Epoch 317/1000: Loss=7.415253
+(  15.965s) Epoch 318/1000: Loss=7.415394
+(  15.960s) Epoch 319/1000: Loss=7.414984 (best so far)
+(  16.034s) Epoch 320/1000: Loss=7.415579
+(  15.910s) Epoch 321/1000: Loss=7.414805 (best so far)
+(  15.979s) Epoch 322/1000: Loss=7.415415
+(  15.952s) Epoch 323/1000: Loss=7.414824
+(  15.845s) Epoch 324/1000: Loss=7.415013
+(  16.005s) Epoch 325/1000: Loss=7.415303
+(  16.032s) Epoch 326/1000: Loss=7.415263
+(  16.041s) Epoch 327/1000: Loss=7.415938
+(  15.986s) Epoch 328/1000: Loss=7.414195 (best so far)
+(  15.965s) Epoch 329/1000: Loss=7.414057 (best so far)
+(  15.963s) Epoch 330/1000: Loss=7.415567
+(  15.987s) Epoch 331/1000: Loss=7.414847
+(  15.966s) Epoch 332/1000: Loss=7.414674
+(  15.964s) Epoch 333/1000: Loss=7.414514
+(  15.983s) Epoch 334/1000: Loss=7.414679
+(  15.978s) Epoch 335/1000: Loss=7.414147
+(  15.998s) Epoch 336/1000: Loss=7.414190
+(  16.024s) Epoch 337/1000: Loss=7.414346
+(  15.913s) Epoch 338/1000: Loss=7.414230
+(  16.054s) Epoch 339/1000: Loss=7.414597
+(  16.017s) Epoch 340/1000: Loss=7.414220
+(  16.054s) Epoch 341/1000: Loss=7.414240
+(  15.986s) Epoch 342/1000: Loss=7.414244
+(  15.959s) Epoch 343/1000: Loss=7.413801 (best so far)
+(  16.011s) Epoch 344/1000: Loss=7.413980
+(  16.003s) Epoch 345/1000: Loss=7.413435 (best so far)
+(  15.939s) Epoch 346/1000: Loss=7.414525
+(  15.967s) Epoch 347/1000: Loss=7.414122
+(  15.980s) Epoch 348/1000: Loss=7.414759
+(  15.994s) Epoch 349/1000: Loss=7.414165
+(  15.940s) Epoch 350/1000: Loss=7.413657
+(  15.998s) Epoch 351/1000: Loss=7.414126
+(  15.943s) Epoch 352/1000: Loss=7.414366
+(  15.969s) Epoch 353/1000: Loss=7.414539
+(  15.980s) Epoch 354/1000: Loss=7.413946
+(  15.984s) Epoch 355/1000: Loss=7.413365 (best so far)
+(  15.975s) Epoch 356/1000: Loss=7.414724
+(  15.984s) Epoch 357/1000: Loss=7.413347 (best so far)
+(  15.984s) Epoch 358/1000: Loss=7.413765
+(  15.950s) Epoch 359/1000: Loss=7.414263
+(  15.787s) Epoch 360/1000: Loss=7.413705
+(  15.977s) Epoch 361/1000: Loss=7.413889
+(  15.946s) Epoch 362/1000: Loss=7.413414
+(  15.982s) Epoch 363/1000: Loss=7.413089 (best so far)
+(  15.998s) Epoch 364/1000: Loss=7.413119
+(  15.969s) Epoch 365/1000: Loss=7.414126
+(  15.984s) Epoch 366/1000: Loss=7.412387 (best so far)
+(  15.959s) Epoch 367/1000: Loss=7.413447
+(  16.157s) Epoch 368/1000: Loss=7.413394
+(  15.998s) Epoch 369/1000: Loss=7.413399
+(  15.950s) Epoch 370/1000: Loss=7.413211
+(  16.001s) Epoch 371/1000: Loss=7.412688
+(  15.951s) Epoch 372/1000: Loss=7.413138
+(  16.006s) Epoch 373/1000: Loss=7.413351
+(  15.963s) Epoch 374/1000: Loss=7.413161
+(  15.973s) Epoch 375/1000: Loss=7.413703
+(  15.984s) Epoch 376/1000: Loss=7.413609
+(  15.992s) Epoch 377/1000: Loss=7.413418
+(  16.032s) Epoch 378/1000: Loss=7.412835
+(  15.920s) Epoch 379/1000: Loss=7.413089
+(  15.940s) Epoch 380/1000: Loss=7.413279
+(  15.982s) Epoch 381/1000: Loss=7.413142
+(  16.004s) Epoch 382/1000: Loss=7.412442
+(  15.929s) Epoch 383/1000: Loss=7.412550
+(  16.001s) Epoch 384/1000: Loss=7.413028
+(  15.985s) Epoch 385/1000: Loss=7.413144
+(  15.984s) Epoch 386/1000: Loss=7.412744
+(  15.992s) Epoch 387/1000: Loss=7.412863
+(  15.954s) Epoch 388/1000: Loss=7.412206 (best so far)
+(  15.963s) Epoch 389/1000: Loss=7.413128
+(  16.006s) Epoch 390/1000: Loss=7.412437
+(  15.934s) Epoch 391/1000: Loss=7.413208
+(  16.004s) Epoch 392/1000: Loss=7.412615
+(  15.932s) Epoch 393/1000: Loss=7.413239
+(  15.990s) Epoch 394/1000: Loss=7.412953
+(  15.963s) Epoch 395/1000: Loss=7.412556
+(  16.013s) Epoch 396/1000: Loss=7.412815
+(  15.968s) Epoch 397/1000: Loss=7.412623
+(  15.958s) Epoch 398/1000: Loss=7.412721
+(  15.967s) Epoch 399/1000: Loss=7.412284
+(  15.999s) Epoch 400/1000: Loss=7.412352
+(  15.933s) Epoch 401/1000: Loss=7.412055 (best so far)
+(  16.007s) Epoch 402/1000: Loss=7.412058
+(  15.989s) Epoch 403/1000: Loss=7.411945 (best so far)
+(  15.937s) Epoch 404/1000: Loss=7.412070
+(  15.972s) Epoch 405/1000: Loss=7.412000
+(  15.991s) Epoch 406/1000: Loss=7.412067
+(  15.934s) Epoch 407/1000: Loss=7.412129
+(  15.995s) Epoch 408/1000: Loss=7.411675 (best so far)
+(  15.983s) Epoch 409/1000: Loss=7.411882
+(  15.961s) Epoch 410/1000: Loss=7.411997
+(  15.986s) Epoch 411/1000: Loss=7.413185
+(  15.976s) Epoch 412/1000: Loss=7.411504 (best so far)
+(  15.985s) Epoch 413/1000: Loss=7.411923
+(  15.997s) Epoch 414/1000: Loss=7.411509
+(  15.935s) Epoch 415/1000: Loss=7.412118
+(  16.030s) Epoch 416/1000: Loss=7.411544
+(  16.140s) Epoch 417/1000: Loss=7.411879
+(  15.990s) Epoch 418/1000: Loss=7.412023
+(  16.008s) Epoch 419/1000: Loss=7.411868
+(  15.927s) Epoch 420/1000: Loss=7.411811
+(  15.995s) Epoch 421/1000: Loss=7.411418 (best so far)
+(  15.950s) Epoch 422/1000: Loss=7.411095 (best so far)
+(  16.040s) Epoch 423/1000: Loss=7.410903 (best so far)
+(  15.955s) Epoch 424/1000: Loss=7.412270
+(  15.974s) Epoch 425/1000: Loss=7.410792 (best so far)
+(  15.952s) Epoch 426/1000: Loss=7.411898
+(  15.970s) Epoch 427/1000: Loss=7.411055
+(  15.976s) Epoch 428/1000: Loss=7.411417
+(  15.976s) Epoch 429/1000: Loss=7.411096
+(  15.977s) Epoch 430/1000: Loss=7.411369
+(  15.950s) Epoch 431/1000: Loss=7.411018
+(  15.978s) Epoch 432/1000: Loss=7.411427
+(  15.996s) Epoch 433/1000: Loss=7.411620
+(  15.956s) Epoch 434/1000: Loss=7.411731
+(  15.993s) Epoch 435/1000: Loss=7.411401
+(  15.963s) Epoch 436/1000: Loss=7.411685
+(  16.031s) Epoch 437/1000: Loss=7.410942
+(  15.957s) Epoch 438/1000: Loss=7.411424
+(  15.978s) Epoch 439/1000: Loss=7.411037
+(  15.910s) Epoch 440/1000: Loss=7.411809
+(  16.020s) Epoch 441/1000: Loss=7.410694 (best so far)
+(  15.965s) Epoch 442/1000: Loss=7.411610
+(  15.956s) Epoch 443/1000: Loss=7.411577
+(  15.953s) Epoch 444/1000: Loss=7.411245
+(  15.997s) Epoch 445/1000: Loss=7.411188
+(  15.950s) Epoch 446/1000: Loss=7.411502
+(  16.003s) Epoch 447/1000: Loss=7.410585 (best so far)
+(  15.946s) Epoch 448/1000: Loss=7.410606
+(  16.006s) Epoch 449/1000: Loss=7.410225 (best so far)
+(  15.949s) Epoch 450/1000: Loss=7.411372
+(  16.031s) Epoch 451/1000: Loss=7.411412
+(  15.924s) Epoch 452/1000: Loss=7.410874
+(  15.991s) Epoch 453/1000: Loss=7.410827
+(  15.968s) Epoch 454/1000: Loss=7.410157 (best so far)
+(  15.976s) Epoch 455/1000: Loss=7.411596
+(  16.013s) Epoch 456/1000: Loss=7.410650
+(  15.941s) Epoch 457/1000: Loss=7.409801 (best so far)
+(  15.981s) Epoch 458/1000: Loss=7.411345
+(  15.954s) Epoch 459/1000: Loss=7.411022
+(  15.964s) Epoch 460/1000: Loss=7.411009
+(  16.083s) Epoch 461/1000: Loss=7.410642
+(  15.906s) Epoch 462/1000: Loss=7.410437
+(  15.962s) Epoch 463/1000: Loss=7.410754
+(  15.965s) Epoch 464/1000: Loss=7.410144
+(  16.005s) Epoch 465/1000: Loss=7.410358
+(  15.914s) Epoch 466/1000: Loss=7.409847
+(  15.826s) Epoch 467/1000: Loss=7.410002
+(  15.966s) Epoch 468/1000: Loss=7.410440
+(  15.980s) Epoch 469/1000: Loss=7.410237
+(  15.967s) Epoch 470/1000: Loss=7.410431
+(  15.956s) Epoch 471/1000: Loss=7.410485
+(  15.991s) Epoch 472/1000: Loss=7.409914
+(  15.956s) Epoch 473/1000: Loss=7.410399
+(  16.009s) Epoch 474/1000: Loss=7.410103
+(  15.951s) Epoch 475/1000: Loss=7.410118
+(  16.014s) Epoch 476/1000: Loss=7.409853
+(  15.955s) Epoch 477/1000: Loss=7.410109
+(  15.979s) Epoch 478/1000: Loss=7.409865
+(  15.961s) Epoch 479/1000: Loss=7.410217
+(  16.006s) Epoch 480/1000: Loss=7.409800 (best so far)
+(  15.972s) Epoch 481/1000: Loss=7.409857
+(  15.988s) Epoch 482/1000: Loss=7.409855
+(  15.894s) Epoch 483/1000: Loss=7.410304
+(  16.045s) Epoch 484/1000: Loss=7.409765 (best so far)
+(  15.959s) Epoch 485/1000: Loss=7.409114 (best so far)
+(  15.944s) Epoch 486/1000: Loss=7.409432
+(  15.981s) Epoch 487/1000: Loss=7.411196
+(  15.983s) Epoch 488/1000: Loss=7.409780
+(  15.985s) Epoch 489/1000: Loss=7.410147
+(  16.010s) Epoch 490/1000: Loss=7.410186
+(  15.948s) Epoch 491/1000: Loss=7.409031 (best so far)
+(  15.947s) Epoch 492/1000: Loss=7.408566 (best so far)
+(  15.969s) Epoch 493/1000: Loss=7.409106
+(  16.012s) Epoch 494/1000: Loss=7.409819
+(  15.950s) Epoch 495/1000: Loss=7.409009
+(  15.988s) Epoch 496/1000: Loss=7.409406
+(  16.030s) Epoch 497/1000: Loss=7.409778
+(  15.899s) Epoch 498/1000: Loss=7.409257
+(  16.011s) Epoch 499/1000: Loss=7.409754
+(  15.969s) Epoch 500/1000: Loss=7.409355
+(  15.915s) Epoch 501/1000: Loss=7.408715
+(  16.012s) Epoch 502/1000: Loss=7.409056
+(  15.970s) Epoch 503/1000: Loss=7.408885
+(  15.986s) Epoch 504/1000: Loss=7.409806
+(  15.990s) Epoch 505/1000: Loss=7.409231
+(  15.937s) Epoch 506/1000: Loss=7.409536
+(  15.971s) Epoch 507/1000: Loss=7.409385
+(  16.006s) Epoch 508/1000: Loss=7.409347
+(  15.972s) Epoch 509/1000: Loss=7.408944
+(  15.980s) Epoch 510/1000: Loss=7.408649
+(  15.951s) Epoch 511/1000: Loss=7.408866
+(  16.001s) Epoch 512/1000: Loss=7.409239
+(  15.965s) Epoch 513/1000: Loss=7.409433
+(  15.975s) Epoch 514/1000: Loss=7.408747
+(  15.971s) Epoch 515/1000: Loss=7.408889
+(  15.998s) Epoch 516/1000: Loss=7.408691
+(  15.976s) Epoch 517/1000: Loss=7.408347 (best so far)
+(  15.968s) Epoch 518/1000: Loss=7.408829
+(  15.935s) Epoch 519/1000: Loss=7.409531
+(  16.005s) Epoch 520/1000: Loss=7.408693
+(  15.958s) Epoch 521/1000: Loss=7.409157
+(  15.980s) Epoch 522/1000: Loss=7.409590
+(  15.936s) Epoch 523/1000: Loss=7.408862
+(  16.003s) Epoch 524/1000: Loss=7.408452
+(  15.961s) Epoch 525/1000: Loss=7.408201 (best so far)
+(  15.965s) Epoch 526/1000: Loss=7.408578
+(  16.002s) Epoch 527/1000: Loss=7.409061
+(  15.977s) Epoch 528/1000: Loss=7.408427
+(  15.975s) Epoch 529/1000: Loss=7.408942
+(  15.966s) Epoch 530/1000: Loss=7.409114
+(  15.983s) Epoch 531/1000: Loss=7.408159 (best so far)
+(  15.957s) Epoch 532/1000: Loss=7.408274
+(  15.959s) Epoch 533/1000: Loss=7.408794
+(  16.008s) Epoch 534/1000: Loss=7.408352
+(  15.980s) Epoch 535/1000: Loss=7.408460
+(  16.037s) Epoch 536/1000: Loss=7.408368
+(  15.894s) Epoch 537/1000: Loss=7.409002
+(  16.002s) Epoch 538/1000: Loss=7.408741
+(  15.992s) Epoch 539/1000: Loss=7.408134 (best so far)
+(  15.971s) Epoch 540/1000: Loss=7.408826
+(  15.934s) Epoch 541/1000: Loss=7.409181
+(  16.000s) Epoch 542/1000: Loss=7.407441 (best so far)
+(  15.967s) Epoch 543/1000: Loss=7.407941
+(  15.989s) Epoch 544/1000: Loss=7.407772
+(  16.001s) Epoch 545/1000: Loss=7.408689
+(  15.991s) Epoch 546/1000: Loss=7.407911
+(  15.976s) Epoch 547/1000: Loss=7.408032
+(  16.065s) Epoch 548/1000: Loss=7.408475
+(  16.019s) Epoch 549/1000: Loss=7.408203
+(  15.954s) Epoch 550/1000: Loss=7.407990
+(  15.981s) Epoch 551/1000: Loss=7.408096
+(  16.035s) Epoch 552/1000: Loss=7.408476
+(  15.926s) Epoch 553/1000: Loss=7.408019
+(  15.956s) Epoch 554/1000: Loss=7.408158
+(  15.988s) Epoch 555/1000: Loss=7.408191
+(  15.973s) Epoch 556/1000: Loss=7.408430
+(  15.960s) Epoch 557/1000: Loss=7.407989
+(  16.004s) Epoch 558/1000: Loss=7.408290
+(  16.007s) Epoch 559/1000: Loss=7.407971
+(  15.985s) Epoch 560/1000: Loss=7.408308
+(  16.090s) Epoch 561/1000: Loss=7.407699
+(  15.984s) Epoch 562/1000: Loss=7.407276 (best so far)
+(  16.039s) Epoch 563/1000: Loss=7.407874
+(  15.960s) Epoch 564/1000: Loss=7.407700
+(  15.920s) Epoch 565/1000: Loss=7.407244 (best so far)
+(  16.001s) Epoch 566/1000: Loss=7.407995
+(  16.047s) Epoch 567/1000: Loss=7.406924 (best so far)
+(  15.935s) Epoch 568/1000: Loss=7.408121
+(  15.965s) Epoch 569/1000: Loss=7.407232
+(  16.042s) Epoch 570/1000: Loss=7.407319
+(  15.925s) Epoch 571/1000: Loss=7.407599
+(  15.932s) Epoch 572/1000: Loss=7.407946
+(  15.999s) Epoch 573/1000: Loss=7.408112
+(  15.964s) Epoch 574/1000: Loss=7.407787
+(  15.934s) Epoch 575/1000: Loss=7.407110
+(  16.021s) Epoch 576/1000: Loss=7.407514
+(  15.988s) Epoch 577/1000: Loss=7.407638
+(  15.928s) Epoch 578/1000: Loss=7.407558
+(  15.982s) Epoch 579/1000: Loss=7.407262
+(  15.972s) Epoch 580/1000: Loss=7.406905 (best so far)
+(  15.986s) Epoch 581/1000: Loss=7.407453
+(  15.982s) Epoch 582/1000: Loss=7.407017
+(  15.961s) Epoch 583/1000: Loss=7.407057
+(  15.994s) Epoch 584/1000: Loss=7.407378
+(  15.957s) Epoch 585/1000: Loss=7.407247
+(  16.006s) Epoch 586/1000: Loss=7.407151
+(  15.951s) Epoch 587/1000: Loss=7.407221
+(  15.961s) Epoch 588/1000: Loss=7.406626 (best so far)
+(  15.974s) Epoch 589/1000: Loss=7.407179
+(  16.039s) Epoch 590/1000: Loss=7.407229
+(  16.072s) Epoch 591/1000: Loss=7.407149
+(  15.855s) Epoch 592/1000: Loss=7.406939
+(  16.010s) Epoch 593/1000: Loss=7.407278
+(  15.916s) Epoch 594/1000: Loss=7.406973
+(  16.014s) Epoch 595/1000: Loss=7.406677
+(  16.091s) Epoch 596/1000: Loss=7.407090
+(  15.904s) Epoch 597/1000: Loss=7.406642
+(  15.962s) Epoch 598/1000: Loss=7.407071
+(  15.907s) Epoch 599/1000: Loss=7.406518 (best so far)
+(  16.021s) Epoch 600/1000: Loss=7.407387
+(  15.934s) Epoch 601/1000: Loss=7.406974
+(  16.026s) Epoch 602/1000: Loss=7.407154
+(  15.912s) Epoch 603/1000: Loss=7.406901
+(  15.986s) Epoch 604/1000: Loss=7.406925
+(  15.980s) Epoch 605/1000: Loss=7.406851
+(  15.966s) Epoch 606/1000: Loss=7.406473 (best so far)
+(  15.944s) Epoch 607/1000: Loss=7.407255
+(  16.022s) Epoch 608/1000: Loss=7.406485
+(  15.971s) Epoch 609/1000: Loss=7.406365 (best so far)
+(  15.985s) Epoch 610/1000: Loss=7.406753
+(  15.944s) Epoch 611/1000: Loss=7.406604
+(  15.990s) Epoch 612/1000: Loss=7.406499
+(  15.960s) Epoch 613/1000: Loss=7.406611
+(  15.954s) Epoch 614/1000: Loss=7.406493
+(  16.018s) Epoch 615/1000: Loss=7.406528
+(  15.971s) Epoch 616/1000: Loss=7.406693
+(  15.982s) Epoch 617/1000: Loss=7.407057
+(  15.936s) Epoch 618/1000: Loss=7.406469
+(  15.992s) Epoch 619/1000: Loss=7.406067 (best so far)
+(  15.980s) Epoch 620/1000: Loss=7.406021 (best so far)
+(  15.951s) Epoch 621/1000: Loss=7.406419
+(  15.989s) Epoch 622/1000: Loss=7.406691
+(  15.961s) Epoch 623/1000: Loss=7.406691
+(  15.988s) Epoch 624/1000: Loss=7.405932 (best so far)
+(  15.948s) Epoch 625/1000: Loss=7.406206
+(  16.023s) Epoch 626/1000: Loss=7.406065
+(  15.975s) Epoch 627/1000: Loss=7.406052
+(  15.963s) Epoch 628/1000: Loss=7.406252
+(  15.996s) Epoch 629/1000: Loss=7.406004
+(  15.935s) Epoch 630/1000: Loss=7.405764 (best so far)
+(  15.952s) Epoch 631/1000: Loss=7.406001
+(  16.011s) Epoch 632/1000: Loss=7.405957
+(  16.106s) Epoch 633/1000: Loss=7.406471
+(  15.836s) Epoch 634/1000: Loss=7.406460
+(  15.995s) Epoch 635/1000: Loss=7.406393
+(  15.953s) Epoch 636/1000: Loss=7.406324
+(  15.971s) Epoch 637/1000: Loss=7.406176
+(  15.964s) Epoch 638/1000: Loss=7.406521
+(  15.979s) Epoch 639/1000: Loss=7.406047
+(  15.999s) Epoch 640/1000: Loss=7.406254
+(  15.975s) Epoch 641/1000: Loss=7.406004
+(  15.982s) Epoch 642/1000: Loss=7.406017
+(  15.969s) Epoch 643/1000: Loss=7.406514
+(  15.988s) Epoch 644/1000: Loss=7.406180
+(  15.978s) Epoch 645/1000: Loss=7.405756 (best so far)
+(  15.974s) Epoch 646/1000: Loss=7.405886
+(  15.999s) Epoch 647/1000: Loss=7.405459 (best so far)
+(  15.963s) Epoch 648/1000: Loss=7.405495
+(  15.926s) Epoch 649/1000: Loss=7.405936
+(  15.965s) Epoch 650/1000: Loss=7.406128
+(  16.009s) Epoch 651/1000: Loss=7.405405 (best so far)
+(  15.942s) Epoch 652/1000: Loss=7.405573
+(  16.069s) Epoch 653/1000: Loss=7.405604
+(  16.071s) Epoch 654/1000: Loss=7.405533
+(  16.014s) Epoch 655/1000: Loss=7.405873
+(  15.975s) Epoch 656/1000: Loss=7.406629
+(  15.973s) Epoch 657/1000: Loss=7.405958
+(  15.974s) Epoch 658/1000: Loss=7.405701
+(  15.963s) Epoch 659/1000: Loss=7.405918
+(  15.989s) Epoch 660/1000: Loss=7.406124
+(  16.038s) Epoch 661/1000: Loss=7.406180
+(  16.092s) Epoch 662/1000: Loss=7.405765
+(  15.998s) Epoch 663/1000: Loss=7.405650
+(  15.929s) Epoch 664/1000: Loss=7.405123 (best so far)
+(  16.004s) Epoch 665/1000: Loss=7.406116
+(  15.993s) Epoch 666/1000: Loss=7.405667
+(  15.978s) Epoch 667/1000: Loss=7.405326
+(  15.984s) Epoch 668/1000: Loss=7.404939 (best so far)
+(  15.929s) Epoch 669/1000: Loss=7.405986
+(  15.997s) Epoch 670/1000: Loss=7.405367
+(  15.962s) Epoch 671/1000: Loss=7.405151
+(  16.009s) Epoch 672/1000: Loss=7.405622
+(  16.005s) Epoch 673/1000: Loss=7.405760
+(  15.978s) Epoch 674/1000: Loss=7.404956
+(  15.961s) Epoch 675/1000: Loss=7.404894 (best so far)
+(  15.971s) Epoch 676/1000: Loss=7.405487
+(  15.963s) Epoch 677/1000: Loss=7.405861
+(  15.937s) Epoch 678/1000: Loss=7.405723
+(  15.954s) Epoch 679/1000: Loss=7.404807 (best so far)
+(  16.000s) Epoch 680/1000: Loss=7.404952
+(  15.950s) Epoch 681/1000: Loss=7.405014
+(  16.040s) Epoch 682/1000: Loss=7.404740 (best so far)
+(  15.943s) Epoch 683/1000: Loss=7.405380
+(  15.985s) Epoch 684/1000: Loss=7.405056
+(  16.048s) Epoch 685/1000: Loss=7.405501
+(  16.109s) Epoch 686/1000: Loss=7.404971
+(  15.977s) Epoch 687/1000: Loss=7.405202
+(  15.964s) Epoch 688/1000: Loss=7.404894
+(  15.971s) Epoch 689/1000: Loss=7.405579
+(  16.119s) Epoch 690/1000: Loss=7.405731
+(  16.021s) Epoch 691/1000: Loss=7.405365
+(  15.986s) Epoch 692/1000: Loss=7.405155
+(  15.987s) Epoch 693/1000: Loss=7.405298
+(  15.955s) Epoch 694/1000: Loss=7.405543
+(  15.962s) Epoch 695/1000: Loss=7.405090
+(  15.992s) Epoch 696/1000: Loss=7.404430 (best so far)
+(  15.950s) Epoch 697/1000: Loss=7.404689
+(  16.006s) Epoch 698/1000: Loss=7.405545
+(  15.970s) Epoch 699/1000: Loss=7.405278
+(  15.999s) Epoch 700/1000: Loss=7.405080
+(  15.976s) Epoch 701/1000: Loss=7.405174
+(  16.019s) Epoch 702/1000: Loss=7.405110
+(  15.980s) Epoch 703/1000: Loss=7.405074
+(  15.974s) Epoch 704/1000: Loss=7.404891
+(  15.922s) Epoch 705/1000: Loss=7.404389 (best so far)
+(  15.982s) Epoch 706/1000: Loss=7.404806
+(  15.989s) Epoch 707/1000: Loss=7.405041
+(  15.912s) Epoch 708/1000: Loss=7.403971 (best so far)
+(  15.965s) Epoch 709/1000: Loss=7.404954
+(  15.998s) Epoch 710/1000: Loss=7.404762
+(  16.011s) Epoch 711/1000: Loss=7.405101
+(  15.946s) Epoch 712/1000: Loss=7.404785
+(  16.042s) Epoch 713/1000: Loss=7.405177
+(  16.070s) Epoch 714/1000: Loss=7.405093
+(  15.993s) Epoch 715/1000: Loss=7.405303
+(  15.980s) Epoch 716/1000: Loss=7.404916
+(  15.998s) Epoch 717/1000: Loss=7.404777
+(  16.015s) Epoch 718/1000: Loss=7.404798
+(  15.940s) Epoch 719/1000: Loss=7.404654
+(  15.951s) Epoch 720/1000: Loss=7.404629
+(  15.972s) Epoch 721/1000: Loss=7.404512
+(  15.992s) Epoch 722/1000: Loss=7.404867
+(  15.974s) Epoch 723/1000: Loss=7.404545
+(  16.118s) Epoch 724/1000: Loss=7.404017
+(  16.054s) Epoch 725/1000: Loss=7.404884
+(  16.000s) Epoch 726/1000: Loss=7.404898
+(  16.127s) Epoch 727/1000: Loss=7.404613
+(  15.988s) Epoch 728/1000: Loss=7.405413
+(  15.959s) Epoch 729/1000: Loss=7.404445
+(  16.062s) Epoch 730/1000: Loss=7.404273
+(  15.877s) Epoch 731/1000: Loss=7.404574
+(  16.012s) Epoch 732/1000: Loss=7.405037
+(  15.946s) Epoch 733/1000: Loss=7.405009
+(  15.977s) Epoch 734/1000: Loss=7.404064
+(  15.965s) Epoch 735/1000: Loss=7.404088
+(  16.002s) Epoch 736/1000: Loss=7.404153
+(  15.945s) Epoch 737/1000: Loss=7.404021
+(  16.002s) Epoch 738/1000: Loss=7.403987
+(  15.949s) Epoch 739/1000: Loss=7.404779
+(  16.037s) Epoch 740/1000: Loss=7.404239
+(  15.931s) Epoch 741/1000: Loss=7.404364
+(  15.989s) Epoch 742/1000: Loss=7.403776 (best so far)
+(  15.963s) Epoch 743/1000: Loss=7.404044
+(  16.021s) Epoch 744/1000: Loss=7.404127
+(  15.931s) Epoch 745/1000: Loss=7.404877
+(  15.976s) Epoch 746/1000: Loss=7.404599
+(  15.962s) Epoch 747/1000: Loss=7.404077
+(  16.016s) Epoch 748/1000: Loss=7.404930
+(  15.937s) Epoch 749/1000: Loss=7.404542
+(  16.014s) Epoch 750/1000: Loss=7.404062
+(  15.971s) Epoch 751/1000: Loss=7.404254
+(  15.962s) Epoch 752/1000: Loss=7.403838
+(  15.996s) Epoch 753/1000: Loss=7.404486
+(  15.907s) Epoch 754/1000: Loss=7.404334
+(  16.071s) Epoch 755/1000: Loss=7.404518
+(  16.078s) Epoch 756/1000: Loss=7.404480
+(  16.026s) Epoch 757/1000: Loss=7.404589
+(  15.950s) Epoch 758/1000: Loss=7.403877
+(  15.970s) Epoch 759/1000: Loss=7.404223
+(  16.007s) Epoch 760/1000: Loss=7.404003
+(  15.972s) Epoch 761/1000: Loss=7.403684 (best so far)
+(  16.001s) Epoch 762/1000: Loss=7.404733
+(  15.927s) Epoch 763/1000: Loss=7.404275
+(  16.028s) Epoch 764/1000: Loss=7.403917
+(  15.941s) Epoch 765/1000: Loss=7.404222
+(  16.014s) Epoch 766/1000: Loss=7.403798
+(  15.923s) Epoch 767/1000: Loss=7.403832
+(  16.006s) Epoch 768/1000: Loss=7.403769
+(  15.954s) Epoch 769/1000: Loss=7.403216 (best so far)
+(  15.969s) Epoch 770/1000: Loss=7.404194
+(  16.004s) Epoch 771/1000: Loss=7.404807
+(  15.947s) Epoch 772/1000: Loss=7.404043
+(  16.001s) Epoch 773/1000: Loss=7.404485
+(  15.935s) Epoch 774/1000: Loss=7.403878
+(  15.994s) Epoch 775/1000: Loss=7.404236
+(  15.969s) Epoch 776/1000: Loss=7.403743
+(  15.969s) Epoch 777/1000: Loss=7.404161
+(  16.015s) Epoch 778/1000: Loss=7.404118
+(  16.098s) Epoch 779/1000: Loss=7.404124
+(  16.016s) Epoch 780/1000: Loss=7.403756
+(  15.984s) Epoch 781/1000: Loss=7.403960
+(  15.947s) Epoch 782/1000: Loss=7.403926
+(  15.986s) Epoch 783/1000: Loss=7.404469
+(  15.986s) Epoch 784/1000: Loss=7.403406
+(  15.941s) Epoch 785/1000: Loss=7.403618
+(  16.033s) Epoch 786/1000: Loss=7.403570
+(  15.921s) Epoch 787/1000: Loss=7.403777
+(  15.979s) Epoch 788/1000: Loss=7.404216
+(  15.985s) Epoch 789/1000: Loss=7.403267
+(  15.968s) Epoch 790/1000: Loss=7.404330
+(  15.977s) Epoch 791/1000: Loss=7.403846
+(  15.990s) Epoch 792/1000: Loss=7.404038
+(  15.968s) Epoch 793/1000: Loss=7.404320
+(  15.972s) Epoch 794/1000: Loss=7.403854
+(  16.143s) Epoch 795/1000: Loss=7.402989 (best so far)
+(  16.000s) Epoch 796/1000: Loss=7.403941
+(  16.008s) Epoch 797/1000: Loss=7.403821
+(  15.930s) Epoch 798/1000: Loss=7.404158
+(  16.014s) Epoch 799/1000: Loss=7.403777
+(  15.979s) Epoch 800/1000: Loss=7.403363
+(  15.952s) Epoch 801/1000: Loss=7.403607
+(  16.066s) Epoch 802/1000: Loss=7.403751
+(  15.918s) Epoch 803/1000: Loss=7.403565
+(  15.982s) Epoch 804/1000: Loss=7.403317
+(  15.979s) Epoch 805/1000: Loss=7.403829
+(  16.101s) Epoch 806/1000: Loss=7.403162
+(  16.049s) Epoch 807/1000: Loss=7.403466
+(  15.948s) Epoch 808/1000: Loss=7.403981
+(  15.984s) Epoch 809/1000: Loss=7.404201
+(  15.980s) Epoch 810/1000: Loss=7.403551
+(  15.979s) Epoch 811/1000: Loss=7.403798
+(  15.917s) Epoch 812/1000: Loss=7.403754
+(  16.025s) Epoch 813/1000: Loss=7.403163
+(  15.961s) Epoch 814/1000: Loss=7.403430
+(  16.006s) Epoch 815/1000: Loss=7.403434
+(  15.958s) Epoch 816/1000: Loss=7.403491
+(  15.991s) Epoch 817/1000: Loss=7.403695
+(  15.986s) Epoch 818/1000: Loss=7.403764
+(  15.962s) Epoch 819/1000: Loss=7.403924
+(  15.974s) Epoch 820/1000: Loss=7.403459
+(  15.983s) Epoch 821/1000: Loss=7.404093
+(  15.941s) Epoch 822/1000: Loss=7.403048
+(  15.975s) Epoch 823/1000: Loss=7.403916
+(  15.957s) Epoch 824/1000: Loss=7.403517
+(  16.013s) Epoch 825/1000: Loss=7.403672
+(  16.122s) Epoch 826/1000: Loss=7.403186
+(  16.012s) Epoch 827/1000: Loss=7.403524
+(  15.996s) Epoch 828/1000: Loss=7.403635
+(  15.927s) Epoch 829/1000: Loss=7.402999
+(  16.002s) Epoch 830/1000: Loss=7.403646
+(  15.970s) Epoch 831/1000: Loss=7.403632
+(  15.979s) Epoch 832/1000: Loss=7.403830
+(  16.041s) Epoch 833/1000: Loss=7.403682
+(  15.917s) Epoch 834/1000: Loss=7.403787
+(  16.034s) Epoch 835/1000: Loss=7.402988 (best so far)
+(  16.061s) Epoch 836/1000: Loss=7.403830
+(  15.989s) Epoch 837/1000: Loss=7.402908 (best so far)
+(  16.005s) Epoch 838/1000: Loss=7.403079
+(  16.004s) Epoch 839/1000: Loss=7.403857
+(  15.938s) Epoch 840/1000: Loss=7.403674
+(  15.995s) Epoch 841/1000: Loss=7.403563
+(  15.945s) Epoch 842/1000: Loss=7.403952
+(  16.012s) Epoch 843/1000: Loss=7.402958
+(  15.957s) Epoch 844/1000: Loss=7.402903 (best so far)
+(  15.974s) Epoch 845/1000: Loss=7.403241
+(  15.976s) Epoch 846/1000: Loss=7.403201
+(  15.995s) Epoch 847/1000: Loss=7.403546
+(  15.955s) Epoch 848/1000: Loss=7.403822
+(  15.960s) Epoch 849/1000: Loss=7.403950
+(  15.990s) Epoch 850/1000: Loss=7.403309
+(  16.009s) Epoch 851/1000: Loss=7.403480
+(  15.965s) Epoch 852/1000: Loss=7.403226
+(  15.967s) Epoch 853/1000: Loss=7.403055
+(  16.139s) Epoch 854/1000: Loss=7.403477
+(  16.015s) Epoch 855/1000: Loss=7.402817 (best so far)
+(  16.071s) Epoch 856/1000: Loss=7.403667
+(  16.005s) Epoch 857/1000: Loss=7.402789 (best so far)
+(  16.011s) Epoch 858/1000: Loss=7.402750 (best so far)
+(  16.031s) Epoch 859/1000: Loss=7.403691
+(  15.980s) Epoch 860/1000: Loss=7.403493
+(  16.013s) Epoch 861/1000: Loss=7.403260
+(  15.999s) Epoch 862/1000: Loss=7.403020
+(  16.089s) Epoch 863/1000: Loss=7.403591
+(  16.031s) Epoch 864/1000: Loss=7.402802
+(  16.064s) Epoch 865/1000: Loss=7.403251
+(  16.044s) Epoch 866/1000: Loss=7.403797
+(  15.964s) Epoch 867/1000: Loss=7.403466
+(  16.118s) Epoch 868/1000: Loss=7.403639
+(  16.043s) Epoch 869/1000: Loss=7.402918
+(  15.995s) Epoch 870/1000: Loss=7.403546
+(  15.928s) Epoch 871/1000: Loss=7.403576
+(  15.987s) Epoch 872/1000: Loss=7.402847
+(  16.002s) Epoch 873/1000: Loss=7.403031
+(  15.947s) Epoch 874/1000: Loss=7.402853
+(  16.058s) Epoch 875/1000: Loss=7.402918
+(  15.843s) Epoch 876/1000: Loss=7.403033
+(  16.062s) Epoch 877/1000: Loss=7.402777
+(  15.953s) Epoch 878/1000: Loss=7.402980
+(  16.075s) Epoch 879/1000: Loss=7.402984
+(  16.037s) Epoch 880/1000: Loss=7.403612
+(  15.992s) Epoch 881/1000: Loss=7.403712
+(  15.975s) Epoch 882/1000: Loss=7.403316
+(  16.012s) Epoch 883/1000: Loss=7.402696 (best so far)
+(  15.927s) Epoch 884/1000: Loss=7.402682 (best so far)
+(  16.038s) Epoch 885/1000: Loss=7.403804
+(  16.103s) Epoch 886/1000: Loss=7.403199
+(  15.959s) Epoch 887/1000: Loss=7.402558 (best so far)
+(  16.013s) Epoch 888/1000: Loss=7.403096
+(  16.001s) Epoch 889/1000: Loss=7.402602
+(  15.970s) Epoch 890/1000: Loss=7.403174
+(  15.986s) Epoch 891/1000: Loss=7.402587
+(  16.078s) Epoch 892/1000: Loss=7.403385
+(  15.944s) Epoch 893/1000: Loss=7.403238
+(  15.912s) Epoch 894/1000: Loss=7.403334
+(  16.105s) Epoch 895/1000: Loss=7.402658
+(  15.955s) Epoch 896/1000: Loss=7.403289
+(  16.027s) Epoch 897/1000: Loss=7.403223
+(  15.981s) Epoch 898/1000: Loss=7.403189
+(  15.991s) Epoch 899/1000: Loss=7.403054
+(  15.938s) Epoch 900/1000: Loss=7.402666
+(  16.021s) Epoch 901/1000: Loss=7.402739
+(  15.970s) Epoch 902/1000: Loss=7.403321
+(  15.966s) Epoch 903/1000: Loss=7.402600
+(  16.006s) Epoch 904/1000: Loss=7.402690
+(  15.984s) Epoch 905/1000: Loss=7.403104
+(  15.993s) Epoch 906/1000: Loss=7.403144
+(  15.986s) Epoch 907/1000: Loss=7.403137
+(  16.094s) Epoch 908/1000: Loss=7.402601
+(  16.004s) Epoch 909/1000: Loss=7.402861
+(  15.984s) Epoch 910/1000: Loss=7.403009
+(  16.102s) Epoch 911/1000: Loss=7.404163
+(  15.987s) Epoch 912/1000: Loss=7.403070
+(  16.026s) Epoch 913/1000: Loss=7.402318 (best so far)
+(  15.983s) Epoch 914/1000: Loss=7.402582
+(  15.983s) Epoch 915/1000: Loss=7.402267 (best so far)
+(  16.119s) Epoch 916/1000: Loss=7.402478
+(  15.976s) Epoch 917/1000: Loss=7.402534
+(  16.042s) Epoch 918/1000: Loss=7.403218
+(  16.006s) Epoch 919/1000: Loss=7.402840
+(  16.059s) Epoch 920/1000: Loss=7.403651
+(  16.014s) Epoch 921/1000: Loss=7.402606
+(  15.994s) Epoch 922/1000: Loss=7.402889
+(  15.960s) Epoch 923/1000: Loss=7.403357
+(  15.971s) Epoch 924/1000: Loss=7.402775
+(  15.977s) Epoch 925/1000: Loss=7.403170
+(  15.980s) Epoch 926/1000: Loss=7.403442
+(  16.002s) Epoch 927/1000: Loss=7.403083
+(  16.117s) Epoch 928/1000: Loss=7.403541
+(  15.997s) Epoch 929/1000: Loss=7.403469
+(  16.009s) Epoch 930/1000: Loss=7.402380
+(  16.091s) Epoch 931/1000: Loss=7.402946
+(  16.026s) Epoch 932/1000: Loss=7.403825
+(  15.991s) Epoch 933/1000: Loss=7.403534
+(  15.933s) Epoch 934/1000: Loss=7.403019
+(  16.045s) Epoch 935/1000: Loss=7.402754
+(  15.994s) Epoch 936/1000: Loss=7.403558
+(  15.969s) Epoch 937/1000: Loss=7.403259
+(  16.100s) Epoch 938/1000: Loss=7.402618
+(  16.005s) Epoch 939/1000: Loss=7.402912
+(  15.987s) Epoch 940/1000: Loss=7.402869
+(  16.011s) Epoch 941/1000: Loss=7.402832
+(  15.982s) Epoch 942/1000: Loss=7.402454
+(  15.957s) Epoch 943/1000: Loss=7.402539
+(  15.938s) Epoch 944/1000: Loss=7.402348
+(  15.971s) Epoch 945/1000: Loss=7.403510
+(  16.002s) Epoch 946/1000: Loss=7.402888
+(  15.984s) Epoch 947/1000: Loss=7.402498
+(  15.961s) Epoch 948/1000: Loss=7.403265
+(  16.011s) Epoch 949/1000: Loss=7.403130
+(  15.913s) Epoch 950/1000: Loss=7.402729
+(  15.964s) Epoch 951/1000: Loss=7.402392
+(  16.005s) Epoch 952/1000: Loss=7.403420
+(  15.926s) Epoch 953/1000: Loss=7.403141
+(  16.006s) Epoch 954/1000: Loss=7.403387
+(  15.983s) Epoch 955/1000: Loss=7.403137
+(  15.990s) Epoch 956/1000: Loss=7.403036
+(  15.943s) Epoch 957/1000: Loss=7.402499
+(  16.022s) Epoch 958/1000: Loss=7.402983
+(  15.943s) Epoch 959/1000: Loss=7.402627
+(  15.986s) Epoch 960/1000: Loss=7.402720
+(  15.982s) Epoch 961/1000: Loss=7.402556
+(  16.012s) Epoch 962/1000: Loss=7.402757
+(  15.964s) Epoch 963/1000: Loss=7.402930
+(  15.959s) Epoch 964/1000: Loss=7.403274
+(  15.945s) Epoch 965/1000: Loss=7.402156 (best so far)
+(  15.957s) Epoch 966/1000: Loss=7.402862
+(  15.988s) Epoch 967/1000: Loss=7.402891
+(  15.981s) Epoch 968/1000: Loss=7.402917
+(  15.981s) Epoch 969/1000: Loss=7.402579
+(  16.045s) Epoch 970/1000: Loss=7.402246
+(  15.970s) Epoch 971/1000: Loss=7.402415
+(  15.917s) Epoch 972/1000: Loss=7.402436
+(  15.976s) Epoch 973/1000: Loss=7.402494
+(  15.953s) Epoch 974/1000: Loss=7.402725
+(  15.998s) Epoch 975/1000: Loss=7.402835
+(  15.925s) Epoch 976/1000: Loss=7.402392
+(  16.021s) Epoch 977/1000: Loss=7.403050
+(  15.996s) Epoch 978/1000: Loss=7.403517
+(  15.930s) Epoch 979/1000: Loss=7.403482
+(  16.024s) Epoch 980/1000: Loss=7.403351
+(  15.954s) Epoch 981/1000: Loss=7.403077
+(  15.998s) Epoch 982/1000: Loss=7.403555
+(  15.969s) Epoch 983/1000: Loss=7.402637
+(  15.908s) Epoch 984/1000: Loss=7.402651
+(  15.981s) Epoch 985/1000: Loss=7.403545
+(  16.001s) Epoch 986/1000: Loss=7.403507
+(  15.990s) Epoch 987/1000: Loss=7.402928
+(  15.954s) Epoch 988/1000: Loss=7.402746
+(  16.013s) Epoch 989/1000: Loss=7.402292
+(  15.924s) Epoch 990/1000: Loss=7.402623
+(  16.009s) Epoch 991/1000: Loss=7.403040
+(  15.930s) Epoch 992/1000: Loss=7.403460
+(  15.986s) Epoch 993/1000: Loss=7.402534
+(  15.966s) Epoch 994/1000: Loss=7.402370
+(  16.016s) Epoch 995/1000: Loss=7.402669
+(  15.945s) Epoch 996/1000: Loss=7.403168
+(  16.020s) Epoch 997/1000: Loss=7.402642
+(  15.972s) Epoch 998/1000: Loss=7.402845
+(  16.054s) Epoch 999/1000: Loss=7.403686
+(  15.914s) Epoch 1000/1000: Loss=7.402869
+Training for 1000 epochs took 15979.998s total and 15.980s average
+Saving best model and options to saves/exp14.pth
+Traceback (most recent call last):
+  File "/usr/local/apps/python-3.7.4/lib/python3.7/runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/usr/local/apps/python-3.7.4/lib/python3.7/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/aditya.bharti/python_env/lib/python3.7/site-packages/torch/distributed/launch.py", line 246, in <module>
+    main()
+  File "/home/aditya.bharti/python_env/lib/python3.7/site-packages/torch/distributed/launch.py", line 242, in main
+    cmd=cmd)
+subprocess.CalledProcessError: Command '['/home/aditya.bharti/python_env/bin/python', '-u', 'main.py', '--local_rank=3', '--complex_opt', '--first_augment=CropResize', '--second_augment=GaussBlur', '--num_epochs=1000', '--batch_size=2048', '--nesterov', '--momentum=5e-2', '--weight_decay=1e-6', '--T_max=1000', '--save_path=saves/exp14.pth']' returned non-zero exit status 1.
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
