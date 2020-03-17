@@ -9,6 +9,10 @@
 EXP_NAME="exp15";
 NUM_EPOCHS=10;
 
+# cuda and cudnn already loaded in .bashrc
+# pykeops requires cmake 1.10 minimum
+module load cmake/3.15.2;
+
 source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot/fsl";
 # commands

@@ -87,7 +87,7 @@ def train_loop(options):
             min_loss = avg_loss
             best_model_state = model.state_dict()
 
-        if epoch % options.eval_freq == eval_freq-1:
+        if epoch % options.eval_freq == options.eval_freq-1:
             accuracy = evaluate_on_test(model, test_loader, options)
             Print(f" test set cluster acc: {accuracy * 100:<.3f}", end='')
 

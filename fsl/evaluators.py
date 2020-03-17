@@ -5,7 +5,7 @@ import torch
 
 from pykeops.torch import LazyTensor
 
-__all__ == ['evaluate_on_test']
+__all__ = ['evaluate_on_test']
 
 # https://www.kernel-operations.io/keops/_auto_tutorials/kmeans/plot_kmeans_torch.html
 def KMeans(x, K=10, Niter=10):
@@ -49,7 +49,7 @@ def evaluate_on_test(model, test_loader, options):
     for batch, labels in test_loader:
         feat = model(batch.to(device=options.cuda_device))
         assigned_labels, cluster_centers = KMeans(
-                                            data,
+                                            x=feat,
                                             K=num_classes,
                                             Niter=options.cluster_iters
                                         )
