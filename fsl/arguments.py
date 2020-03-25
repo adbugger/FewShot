@@ -93,10 +93,10 @@ def parse_args():
     # Test set kmeans evaluation
     eval_args = parser.add_argument_group("Test Evaluation Arguments")
     eval_args.add_argument("--eval_freq", type=int, default=1, help="Evaluate KMeans on test set after these many epochs")
-    eval_args.add_argument("--cluster_iters", type=int, default=3, help="Run KMeans for these many iterations")
 
-    eval_args.add_argument("--verbose_cluster", dest='verbose_cluster', action='store_true')
-    eval_args.set_defaults(verbose_cluster=False)
+    # Logging arguments
+    log_args = parser.add_argument_group("Logging Arguments")
+    log_args.add_argument("--log_file", type=str, required=True)
 
     options = parser.parse_args()
     return options

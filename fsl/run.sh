@@ -7,7 +7,8 @@
 #SBATCH --mail-type=ALL
 
 EXP_NAME="exp15";
-NUM_EPOCHS=10;
+NUM_EPOCHS=200;
+OUT_FILE="saves/${EXP_NAME}.out";
 
 # cuda and cudnn already loaded in .bashrc
 # pykeops requires cmake 1.10 minimum
@@ -18,10 +19,10 @@ pushd "/home/aditya.bharti/FewShot/fsl";
 # commands
 python -m torch.distributed.launch --nproc_per_node=4 main.py \
     --complex_opt \
-    --eval_freq=1 --cluster_iters=3 \
+    --eval_freq=10 \
     --first_augment="CropResize" --second_augment="GaussBlur" \
     --num_epochs=$NUM_EPOCHS --batch_size=2048 \
     --nesterov --momentum=5e-2 --weight_decay=1e-6 \
     --T_max=$NUM_EPOCHS \
-    --save_path="saves/${EXP_NAME}.pth" |& tee "saves/${EXP_NAME}.out";
+    --save_path="saves/${EXP_NAME}.pth" --log_file="$OUT_FILE";
 popd;

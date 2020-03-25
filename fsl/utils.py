@@ -8,17 +8,25 @@ import torch
 from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
 
+
 def get_gpu_ids():
     return [int(x) for x in os.environ['CUDA_VISIBLE_DEVICES'].split(',')]
+
+def do_nothing(*args, **kwargs):
+    pass
 
 def get_func_on_master(func, options):
     if options.local_rank==0:
         return func
-
-    def do_nothing(*args, **kwargs):
-        pass
-
     return do_nothing
+
+def get_printer(options):
+    def print_func(*args, **kwargs):
+        with open(options.log_file, mode='a') as outfile:
+            kwargs['file'] = outfile
+            print(*args, **kwargs)
+
+    return get_func_on_master(print_func, options)
 
 def getattr_or_default(obj, prop, def_val):
     if not hasattr(obj, prop):

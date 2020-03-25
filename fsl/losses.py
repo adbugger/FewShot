@@ -9,7 +9,6 @@ import torch
 nn = torch.nn
 
 from pytorch_metric_learning.losses import NTXentLoss
-from pykeops.torch import LazyTensor
 
 __all__ = ["NTXent"]
 
