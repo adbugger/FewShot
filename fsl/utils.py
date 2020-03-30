@@ -1,6 +1,7 @@
 from __future__ import division, print_function
 
 import random
+import numpy as np
 import os
 import abc
 
@@ -21,6 +22,12 @@ def get_func_on_master(func, options):
     return do_nothing
 
 def get_printer(options):
+
+    def truncate(options):
+        with open(options.log_file, mode='w') as _:
+            pass
+    get_func_on_master(truncate, options)(options)
+
     def print_func(*args, **kwargs):
         with open(options.log_file, mode='a') as outfile:
             kwargs['file'] = outfile
@@ -54,13 +61,14 @@ def get_loader(dataset, options):
 
 def seed_everything(seed, high_speed=False):
     random.seed(seed)
+    np.random.seed(seed)
     torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
 
     if torch.cuda.is_available():
-        torch.backends.cudnn.benchmark = high_speed
+        torch.cuda.manual_seed(seed)
         torch.backends.cudnn.deterministic = not high_speed
+        torch.backends.cudnn.benchmark = high_speed
 
 
 class AbstractMeter(metaclass=abc.ABCMeta):

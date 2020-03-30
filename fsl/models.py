@@ -22,7 +22,7 @@ class SimCLRModel(nn.Module):
 def get_model(options):
     model = (getattr(sys.modules[__name__], options.model)(options))
     model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
-    model = model.to(device=f"cuda:{options.local_rank}")
+    model = model.to(device=options.cuda_device)
     model = nn.parallel.DistributedDataParallel(
         model,
         device_ids=[options.local_rank],
