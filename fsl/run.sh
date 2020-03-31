@@ -7,7 +7,7 @@
 #SBATCH --mail-type=ALL
 
 EXP_NAME="exp15";
-NUM_EPOCHS=10;
+NUM_EPOCHS=200;
 OUT_FILE="saves/${EXP_NAME}.out";
 
 # cuda and cudnn already loaded in .bashrc
