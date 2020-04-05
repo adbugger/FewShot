@@ -24,14 +24,12 @@ def ColorDistort(options):
     # No need to normalize after color jitter?
     # Or normalize before color jitter?
     return Compose([
-        ToTensor(),
-        Normalize(options.image_mean, options.image_std),
-        ToPILImage(),
         RandomApply([
             ColorJitter(0.8*s, 0.8*s, 0.8*s, 0.2*s)
         ], p=0.8),
         RandomGrayscale(p=0.2),
         ToTensor(),
+        Normalize(options.image_mean, options.image_std),
     ])
 
 # https://discuss.pytorch.org/t/is-there-anyway-to-do-gaussian-filtering-for-an-image-2d-3d-in-pytorch/12351/10

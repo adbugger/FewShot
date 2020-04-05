@@ -11,9 +11,13 @@ def parse_args():
     train_args.add_argument("--num_epochs", type=int, default=10)
     train_args.add_argument("--save_path", type=str, default='exp0.pth')
 
+    train_args.add_argument("--save_model", dest='save_model', action='store_true')
+    train_args.add_argument("--no_save_model", dest='save_model', action='store_false')
+    train_args.set_defaults(save_model=True)
+
     # Optimizer Arguments
     opt_args = parser.add_argument_group("Optimizer Arguments")
-    opt_args.add_argument("--base_learning_rate", type=float, default=1.0)
+    opt_args.add_argument("--base_learning_rate", type=float, default=1e-2)
 
     opt_args.add_argument("--simple_opt", dest='simple_opt', action='store_true')
     opt_args.add_argument("--complex_opt", dest='simple_opt', action='store_false')

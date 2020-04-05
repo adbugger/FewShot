@@ -1,4 +1,4 @@
-Namespace(T_max=25, backbone='resnet50', base_learning_rate=1.0, base_optimizer='SGD', batch_size=1024, dampening=0.0, dataset='cifar100fs', dataset_root=None, eval_freq=5, first_augment='CropResize', head='SimpleMLP', jitter_strength=1.0, local_rank=0, log_file='saves/exp15.out', loss_function='NTXent', model='SimCLRModel', momentum=0.05, nesterov=True, ntxent_temp=1.0, num_epochs=25, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_path='saves/exp15.pth', scheduler='CosineAnnealingLR', second_augment='GaussBlur', secondary_optimizer='LARS', shuffle=True, simple_opt=False, weight_decay=1e-06)
+Namespace(T_max=25, backbone='resnet50', base_learning_rate=1.0, base_optimizer='SGD', batch_size=1024, dampening=0.0, dataset='cifar100fs', dataset_root=None, eval_freq=5, first_augment='CropResize', head='SimpleMLP', jitter_strength=1.0, local_rank=0, log_file='saves/exp16.out', loss_function='NTXent', model='SimCLRModel', momentum=0.05, nesterov=True, ntxent_temp=1.0, num_epochs=25, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_path='saves/exp16.pth', scheduler='CosineAnnealingLR', second_augment='ColorDistort', secondary_optimizer='LARS', shuffle=True, simple_opt=False, weight_decay=1e-06)
 DistributedDataParallel(
   (module): SimCLRModel(
     (backbone): ResNet(
@@ -189,30 +189,30 @@ Train:  64 classes
 Valid:  16 classes
 Test:   20 classes
 ------------------
-(  21.594s) Epoch 001/ 25: loss=[32m7.629772[0m
-(   8.708s) Epoch 002/ 25: loss=[32m7.436925[0m
-(   8.485s) Epoch 003/ 25: loss=[32m7.274892[0m
-(   8.506s) Epoch 004/ 25: loss=[32m7.113907[0m
-(   8.511s) Epoch 005/ 25: loss=[32m7.052445[0m (   4.576s) val_acc=[32m-0.006135459[0m (   2.932s) test_acc=[32m0.030340858[0m
-(   7.195s) Epoch 006/ 25: loss=[32m7.005042[0m
-(   8.583s) Epoch 007/ 25: loss=[32m6.999413[0m
-(   8.592s) Epoch 008/ 25: loss=[32m6.986462[0m
-(   8.561s) Epoch 009/ 25: loss=[32m6.977174[0m
-(   8.617s) Epoch 010/ 25: loss=[32m6.972965[0m (   3.128s) val_acc=[32m-0.003921826[0m (   2.309s) test_acc=0.023496312
-(   7.254s) Epoch 011/ 25: loss=[32m6.967107[0m
-(   8.603s) Epoch 012/ 25: loss=[32m6.965985[0m
-(   8.639s) Epoch 013/ 25: loss=[32m6.962710[0m
-(   8.658s) Epoch 014/ 25: loss=[32m6.960224[0m
-(   8.638s) Epoch 015/ 25: loss=6.961080 (   2.277s) val_acc=-0.006069347 (   2.863s) test_acc=0.010811408
-(   7.315s) Epoch 016/ 25: loss=[32m6.958140[0m
-(   8.660s) Epoch 017/ 25: loss=6.958780
-(   8.618s) Epoch 018/ 25: loss=[32m6.957402[0m
-(   8.758s) Epoch 019/ 25: loss=6.959057
-(   8.754s) Epoch 020/ 25: loss=[32m6.956543[0m (   2.282s) val_acc=-0.005990520 (   2.932s) test_acc=[32m0.056410664[0m
-(   7.379s) Epoch 021/ 25: loss=6.957687
-(   8.671s) Epoch 022/ 25: loss=[32m6.955108[0m
-(   8.716s) Epoch 023/ 25: loss=6.957565
-(   8.745s) Epoch 024/ 25: loss=6.956209
-(   8.748s) Epoch 025/ 25: loss=6.957854 (   1.244s) val_acc=-0.005875553 (   1.312s) test_acc=0.056205358
-Training for 25 epochs took 223.508s total and 8.940s average
-Saving best model and options to saves/exp15.pth
+(  23.511s) Epoch 001/ 25: loss=[32m7.655441[0m
+(  11.342s) Epoch 002/ 25: loss=7.665989
+(  10.789s) Epoch 003/ 25: loss=7.665535
+(  10.844s) Epoch 004/ 25: loss=[32m7.542255[0m
+(  10.832s) Epoch 005/ 25: loss=[32m7.488251[0m (   4.459s) val_acc=[32m0.008818417[0m (   3.859s) test_acc=[32m0.065532158[0m
+(   7.970s) Epoch 006/ 25: loss=[32m7.444797[0m
+(  10.845s) Epoch 007/ 25: loss=[32m7.378465[0m
+(  10.848s) Epoch 008/ 25: loss=[32m7.354488[0m
+(  10.824s) Epoch 009/ 25: loss=[32m7.328480[0m
+(  10.871s) Epoch 010/ 25: loss=[32m7.313193[0m (   3.203s) val_acc=-0.005753144 (   4.165s) test_acc=-0.005012766
+(   8.066s) Epoch 011/ 25: loss=[32m7.302219[0m
+(  10.878s) Epoch 012/ 25: loss=7.318679
+(  10.870s) Epoch 013/ 25: loss=7.310066
+(  10.885s) Epoch 014/ 25: loss=7.320949
+(  10.944s) Epoch 015/ 25: loss=7.313665 (   2.752s) val_acc=-0.006246127 (   3.503s) test_acc=0.055395784
+(   8.346s) Epoch 016/ 25: loss=7.314987
+(  10.912s) Epoch 017/ 25: loss=[32m7.291816[0m
+(  10.912s) Epoch 018/ 25: loss=[32m7.267816[0m
+(  10.875s) Epoch 019/ 25: loss=[32m7.255416[0m
+(  10.907s) Epoch 020/ 25: loss=[32m7.246708[0m (   2.559s) val_acc=-0.006034752 (   3.611s) test_acc=-0.004933898
+(   8.398s) Epoch 021/ 25: loss=[32m7.241563[0m
+(  10.994s) Epoch 022/ 25: loss=[32m7.224208[0m
+(  10.891s) Epoch 023/ 25: loss=[32m7.213734[0m
+(  10.869s) Epoch 024/ 25: loss=[32m7.211998[0m
+(  10.928s) Epoch 025/ 25: loss=7.218142 (   1.316s) val_acc=-0.005785666 (   1.313s) test_acc=0.056112351
+Training for 25 epochs took 274.349s total and 10.974s average
+Saving best model and options to saves/exp16.pth

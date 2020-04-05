@@ -20,6 +20,7 @@ class NTXent(nn.Module):
     def __init__(self, options):
         super(NTXent, self).__init__()
         self.temp = options.ntxent_temp
+        self.eps = 1e-8
 
     def forward(self, x, y):
         assert x.shape == y.shape, (f"Input to loss functions must be of same shape. "
@@ -35,8 +36,10 @@ class NTXent(nn.Module):
         sim_matrix = (torch.mm(samples, samples.transpose(1,0)) / self.temp).exp_()
         assert sim_matrix.shape == (2*num_data, 2*num_data)
 
-        term1 = (sim_matrix.diag(num_data) + sim_matrix.diag(-num_data)).log_().sum()
-        term2 = (sim_matrix.sum(dim=1) - math.exp(1 / self.temp)).log_().sum()
+        term11 = (sim_matrix.diag(num_data)  + self.eps).log_().sum()
+        term12 = (sim_matrix.diag(-num_data) + self.eps).log_().sum()
+        term1 = term11 + term12
+        term2 = (sim_matrix.sum(dim=1) - math.exp(1 / self.temp) + self.eps).log_().sum()
 
         loss = (-term1 + term2) / (2*num_data)
 

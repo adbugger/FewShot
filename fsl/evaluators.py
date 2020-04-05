@@ -31,5 +31,6 @@ def kmeans_on_data(model, data_loader, options):
                     ).fit_predict(
                         StandardScaler(copy=False).fit_transform(features)
                     )
+    model.train()
     # return adjusted_mutual_info_score(targets, assigned_labels)
     return adjusted_rand_score(targets, assigned_labels)

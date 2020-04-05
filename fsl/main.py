@@ -25,7 +25,7 @@ from evaluators import kmeans_on_data
 
 def train_loop(options):
     Print = get_printer(options)
-    Print(options)
+    # Print(options)
 
     Save = get_func_on_master(torch.save, options)
 
@@ -41,7 +41,7 @@ def train_loop(options):
     )
 
     model = get_model(options)
-    Print(model)
+    # Print(model)
 
     dataset = getattr(datasets, options.dataset)(options)
     train_loader = get_loader(dataset.train_set, options)
@@ -105,13 +105,13 @@ def train_loop(options):
             Print(f" loss={avg_loss:<f}", end='')
 
         if options.local_rank==0 and epoch % options.eval_freq == options.eval_freq-1:
-            val_start = time.time()
-            val_acc = kmeans_on_data(model, valid_loader, options)
-            val_time = time.time() - val_start
-
             test_start = time.time()
             test_acc = kmeans_on_data(model, test_loader, options)
             test_time = time.time() - test_start
+
+            val_start = time.time()
+            val_acc = kmeans_on_data(model, valid_loader, options)
+            val_time = time.time() - val_start
 
             if val_acc > max_val_eval:
                 Print(f" ({val_time:>8.3f}s) val_acc=\u001b[32m{val_acc:<.9f}\u001b[0m", end='')
@@ -130,69 +130,14 @@ def train_loop(options):
            f"and {time_track.value():.3f}s average"))
 
     Print(f"Saving best model and options to {options.save_path}")
-    Save({
-        'option': options,
-        'model_state_dict': best_model_state,
-    }, options.save_path)
+    save_dict = {'option': options}
+    if options.save_model:
+        save_dict['model_state_dict'] = best_model_state
+    Save(save_dict, options.save_path)
 
-def fake_loop(options):
-    Print = get_printer(options)
-    # Print(options)
-    Print("starting fake loop")
-
-    Save = get_func_on_master(torch.save, options)
-
-    # distributed stuff
-    gpus = get_gpu_ids()
-    options.cuda_device = f"cuda:{options.local_rank}"
-    torch.cuda.set_device(options.local_rank)
-    torch.distributed.init_process_group(
-        backend='nccl',
-        init_method="env://",
-        world_size=len(gpus),
-        rank=options.local_rank
-    )
-
-    model = get_model(options)
-    # Print(model)
-
-    dataset = getattr(datasets, options.dataset)(options)
-    train_loader = get_loader(dataset.train_set, options)
-    num_train_classes = len(dataset.train_set.dataset.classes)
-
-    # Switch off for validation and testing
-    options.shuffle = False
-
-    test_loader = get_loader(dataset.test_set, options)
-    num_test_classes = len(test_loader.dataset.classes)
-
-    valid_loader = get_loader(dataset.valid_set, options)
-    num_valid_classes = len(valid_loader.dataset.classes)
-
-    model.eval()
-    # test_feat = torch.empty(len(dataset.test_set), options.backbone_output_size).to(device=options.cuda_device)
-    # full_target = torch.empty(len(dataset.test_set)).to(device=options.cuda_device)
-    test_feat = np.empty(shape=(len(dataset.test_set), options.backbone_output_size))
-    full_target = np.empty(shape=len(dataset.test_set))
-
-    idx = 0
-    for batch, target in test_loader:
-        feat = model.module.backbone(batch.to(device=options.cuda_device)).detach().cpu().numpy()
-        target = target.numpy()
-        num_batch = feat.shape[0]
-
-        test_feat[idx:idx+num_batch] = feat
-        diff = np.abs(test_feat[idx:idx+num_batch] - feat).sum()
-        Print(f"Comparing feat and test_feat: {diff}")
-
-        full_target[idx:idx+num_batch] = target
-        diff = np.abs(full_target[idx:idx+num_batch] - target).sum()
-        Print(f"Comparing full_target and this target: {diff}")
-
-        idx += num_batch
 
 if __name__ == '__main__':
-    seed_everything(1337)
+    # The runs are non-deterministic anyway, no point sacrificing speed.
+    # seed_everything(1337)
     options = parse_args()
     train_loop(options)
-    # fake_loop(options)

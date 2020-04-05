@@ -1,0 +1,32 @@
+Starting Training on:
+Train:  64 classes
+Valid:  16 classes
+Test:   20 classes
+------------------
+(  11.151s) Epoch 001/ 25: loss=[32m7.513051[0m
+(  10.953s) Epoch 002/ 25: loss=[32m7.509826[0m
+(  11.149s) Epoch 003/ 25: loss=[32m7.506964[0m
+(  11.035s) Epoch 004/ 25: loss=[32m7.501893[0m
+(  11.088s) Epoch 005/ 25: loss=[32m7.497348[0m (   3.071s) val_acc=[32m0.001936566[0m (   2.783s) test_acc=[32m0.050993294[0m
+(   9.487s) Epoch 006/ 25: loss=[32m7.495205[0m
+(  11.165s) Epoch 007/ 25: loss=[32m7.488636[0m
+(  11.104s) Epoch 008/ 25: loss=[32m7.484765[0m
+(  11.113s) Epoch 009/ 25: loss=[32m7.482444[0m
+(  11.147s) Epoch 010/ 25: loss=7.482674 (   3.138s) val_acc=0.001294831 (   2.764s) test_acc=[32m0.452679559[0m
+(   9.470s) Epoch 011/ 25: loss=[32m7.475719[0m
+(  11.111s) Epoch 012/ 25: loss=[32m7.471135[0m
+(  11.187s) Epoch 013/ 25: loss=7.476621
+(  11.057s) Epoch 014/ 25: loss=7.478472
+(  11.267s) Epoch 015/ 25: loss=7.473261 (   3.187s) val_acc=[32m0.002189499[0m (   2.726s) test_acc=[32m0.464449867[0m
+(   9.498s) Epoch 016/ 25: loss=7.475089
+(  11.158s) Epoch 017/ 25: loss=7.476041
+(  11.106s) Epoch 018/ 25: loss=7.473030
+(  11.127s) Epoch 019/ 25: loss=[32m7.465897[0m
+(  11.190s) Epoch 020/ 25: loss=7.472088 (   3.091s) val_acc=0.000969937 (   2.742s) test_acc=0.455071315
+(   9.379s) Epoch 021/ 25: loss=7.469463
+(  11.111s) Epoch 022/ 25: loss=7.470534
+(  11.128s) Epoch 023/ 25: loss=7.472974
+(  11.109s) Epoch 024/ 25: loss=7.475373
+(  11.189s) Epoch 025/ 25: loss=7.475336 (   1.292s) val_acc=0.000619417 (   1.410s) test_acc=0.430587922
+Training for 25 epochs took 271.479s total and 10.859s average
+Saving best model and options to aug_toggle5/exp3.pth
