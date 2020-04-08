@@ -97,3 +97,57 @@ class AverageMeter(AbstractMeter):
 
     def latest(self):
         return self.last_val
+
+class ValuePrinter():
+    GREEN = u"\u001b[32m"
+    RESET = u"\u001b[0m"
+
+    def __init__(self):
+        self.values = list()
+
+    def track(self, value):
+        self.values.append(value)
+        
+    def get_formatted_line(self):
+        s = ""
+        for v in self.values:
+            s += f" {v.name}="
+            if v.current_is_best:
+                s += self.__class__.GREEN
+            s += f"{v.current:<8.6f}"
+            s += self.__class__.RESET
+        # print(s)
+        return s
+
+class Value():
+    def __init__(self, init_val, better_func, name="value name", tol=1e-7):
+        self.current = init_val
+        self.best = init_val
+        self.current_is_best = True
+        self.better_func = better_func
+        self.tol = tol
+        self.name = name
+    
+    def is_better_than(self, new_val):
+        return abs(self.best - self.better_func(self.best, new_val)) > self.tol
+
+    def update(self, other_val):
+        self.current_is_best = self.is_better_than(other_val)
+        self.current = other_val
+        if self.current_is_best:
+            self.best = self.current
+
+if __name__ == "__main__":
+    vp = ValuePrinter()
+    val1 = Value(-0.5, max, "want more")
+    val2 = Value(-5000.236, min, "want less")
+
+    vp.track(val1)
+    vp.track(val2)
+
+    vp.get_formatted_line()
+    
+    val1.update(1.0)
+    val2.update(1.0)
+
+    vp.get_formatted_line()

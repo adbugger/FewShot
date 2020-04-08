@@ -16,7 +16,6 @@ def kmeans_on_data(model, data_loader, options):
     features = np.empty(shape=(num_examples, options.backbone_output_size))
     targets = np.empty(shape=num_examples)
 
-    model.eval()
     idx = 0
     for data, labels in data_loader:
         feat = model.module.backbone(data.to(device=options.cuda_device)).detach().cpu().numpy()
@@ -31,6 +30,5 @@ def kmeans_on_data(model, data_loader, options):
                     ).fit_predict(
                         StandardScaler(copy=False).fit_transform(features)
                     )
-    model.train()
     # return adjusted_mutual_info_score(targets, assigned_labels)
     return adjusted_rand_score(targets, assigned_labels)

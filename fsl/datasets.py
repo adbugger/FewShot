@@ -23,6 +23,11 @@ class MultiTransformDataset(Dataset):
         image, label = self.dataset[idx]
         return tuple(tr(image) for tr in self.transform_list) + (label,)
 
+    # TODO: cleanly expose the underlying dataset
+    @property
+    def classes(self):
+        return self.dataset.classes
+
 class cifar100fs():
     def __init__(self, options):
         self.dataset_root = abspath(getattr_or_default(options, 'dataset_root', '/home/aditya.bharti/cifar100'))
@@ -52,5 +57,6 @@ class cifar100fs():
             tv_datasets.ImageFolder(root=self.train_root, transform=None),
             transform_list=multi_transforms, options=options
         )
+        self.plain_train_set = tv_datasets.ImageFolder(root=self.train_root, transform=other_transform)
         self.test_set = tv_datasets.ImageFolder(root=self.test_root, transform=other_transform)
         self.valid_set = tv_datasets.ImageFolder(root=self.valid_root, transform=other_transform)

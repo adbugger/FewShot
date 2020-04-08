@@ -34,20 +34,20 @@ source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot/fsl";
 # runner exp_name save_dir aug1 aug2
 
-{
-    exp2_dir="CropResize_GaussBlur_runs";
-    runner "run1" "$exp2_dir" "CropResize" "GaussBlur";
-    runner "run2" "$exp2_dir" "CropResize" "GaussBlur";
-    runner "run3" "$exp2_dir" "CropResize" "GaussBlur";
-    runner "run4" "$exp2_dir" "CropResize" "GaussBlur";
-}
+#{
+#    exp2_dir="CropResize_GaussBlur_runs";
+#    runner "run5" "$exp2_dir" "CropResize" "GaussBlur";
+#    runner "run6" "$exp2_dir" "CropResize" "GaussBlur";
+#    runner "run7" "$exp2_dir" "CropResize" "GaussBlur";
+#    runner "run8" "$exp2_dir" "CropResize" "GaussBlur";
+#}
 
 {
     exp3_dir="ColorDistort_GaussBlur_runs";
-    runner "run1" "$exp3_dir" "ColorDistort" "GaussBlur";
-    runner "run2" "$exp3_dir" "ColorDistort" "GaussBlur";
-    runner "run3" "$exp3_dir" "ColorDistort" "GaussBlur";
-    runner "run4" "$exp3_dir" "ColorDistort" "GaussBlur";
+    runner "run5" "$exp3_dir" "ColorDistort" "GaussBlur";
+#    runner "run6" "$exp3_dir" "ColorDistort" "GaussBlur";
+#    runner "run7" "$exp3_dir" "ColorDistort" "GaussBlur";
+#    runner "run8" "$exp3_dir" "ColorDistort" "GaussBlur";
 }
 
 popd;

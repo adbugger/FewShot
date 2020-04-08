@@ -29,7 +29,7 @@ class NTXent(nn.Module):
         feat_dim = x.shape[1]
 
         # each row is unit norm
-        samples = nn.functional.normalize(torch.cat((x,y),dim=0), dim=1, p=2)
+        samples = nn.functional.normalize(torch.cat((x,y),dim=0), dim=1, p=2, eps=self.eps)
         assert samples.shape == (2*num_data, feat_dim), (f"What did you do?? "
                     "Expected size {(2*num_data, feat_dim)}, got {samples.shape}.")
 

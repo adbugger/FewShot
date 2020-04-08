@@ -12,6 +12,8 @@ from utils import ( getattr_or_default,
                     get_gpu_ids,
                     get_func_on_master,
                     get_printer,
+                    Value,
+                    ValuePrinter
                 )
 
 import datasets
@@ -49,6 +51,8 @@ def train_loop(options):
 
     # Switch off for validation and testing
     options.shuffle = False
+    
+    plain_train_loader = get_loader(dataset.plain_train_set, options)
 
     test_loader = get_loader(dataset.test_set, options)
     num_test_classes = len(test_loader.dataset.classes)
@@ -63,9 +67,17 @@ def train_loop(options):
     time_track = AverageMeter()
     best_model_state = model.state_dict()
 
-    min_loss = 1e6
-    max_test_eval = -1e6
-    max_val_eval = -1e6
+    loss_val = Value(1e6, min, name="loss")
+    loss_printer = ValuePrinter()
+    loss_printer.track(loss_val)
+
+    test_eval = Value(-1e6, max, name="test_acc")
+    val_eval = Value(-1e6, max, name="val_acc")
+    train_eval = Value(-1e6, max, name="train_acc")
+    eval_printer = ValuePrinter()
+    eval_printer.track(train_eval)
+    eval_printer.track(val_eval)
+    eval_printer.track(test_eval)
 
     Print((f"Starting Training on:\n"
            f"Train: {num_train_classes:>3d} classes\n"
@@ -93,37 +105,26 @@ def train_loop(options):
         # epoch end
         time_track.accumulate(time.time() - epoch_start)
 
-        avg_loss = epoch_loss_track.value()
+        loss_val.update(epoch_loss_track.value())
 
-        Print(f"({time_track.latest():>8.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}:", end='')
-
-        if avg_loss < min_loss:
-            Print(f" loss=\u001b[32m{avg_loss:<f}\u001b[0m", end='')
-            min_loss = avg_loss
+        Print(f"({time_track.latest():>7.3f}s) Epoch {epoch+1:0>3}/{options.num_epochs:>3}:", end='')
+        Print(loss_printer.get_formatted_line(), end='')
+        if loss_val.current_is_best:
             best_model_state = model.state_dict()
-        else:
-            Print(f" loss={avg_loss:<f}", end='')
 
         if options.local_rank==0 and epoch % options.eval_freq == options.eval_freq-1:
-            test_start = time.time()
-            test_acc = kmeans_on_data(model, test_loader, options)
-            test_time = time.time() - test_start
+            eval_start = time.time()
+            model.eval()
 
-            val_start = time.time()
-            val_acc = kmeans_on_data(model, valid_loader, options)
-            val_time = time.time() - val_start
+            train_eval.update(kmeans_on_data(model, plain_train_loader, options))
+            val_eval.update(kmeans_on_data(model, valid_loader, options))
+            test_eval.update(kmeans_on_data(model, test_loader, options))
 
-            if val_acc > max_val_eval:
-                Print(f" ({val_time:>8.3f}s) val_acc=\u001b[32m{val_acc:<.9f}\u001b[0m", end='')
-                max_val_eval = val_acc
-            else:
-                Print(f" ({val_time:>8.3f}s) val_acc={val_acc:<.9f}", end='')
+            model.train()
+            eval_time = time.time() - eval_start
 
-            if test_acc > max_test_eval:
-                Print(f" ({test_time:>8.3f}s) test_acc=\u001b[32m{test_acc:<.9f}\u001b[0m", end='')
-                max_test_eval = test_acc
-            else:
-                Print(f" ({test_time:>8.3f}s) test_acc={test_acc:<.9f}", end='')
+            Print(f"  ({eval_time:>7.3f}s) ", end='')
+            Print(eval_printer.get_formatted_line(), end='')
         Print()
 
     Print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
