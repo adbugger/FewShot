@@ -15,6 +15,15 @@ def parse_args():
     train_args.add_argument("--no_save_model", dest='save_model', action='store_false')
     train_args.set_defaults(save_model=True)
 
+    # Few Shot Arguments
+    fewshot_args = parser.add_argument_group("Fewshot Arguments")
+    fewshot_args.add_argument("--load_from", type=argparse.FileType('r'))
+    fewshot_args.add_argument("--episode_strat", type=str, choices=['SimpleShotEpisodes'], default='SimpleShotEpisodes')
+    fewshot_args.add_argument("--n_way", type=int, default=5)
+    fewshot_args.add_argument("--k_shot", type=int, default=5)
+    fewshot_args.add_argument("--num_test_tasks", type=int, default=int(1e4))
+    fewshot_args.add_argument("--num_query", type=int, default=15)
+
     # Optimizer Arguments
     opt_args = parser.add_argument_group("Optimizer Arguments")
     opt_args.add_argument("--base_learning_rate", type=float, default=1e-2)
@@ -62,7 +71,8 @@ def parse_args():
 
     # Data arguments
     data_args = parser.add_argument_group("Dataset Arguments")
-    data_args.add_argument("--dataset", type=str, default='cifar100fs', choices=['cifar100fs'])
+    data_args.add_argument("--dataset", type=str, default='cifar100fs',
+            choices=['cifar100fs', 'fc100', 'miniImagenet'])
     data_args.add_argument("--dataset_root", type=str, required=False)
 
     # Data loader arguments

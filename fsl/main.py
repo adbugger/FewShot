@@ -27,7 +27,7 @@ from evaluators import kmeans_on_data
 
 def train_loop(options):
     Print = get_printer(options)
-    # Print(options)
+    Print(options)
 
     Save = get_func_on_master(torch.save, options)
 

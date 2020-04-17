@@ -5,6 +5,13 @@
 # Slurm output files
 slurm*.out
 
+# Vim swap files
+.*.swo
+.*.swp
+
+# Vim session files
+*.vim
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -60,3 +60,71 @@ class cifar100fs():
         self.plain_train_set = tv_datasets.ImageFolder(root=self.train_root, transform=other_transform)
         self.test_set = tv_datasets.ImageFolder(root=self.test_root, transform=other_transform)
         self.valid_set = tv_datasets.ImageFolder(root=self.valid_root, transform=other_transform)
+
+
+class fc100():
+    def __init__(self, options):
+        self.dataset_root = abspath(getattr_or_default(options, 'dataset_root', '/home/aditya.bharti/FC100'))
+        self.train_root = path_join(self.dataset_root, 'train')
+        self.test_root = path_join(self.dataset_root, 'test')
+        self.valid_root = path_join(self.dataset_root, 'val')
+
+        self.mean = (0.5071, 0.4867, 0.4408)
+        self.std = (0.2675, 0.2565, 0.2761)
+
+        self.image_channels = 3
+        self.image_size = 84
+
+        options.image_size = self.image_size
+        options.image_channels = self.image_channels
+
+        options.image_mean = self.mean
+        options.image_std = self.std
+
+        multi_transforms = get_transforms(options)
+        other_transform = tv_transforms.Compose([
+                            tv_transforms.ToTensor(),
+                            tv_transforms.Normalize(self.mean, self.std),
+                        ])
+
+        self.train_set = MultiTransformDataset(
+            tv_datasets.ImageFolder(root=self.train_root, transform=None),
+            transform_list=multi_transforms, options=options
+        )
+        self.plain_train_set = tv_datasets.ImageFolder(root=self.train_root, transform=other_transform)
+        self.test_set = tv_datasets.ImageFolder(root=self.test_root, transform=other_transform)
+        self.valid_set = tv_datasets.ImageFolder(root=self.valid_root, transform=other_transform)
+
+
+class miniImagenet():
+    def __init__(self, options):
+        self.dataset_root = abspath(getattr_or_default(options, 'dataset_root', '/home/aditya.bharti/mini-imagenet'))
+        self.train_root = path_join(self.dataset_root, 'train')
+        self.test_root = path_join(self.dataset_root, 'test')
+        self.valid_root = path_join(self.dataset_root, 'val')
+
+        self.mean = (0.4802, 0.4481, 0.3975)
+        self.std = (0.2302, 0.2265, 0.2262)
+
+        self.image_channels = 3
+        self.image_size = 84
+
+        options.image_size = self.image_size
+        options.image_channels = self.image_channels
+
+        options.image_mean = self.mean
+        options.image_std = self.std
+
+        multi_transforms = get_transforms(options)
+        other_transform = tv_transforms.Compose([
+                            tv_transforms.ToTensor(),
+                            tv_transforms.Normalize(self.mean, self.std),
+                        ])
+
+        self.train_set = MultiTransformDataset(
+            tv_datasets.ImageFolder(root=self.train_root, transform=None),
+            transform_list=multi_transforms, options=options
+        )
+        self.plain_train_set = tv_datasets.ImageFolder(root=self.train_root, transform=other_transform)
+        self.test_set = tv_datasets.ImageFolder(root=self.test_root, transform=other_transform)
+        self.valid_set = tv_datasets.ImageFolder(root=self.valid_root, transform=other_transform)

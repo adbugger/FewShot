@@ -1,0 +1,107 @@
+Starting Training on:
+Train:  60 classes
+Valid:  20 classes
+Test:   20 classes
+------------------
+( 27.025s) Epoch 001/100: loss=[32m6.066969[0m
+( 25.130s) Epoch 002/100: loss=[32m5.858042[0m
+( 25.152s) Epoch 003/100: loss=[32m5.782770[0m
+( 25.199s) Epoch 004/100: loss=[32m5.733902[0m
+( 25.244s) Epoch 005/100: loss=[32m5.704160[0m  ( 12.240s)  train_acc=[32m-0.001482[0m val_acc=[32m0.139956[0m test_acc=[32m0.139297[0m
+( 24.499s) Epoch 006/100: loss=[32m5.682909[0m
+( 25.218s) Epoch 007/100: loss=[32m5.660447[0m
+( 25.269s) Epoch 008/100: loss=[32m5.646809[0m
+( 25.292s) Epoch 009/100: loss=[32m5.639613[0m
+( 25.311s) Epoch 010/100: loss=[32m5.627636[0m  ( 10.985s)  train_acc=-0.001482[0m val_acc=0.131109[0m test_acc=0.131720[0m
+( 24.572s) Epoch 011/100: loss=[32m5.620046[0m
+( 25.385s) Epoch 012/100: loss=[32m5.604691[0m
+( 25.360s) Epoch 013/100: loss=[32m5.595782[0m
+( 25.391s) Epoch 014/100: loss=[32m5.586483[0m
+( 25.346s) Epoch 015/100: loss=[32m5.577655[0m  ( 11.104s)  train_acc=-0.001578[0m val_acc=[32m0.149067[0m test_acc=[32m0.149207[0m
+( 24.594s) Epoch 016/100: loss=[32m5.570164[0m
+( 25.337s) Epoch 017/100: loss=[32m5.565022[0m
+( 25.447s) Epoch 018/100: loss=[32m5.550464[0m
+( 25.410s) Epoch 019/100: loss=[32m5.547144[0m
+( 25.463s) Epoch 020/100: loss=[32m5.544061[0m  ( 10.945s)  train_acc=[32m-0.001437[0m val_acc=0.093343[0m test_acc=0.093490[0m
+( 24.646s) Epoch 021/100: loss=[32m5.533498[0m
+( 25.451s) Epoch 022/100: loss=[32m5.523561[0m
+( 25.465s) Epoch 023/100: loss=[32m5.506190[0m
+( 25.490s) Epoch 024/100: loss=[32m5.488817[0m
+( 25.466s) Epoch 025/100: loss=[32m5.472736[0m  ( 11.319s)  train_acc=[32m-0.001436[0m val_acc=0.108092[0m test_acc=0.108415[0m
+( 24.674s) Epoch 026/100: loss=[32m5.465902[0m
+( 25.411s) Epoch 027/100: loss=[32m5.453865[0m
+( 25.526s) Epoch 028/100: loss=[32m5.446125[0m
+( 25.506s) Epoch 029/100: loss=[32m5.443536[0m
+( 25.533s) Epoch 030/100: loss=[32m5.440535[0m  ( 11.422s)  train_acc=-0.001579[0m val_acc=0.062407[0m test_acc=0.062763[0m
+( 24.634s) Epoch 031/100: loss=[32m5.437412[0m
+( 25.369s) Epoch 032/100: loss=[32m5.430069[0m
+( 25.439s) Epoch 033/100: loss=[32m5.424731[0m
+( 25.470s) Epoch 034/100: loss=5.426308[0m
+( 25.549s) Epoch 035/100: loss=[32m5.422645[0m  ( 11.519s)  train_acc=-0.001634[0m val_acc=0.086755[0m test_acc=0.087441[0m
+( 24.559s) Epoch 036/100: loss=[32m5.416534[0m
+( 25.415s) Epoch 037/100: loss=[32m5.414986[0m
+( 25.454s) Epoch 038/100: loss=5.415315[0m
+( 25.531s) Epoch 039/100: loss=[32m5.412216[0m
+( 25.445s) Epoch 040/100: loss=[32m5.411700[0m  ( 11.443s)  train_acc=-0.001632[0m val_acc=0.033536[0m test_acc=0.033927[0m
+( 24.570s) Epoch 041/100: loss=[32m5.411555[0m
+( 25.404s) Epoch 042/100: loss=[32m5.406715[0m
+( 25.435s) Epoch 043/100: loss=5.406772[0m
+( 25.410s) Epoch 044/100: loss=5.407039[0m
+( 25.502s) Epoch 045/100: loss=[32m5.402739[0m  ( 11.430s)  train_acc=-0.001683[0m val_acc=0.033593[0m test_acc=0.034111[0m
+( 24.667s) Epoch 046/100: loss=5.402862[0m
+( 25.456s) Epoch 047/100: loss=[32m5.401819[0m
+( 25.472s) Epoch 048/100: loss=[32m5.401592[0m
+( 25.468s) Epoch 049/100: loss=[32m5.397287[0m
+( 25.461s) Epoch 050/100: loss=[32m5.394957[0m  ( 11.123s)  train_acc=-0.001620[0m val_acc=0.062421[0m test_acc=0.062779[0m
+( 24.712s) Epoch 051/100: loss=5.396062[0m
+( 25.388s) Epoch 052/100: loss=[32m5.393322[0m
+( 25.511s) Epoch 053/100: loss=5.396592[0m
+( 25.451s) Epoch 054/100: loss=[32m5.392678[0m
+( 25.562s) Epoch 055/100: loss=[32m5.391325[0m  ( 11.349s)  train_acc=-0.001644[0m val_acc=0.046740[0m test_acc=0.047145[0m
+( 24.735s) Epoch 056/100: loss=5.392082[0m
+( 25.374s) Epoch 057/100: loss=[32m5.390709[0m
+( 25.481s) Epoch 058/100: loss=[32m5.390434[0m
+( 25.567s) Epoch 059/100: loss=[32m5.389833[0m
+( 25.436s) Epoch 060/100: loss=[32m5.387425[0m  ( 11.233s)  train_acc=-0.001681[0m val_acc=0.029668[0m test_acc=0.030074[0m
+( 24.584s) Epoch 061/100: loss=[32m5.387152[0m
+( 25.404s) Epoch 062/100: loss=[32m5.386276[0m
+( 25.492s) Epoch 063/100: loss=[32m5.385941[0m
+( 25.490s) Epoch 064/100: loss=[32m5.385300[0m
+( 25.494s) Epoch 065/100: loss=[32m5.382251[0m  ( 11.128s)  train_acc=-0.001646[0m val_acc=0.051743[0m test_acc=0.052213[0m
+( 24.637s) Epoch 066/100: loss=5.384549[0m
+( 25.418s) Epoch 067/100: loss=5.383920[0m
+( 25.511s) Epoch 068/100: loss=5.382601[0m
+( 25.508s) Epoch 069/100: loss=[32m5.382076[0m
+( 25.426s) Epoch 070/100: loss=[32m5.381168[0m  ( 11.085s)  train_acc=-0.001702[0m val_acc=0.009711[0m test_acc=0.010493[0m
+( 24.674s) Epoch 071/100: loss=5.381809[0m
+( 25.447s) Epoch 072/100: loss=5.381709[0m
+( 25.503s) Epoch 073/100: loss=[32m5.378532[0m
+( 25.476s) Epoch 074/100: loss=5.379731[0m
+( 25.519s) Epoch 075/100: loss=5.380423[0m  ( 11.382s)  train_acc=-0.001661[0m val_acc=0.042064[0m test_acc=0.042632[0m
+( 24.610s) Epoch 076/100: loss=5.380438[0m
+( 25.448s) Epoch 077/100: loss=5.380822[0m
+( 25.570s) Epoch 078/100: loss=5.379008[0m
+( 25.472s) Epoch 079/100: loss=[32m5.377442[0m
+( 25.504s) Epoch 080/100: loss=5.379696[0m  ( 11.241s)  train_acc=-0.001572[0m val_acc=0.033522[0m test_acc=0.034165[0m
+( 24.611s) Epoch 081/100: loss=5.378323[0m
+( 25.456s) Epoch 082/100: loss=5.379294[0m
+( 25.459s) Epoch 083/100: loss=5.379470[0m
+( 25.494s) Epoch 084/100: loss=[32m5.377361[0m
+( 25.476s) Epoch 085/100: loss=5.380685[0m  ( 11.347s)  train_acc=-0.001671[0m val_acc=0.019584[0m test_acc=0.020034[0m
+( 24.652s) Epoch 086/100: loss=[32m5.376868[0m
+( 25.387s) Epoch 087/100: loss=5.380965[0m
+( 25.419s) Epoch 088/100: loss=[32m5.376007[0m
+( 25.408s) Epoch 089/100: loss=[32m5.375173[0m
+( 25.456s) Epoch 090/100: loss=5.378872[0m  ( 11.116s)  train_acc=-0.001506[0m val_acc=0.037988[0m test_acc=0.038373[0m
+( 24.643s) Epoch 091/100: loss=5.376673[0m
+( 25.378s) Epoch 092/100: loss=5.376945[0m
+( 25.453s) Epoch 093/100: loss=5.376540[0m
+( 25.424s) Epoch 094/100: loss=5.378690[0m
+( 25.528s) Epoch 095/100: loss=5.378625[0m  ( 11.111s)  train_acc=-0.001527[0m val_acc=0.025968[0m test_acc=0.026456[0m
+( 24.648s) Epoch 096/100: loss=5.380227[0m
+( 25.498s) Epoch 097/100: loss=5.381158[0m
+( 25.484s) Epoch 098/100: loss=5.377647[0m
+( 25.552s) Epoch 099/100: loss=5.381338[0m
+( 25.446s) Epoch 100/100: loss=5.377060[0m  (  9.804s)  train_acc=-0.001694[0m val_acc=0.042062[0m test_acc=0.042651[0m
+Training for 100 epochs took 2529.804s total and 25.298s average
+Saving best model and options to fc100_experiments/CropResize_GaussBlur_runs/run1.pth

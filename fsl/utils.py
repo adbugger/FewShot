@@ -21,12 +21,13 @@ def get_func_on_master(func, options):
         return func
     return do_nothing
 
-def get_printer(options):
+def get_printer(options, append=False):
 
     def truncate(options):
         with open(options.log_file, mode='w') as _:
             pass
-    get_func_on_master(truncate, options)(options)
+    if not append:
+        get_func_on_master(truncate, options)(options)
 
     def print_func(*args, **kwargs):
         with open(options.log_file, mode='a') as outfile:

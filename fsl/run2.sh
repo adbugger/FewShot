@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --gpus=4
 #SBATCH --time=24:00:00
-#SBATCH --job-name=fc100_exp
+#SBATCH --job-name=mimgnet
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=ALL
 
@@ -20,7 +20,7 @@ function runner {
     model_save="$save_dir/$exp_name.pth"
 
     python -m torch.distributed.launch --nproc_per_node=4 main.py \
-        --complex_opt --dataset="cifar100fs" \
+        --complex_opt --dataset="miniImagenet" \
         --eval_freq=5 \
         --first_augment="$aug1" --second_augment="$aug2" \
         --num_epochs=$NUM_EPOCHS --batch_size=256 \
@@ -36,7 +36,7 @@ pushd "/home/aditya.bharti/FewShot/fsl";
 # runner exp_name save_dir aug1 aug2
 
 {
-    exp2_dir="cifar100fs_experiments/CropResize_GaussBlur_runs";
+    exp2_dir="miniImgnet_experiments/CropResize_GaussBlur_runs";
     runner "run1" "$exp2_dir" "CropResize" "GaussBlur";
     runner "run2" "$exp2_dir" "CropResize" "GaussBlur";
     runner "run3" "$exp2_dir" "CropResize" "GaussBlur";
@@ -48,7 +48,7 @@ pushd "/home/aditya.bharti/FewShot/fsl";
 }
 
 {
-    exp3_dir="cifar100fs_experiments/ColorDistort_GaussBlur_runs";
+    exp3_dir="miniImgnet_experiments/ColorDistort_GaussBlur_runs";
     runner "run1" "$exp3_dir" "ColorDistort" "GaussBlur";
     runner "run2" "$exp3_dir" "ColorDistort" "GaussBlur";
     runner "run3" "$exp3_dir" "ColorDistort" "GaussBlur";
@@ -60,7 +60,7 @@ pushd "/home/aditya.bharti/FewShot/fsl";
 }
 
 {
-    exp4_dir="cifar100fs_experiments/CropResize_ColorDistort_runs";
+    exp4_dir="miniImgnet_experiments/CropResize_ColorDistort_runs";
     runner "run1" "$exp4_dir" "CropResize" "ColorDistort";
     runner "run2" "$exp4_dir" "CropResize" "ColorDistort";
     runner "run3" "$exp4_dir" "CropResize" "ColorDistort";
