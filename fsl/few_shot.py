@@ -5,6 +5,7 @@ import torch
 
 import numpy
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler, Normalizer
 
 from arguments import parse_args
 from models import ( get_model, get_old_state )
@@ -36,6 +37,8 @@ def few_shot_loop(options):
     model.eval()
 
     classifier = KNeighborsClassifier(n_neighbors=1)
+    scaler = old_opts.train_scaler if hasattr(old_opts, "train_scaler") else None
+    nomalizer = Normalizer(copy=False)
 
     episode_loader = getattr(episode_strat, options.episode_strat)(old_opts).episode_loader(options)
     # episode_num = 1
@@ -45,8 +48,14 @@ def few_shot_loop(options):
     for full_data, full_labels in episode_loader:
         start_time = time.time()
 
-        full_data = model.module.backbone(full_data.to(options.cuda_device)).detach().cpu().numpy()
+        # full_data = model.module.backbone(full_data.to(options.cuda_device)).detach().cpu().numpy()
+        full_data = model(full_data.to(options.cuda_device)).detach().cpu().numpy()
         full_labels = full_labels.cpu().numpy()
+
+        # SimplsShot center and unit norm
+        if scaler is not None:
+            full_data = scaler.transform(full_data)
+        full_data = normalizer.transform(full_data)
 
         num_train = options.n_way * options.k_shot
         train_data, test_data = full_data[:num_train], full_data[num_train:]

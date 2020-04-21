@@ -13,12 +13,14 @@ def kmeans_on_data(model, data_loader, options):
     num_examples = len(data_loader.dataset)
     num_classes = len(data_loader.dataset.classes)
 
-    features = np.empty(shape=(num_examples, options.backbone_output_size))
+    # features = np.empty(shape=(num_examples, options.backbone_output_size))
+    features = np.empty(shape=(num_examples, options.projection_dim))
     targets = np.empty(shape=num_examples)
 
     idx = 0
     for data, labels in data_loader:
-        feat = model.module.backbone(data.to(device=options.cuda_device)).detach().cpu().numpy()
+        # feat = model.module.backbone(data.to(device=options.cuda_device)).detach().cpu().numpy()
+        feat = model(data.to(device=options.cuda_device)).detach().cpu().numpy()
         num_batch = feat.shape[0]
         features[idx:idx+num_batch] = feat
         targets[idx:idx+num_batch] = labels.numpy()

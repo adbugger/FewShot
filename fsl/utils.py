@@ -1,5 +1,6 @@
 from __future__ import division, print_function
 
+import functools
 import random
 import numpy as np
 import os
@@ -21,19 +22,8 @@ def get_func_on_master(func, options):
         return func
     return do_nothing
 
-def get_printer(options, append=False):
-
-    def truncate(options):
-        with open(options.log_file, mode='w') as _:
-            pass
-    if not append:
-        get_func_on_master(truncate, options)(options)
-
-    def print_func(*args, **kwargs):
-        with open(options.log_file, mode='a') as outfile:
-            kwargs['file'] = outfile
-            print(*args, **kwargs)
-
+def get_printer(options):
+    print_func = functools.partial(print, file=options.log_file, flush=True)
     return get_func_on_master(print_func, options)
 
 def getattr_or_default(obj, prop, def_val):

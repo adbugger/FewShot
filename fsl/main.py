@@ -24,6 +24,7 @@ from models import get_model
 from optimizers import get_optimizer, get_scheduler
 from evaluators import kmeans_on_data
 
+from sklearn.preprocessing import StandardScaler, Normalizer
 
 def train_loop(options):
     Print = get_printer(options)
@@ -129,6 +130,21 @@ def train_loop(options):
 
     Print((f"Training for {options.num_epochs} epochs took {time_track.total():.3f}s total "
            f"and {time_track.value():.3f}s average"))
+
+    Print("Calculating mean of transformed dataset using the best model state ...", end='')
+    # since this is what will be saved later
+    model.load_state_dict(best_model_state)
+    model.eval()
+    scaler = StandardScaler(copy=False, with_std=False)
+
+    mean_time = time.time()
+    for data, _ in plain_train_loader:
+        # feat = model.module.backbone(data.to(device=options.cuda_device)).detach().cpu().numpy()
+        feat = model(data.to(device=options.cuda_device)).detach().cpu().numpy()
+        scaler.partial_fit(feat)
+    mean_time = time.time() - mean_time
+    Print(f" {mean_time:.3f}s") 
+    options.train_scaler = scaler
 
     Print(f"Saving best model and options to {options.save_path}")
     save_dict = {'option': options}

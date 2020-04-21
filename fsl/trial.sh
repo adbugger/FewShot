@@ -28,18 +28,26 @@ pushd "/home/aditya.bharti/FewShot/fsl";
 
 {
     test_dir="tests";
-    for pth_file in $( find "fc100_experiments/" -type f -name "*.pth" -exec readlink -f {} \; ); do
+    for pth_file in $( find "cifar100fs_experiments/" -type f -name "*.pth" -exec readlink -f {} \; ); do
         echo "doing $pth_file";
-        tester "fc100_runs" "$test_dir" "$pth_file";
+        tester "cifar100fs_runs" "$test_dir" "$pth_file";
     done;
 }
 
-{
-    test_dir="tests";
-    for pth_file in $( find "miniImgnet_experiments/" -type f -name "*.pth" -exec readlink -f {} \; ); do
-        echo "doing $pth_file";
-        tester "miniImgnet_runs" "$test_dir" "$pth_file";
-    done;
-}
+#{
+#    test_dir="tests";
+#    for pth_file in $( find "fc100_experiments/" -type f -name "*.pth" -exec readlink -f {} \; ); do
+#        echo "doing $pth_file";
+#        tester "fc100_runs" "$test_dir" "$pth_file";
+#    done;
+#}
+#
+#{
+#    test_dir="tests";
+#    for pth_file in $( find "miniImgnet_experiments/" -type f -name "*.pth" -exec readlink -f {} \; ); do
+#        echo "doing $pth_file";
+#        tester "miniImgnet_runs" "$test_dir" "$pth_file";
+#    done;
+#}
 
 popd;
