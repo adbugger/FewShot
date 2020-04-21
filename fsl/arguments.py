@@ -5,6 +5,10 @@ def parse_args():
 
     # Distributed stuff
     parser.add_argument("--local_rank", type=int, default=0)
+    
+    parser.add_argument("--distributed", dest='distributed', action='store_true')
+    parser.add_argument("--no_distributed", dest='distributed', action='store_false')
+    parser.set_defaults(distributed=True)
 
     # Train Arguments
     train_args = parser.add_argument_group("Train Arguments")
@@ -110,7 +114,7 @@ def parse_args():
 
     # Logging arguments
     log_args = parser.add_argument_group("Logging Arguments")
-    log_args.add_argument("--log_file", type=argparse.FileType('a'), required=True)
+    log_args.add_argument("--log_file", type=argparse.FileType('a'), required=False)
 
     options = parser.parse_args()
     return options

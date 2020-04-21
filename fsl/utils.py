@@ -23,7 +23,10 @@ def get_func_on_master(func, options):
     return do_nothing
 
 def get_printer(options):
-    print_func = functools.partial(print, file=options.log_file, flush=True)
+    if hasattr(options, 'log_file') and options.log_file is not None:
+        print_func = functools.partial(print, file=options.log_file, flush=True)
+    else:
+        print_func = functools.partial(print, flush=True)
     return get_func_on_master(print_func, options)
 
 def getattr_or_default(obj, prop, def_val):
@@ -37,11 +40,14 @@ def getattr_or_default(obj, prop, def_val):
     return value
 
 def get_loader(dataset, options):
-    sampler = DistributedSampler(
-        dataset,
-        num_replicas=len(get_gpu_ids()),
-        rank=options.local_rank
-    )
+    if options.distributed:
+        sampler = DistributedSampler(
+            dataset,
+            num_replicas=len(get_gpu_ids()),
+            rank=options.local_rank
+        )
+    else: sampler = None
+
     return DataLoader(dataset,
                       batch_size=options.batch_size,
                       # shuffle=options.shuffle,

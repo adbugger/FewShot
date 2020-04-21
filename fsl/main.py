@@ -36,12 +36,13 @@ def train_loop(options):
     gpus = get_gpu_ids()
     options.cuda_device = f"cuda:{options.local_rank}"
     torch.cuda.set_device(options.local_rank)
-    torch.distributed.init_process_group(
-        backend='nccl',
-        init_method="env://",
-        world_size=len(gpus),
-        rank=options.local_rank
-    )
+    if options.distributed:
+        torch.distributed.init_process_group(
+            backend='nccl',
+            init_method="env://",
+            world_size=len(gpus),
+            rank=options.local_rank
+        )
 
     model = get_model(options)
     # Print(model)
@@ -145,7 +146,7 @@ def train_loop(options):
     mean_time = time.time() - mean_time
     Print(f" {mean_time:.3f}s") 
     options.train_scaler = scaler
-
+    options.log_file = options.log_file.name
     Print(f"Saving best model and options to {options.save_path}")
     save_dict = {'option': options}
     if options.save_model:

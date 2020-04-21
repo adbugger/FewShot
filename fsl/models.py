@@ -21,13 +21,17 @@ class SimCLRModel(nn.Module):
 
 def get_model(options):
     model = (getattr(sys.modules[__name__], options.model)(options))
-    model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
+    if options.distributed:
+        model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
     model = model.to(device=options.cuda_device)
-    model = nn.parallel.DistributedDataParallel(
-        model,
-        device_ids=[options.local_rank],
-        output_device=options.local_rank
-    )
+    if options.distributed:
+        model = nn.parallel.DistributedDataParallel(
+            model,
+            device_ids=[options.local_rank],
+            output_device=options.local_rank
+        )
+    else:
+        model = nn.DataParallel(model)
     return model
 
 def get_old_state(options):
