@@ -1,8 +1,0 @@
-Starting Training on:
-Train:  64 classes
-Valid:  16 classes
-Test:   20 classes
-------------------
-( 18.464s) Epoch 001/  5: loss=[32m7.304778[0m  ( 11.655)  train_acc=[32m-0.001078[0m val_acc=[32m0.383277[0m test_acc=[32m0.304332[0m
-(  8.532s) Epoch 002/  5: loss=[32m7.115874[0m  ( 10.245)  train_acc=-0.001448[0m val_acc=[32m0.388758[0m test_acc=[32m0.307180[0m
-(  8.489s) Epoch 003/  5: loss=[32m7.018090[0m
