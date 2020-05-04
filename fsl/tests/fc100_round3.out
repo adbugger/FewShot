@@ -1,0 +1,12 @@
+(0.029s avg / 289.977s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_ColorDistort_runs/run3.pth: 0.29032666666667967
+(0.030s avg / 304.516s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_ColorDistort_runs/run4.pth: 0.28868933333334584
+(0.030s avg / 297.018s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_ColorDistort_runs/run1.pth: 0.291108000000014
+(0.029s avg / 296.331s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_ColorDistort_runs/run2.pth: 0.2920080000000147
+(0.030s avg / 298.193s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_GaussBlur_runs/run3.pth: 0.29808533333334847
+(0.030s avg / 297.245s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_GaussBlur_runs/run4.pth: 0.2986680000000162
+(0.030s avg / 297.443s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_GaussBlur_runs/run1.pth: 0.30288400000001603
+(0.030s avg / 297.799s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/CropResize_GaussBlur_runs/run2.pth: 0.2976733333333492
+(0.030s avg / 299.280s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/ColorDistort_GaussBlur_runs/run3.pth: 0.22372266666666907
+(0.030s avg / 296.888s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/ColorDistort_GaussBlur_runs/run4.pth: 0.2214840000000037
+(0.030s avg / 302.015s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/ColorDistort_GaussBlur_runs/run1.pth: 0.2227400000000033
+(0.030s avg / 297.896s) Using file /home/aditya.bharti/FewShot/fsl/miniImgnet_round3/ColorDistort_GaussBlur_runs/run2.pth: 0.2226293333333372

@@ -46,14 +46,19 @@ def get_loader(dataset, options):
             num_replicas=len(get_gpu_ids()),
             rank=options.local_rank
         )
-    else: sampler = None
+        return DataLoader(dataset,
+                          batch_size=options.batch_size,
+                          # shuffle=options.shuffle,
+                          # num_workers=options.num_workers,
+                          pin_memory=options.pin_memory,
+                          sampler=sampler,
+                        )
 
     return DataLoader(dataset,
                       batch_size=options.batch_size,
-                      # shuffle=options.shuffle,
+                      shuffle=options.shuffle,
                       num_workers=options.num_workers,
                       pin_memory=options.pin_memory,
-                      sampler=sampler,
                     )
 
 def seed_everything(seed, high_speed=False):

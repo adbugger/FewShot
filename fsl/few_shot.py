@@ -20,25 +20,26 @@ from utils import ( get_printer,
                     AverageMeter)
 
 def few_shot_loop(options):
-    Print = get_printer(options, append=True)
+    Print = get_printer(options)
 
     # distributed stuff
     gpus = get_gpu_ids()
     options.cuda_device = f"cuda:{options.local_rank}"
     torch.cuda.set_device(options.local_rank)
-    torch.distributed.init_process_group(
-        backend='nccl',
-        init_method="env://",
-        world_size=len(gpus),
-        rank=options.local_rank
-    )
+    if options.distributed:
+        torch.distributed.init_process_group(
+            backend='nccl',
+            init_method="env://",
+            world_size=len(gpus),
+            rank=options.local_rank
+        )
 
     model, old_opts = get_old_state(options)
     model.eval()
 
     classifier = KNeighborsClassifier(n_neighbors=1)
     scaler = old_opts.train_scaler if hasattr(old_opts, "train_scaler") else None
-    nomalizer = Normalizer(copy=False)
+    normalizer = Normalizer(copy=False)
 
     episode_loader = getattr(episode_strat, options.episode_strat)(old_opts).episode_loader(options)
     # episode_num = 1
@@ -66,9 +67,6 @@ def few_shot_loop(options):
         score_track.accumulate(score)
         
         time_track.accumulate(time.time() - start_time)
-        # if episode_num % 20 == 19:
-        #     print(f"Task {episode_num}/{options.num_test_tasks}: score={score_track.latest()}")
-        # episode_num += 1
 
     Print(f"({time_track.latest():.3f}s avg / {time_track.total():.3f}s) Using file {options.load_from.name}: {score_track.value()}")
     return
