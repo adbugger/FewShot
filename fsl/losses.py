@@ -8,27 +8,28 @@ import numpy as np
 import torch
 nn = torch.nn
 
-from pytorch_metric_learning.losses import NTXentLoss
+# from pytorch_metric_learning.losses import NTXentLoss
 
-__all__ = ["NTXent", "PyMetricNTXent"]
+__all__ = ["NTXent"]
+# __all__ = ["NTXent", "PyMetricNTXent"]
 
-class PyMetricNTXent(nn.Module):
-    # https://github.com/KevinMusgrave/pytorch-metric-learning/issues/6
-    def __init__(self, options):
-        super().__init__()
-        self.temp = options.ntxent_temp
-        self.loss_func = NTXentLoss(temperature=self.temp)
-    
-    def forward(self, x, y):
-        assert x.shape == y.shape, (f"Input to loss functions must be of same shape. "
-            "Got {x.shape} and {y.shape}.")
-        num_data = x.shape[0]
-
-        embeddings = torch.cat((x, y))
-        indices = torch.arange(0, num_data, device=x.device)
-        labels = torch.cat((indices, indices))
-
-        return self.loss_func(embeddings, labels)
+# class PyMetricNTXent(nn.Module):
+#     # https://github.com/KevinMusgrave/pytorch-metric-learning/issues/6
+#     def __init__(self, options):
+#         super().__init__()
+#         self.temp = options.ntxent_temp
+#         self.loss_func = NTXentLoss(temperature=self.temp)
+#     
+#     def forward(self, x, y):
+#         assert x.shape == y.shape, (f"Input to loss functions must be of same shape. "
+#             "Got {x.shape} and {y.shape}.")
+#         num_data = x.shape[0]
+# 
+#         embeddings = torch.cat((x, y))
+#         indices = torch.arange(0, num_data, device=x.device)
+#         labels = torch.cat((indices, indices))
+# 
+#         return self.loss_func(embeddings, labels)
 
 
 class NTXent(nn.Module):

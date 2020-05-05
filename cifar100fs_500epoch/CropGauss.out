@@ -1,0 +1,26 @@
+Namespace(T_max=500, backbone='resnet50', base_learning_rate=0.1, base_optimizer='SGD', batch_size=512, dampening=0.0, dataset='cifar100fs', dataset_root=None, distributed=True, episode_strat='SimpleShotEpisodes', eval_freq=20, first_augment='CropResize', head='SimpleMLP', jitter_strength=1.0, k_shot=5, load_from=None, local_rank=0, log_file=<_io.TextIOWrapper name='cifar100fs_500epoch/CropGauss.out' mode='a' encoding='UTF-8'>, loss_function='NTXent', model='SimCLRModel', momentum=0.9, n_way=5, nesterov=True, ntxent_temp=1.0, num_epochs=500, num_query=15, num_test_tasks=10000, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_model=True, save_path='cifar100fs_500epoch/CropGauss.pth', scheduler='CosineAnnealingLR', second_augment='GaussBlur', secondary_optimizer='LARS', shuffle=True, simple_opt=True, weight_decay=0.0001)
+Starting Training on:
+Train:  64 classes
+Valid:  16 classes
+Test:   20 classes
+------------------
+( 27.201s) Epoch 001/500: loss=[32m6.493399[0m
+( 20.335s) Epoch 002/500: loss=[32m6.273408[0m
+( 18.049s) Epoch 003/500: loss=[32m6.234536[0m
+( 18.195s) Epoch 004/500: loss=[32m6.199627[0m
+( 18.120s) Epoch 005/500: loss=[32m6.162027[0m
+( 18.193s) Epoch 006/500: loss=[32m6.145959[0m
+( 18.178s) Epoch 007/500: loss=[32m6.140292[0m
+( 18.311s) Epoch 008/500: loss=[32m6.137337[0m
+( 18.185s) Epoch 009/500: loss=[32m6.125360[0m
+( 18.241s) Epoch 010/500: loss=[32m6.119099[0m
+( 18.258s) Epoch 011/500: loss=[32m6.106038[0m
+( 18.179s) Epoch 012/500: loss=[32m6.104245[0m
+( 18.275s) Epoch 013/500: loss=[32m6.100305[0m
+( 18.335s) Epoch 014/500: loss=[32m6.094644[0m
+( 18.272s) Epoch 015/500: loss=[32m6.091654[0m
+( 18.298s) Epoch 016/500: loss=[32m6.089117[0m
+( 18.226s) Epoch 017/500: loss=[32m6.083942[0m
+( 18.268s) Epoch 018/500: loss=6.085420[0m
+( 18.322s) Epoch 019/500: loss=[32m6.079008[0m
+( 18.288s) Epoch 020/500: loss=6.079120[0m

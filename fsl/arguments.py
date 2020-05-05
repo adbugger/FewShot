@@ -34,7 +34,7 @@ def parse_args():
 
     opt_args.add_argument("--simple_opt", dest='simple_opt', action='store_true')
     opt_args.add_argument("--complex_opt", dest='simple_opt', action='store_false')
-    opt_args.set_defaults(simple_opt=False)
+    opt_args.set_defaults(simple_opt=True)
 
     opt_args.add_argument("--base_optimizer", type=str, default="SGD")
     opt_args.add_argument("--secondary_optimizer", type=str, default="LARS")
@@ -105,7 +105,8 @@ def parse_args():
 
     # Loss function parameters
     loss_args = parser.add_argument_group("Loss Function Arguments")
-    loss_args.add_argument("--loss_function", type=str, default="PyMetricNTXent", choices=["NTXent", "PyMetricNTXent"])
+    loss_args.add_argument("--loss_function", type=str, default="NTXent", choices=["NTXent"])
+    # loss_args.add_argument("--loss_function", type=str, default="NTXent", choices=["NTXent", "PyMetricNTXent"])
     loss_args.add_argument("--ntxent_temp", type=float, default=1.0)
 
     # Test set kmeans evaluation
