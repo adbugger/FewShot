@@ -1,0 +1,509 @@
+Namespace(T_max=500, backbone='resnet50', base_learning_rate=0.1, base_optimizer='SGD', batch_size=256, dampening=0.0, data_percent=20, dataset='miniImagenet', dataset_root=None, distributed=False, episode_strat='SimpleShotEpisodes', eval_freq=5, fine_tune_epochs=20, fine_tune_save_path='ft0.pth', first_augment='CropResize', head='SimpleMLP', jitter_strength=1.0, k_shot=5, load_from=None, local_rank=0, log_file=<_io.TextIOWrapper name='/home/aditya.bharti/FewShot/miniImgnet_500epoch/CropColor.out' mode='a' encoding='UTF-8'>, loss_function='NTXent', model='SimCLRModel', momentum=0.9, n_way=5, nesterov=True, ntxent_temp=1.0, num_epochs=500, num_query=15, num_test_tasks=10000, num_workers=4, pin_memory=True, pretrained=False, progress=False, projection_dim=128, save_model=True, save_path='/home/aditya.bharti/FewShot/miniImgnet_500epoch/CropColor.pth', scheduler='CosineAnnealingLR', second_augment='ColorDistort', shuffle=True, simple_opt=True, weight_decay=0.0001)
+Starting Training on:
+Train:  64 classes
+Valid:  16 classes
+Test:   20 classes
+------------------
+( 77.774s) Epoch 001/500: loss=[32m5.917172[0m
+( 81.450s) Epoch 002/500: loss=[32m5.744030[0m
+( 78.096s) Epoch 003/500: loss=[32m5.674574[0m
+( 77.386s) Epoch 004/500: loss=[32m5.634020[0m
+( 77.954s) Epoch 005/500: loss=[32m5.604959[0m  ( 14.879s)  val_acc=[32m0.045650[0m test_acc=[32m0.027059[0m
+( 77.378s) Epoch 006/500: loss=[32m5.577835[0m
+( 84.201s) Epoch 007/500: loss=[32m5.570226[0m
+( 77.851s) Epoch 008/500: loss=[32m5.549481[0m
+( 78.336s) Epoch 009/500: loss=[32m5.537449[0m
+( 77.635s) Epoch 010/500: loss=[32m5.527719[0m  ( 14.500s)  val_acc=[32m0.055972[0m test_acc=[32m0.034617[0m
+( 78.260s) Epoch 011/500: loss=5.533489[0m
+( 77.370s) Epoch 012/500: loss=[32m5.520594[0m
+( 77.122s) Epoch 013/500: loss=[32m5.510710[0m
+( 77.182s) Epoch 014/500: loss=[32m5.505681[0m
+( 80.215s) Epoch 015/500: loss=[32m5.500495[0m  ( 14.221s)  val_acc=0.053126[0m test_acc=[32m0.038694[0m
+( 77.332s) Epoch 016/500: loss=[32m5.499392[0m
+( 81.395s) Epoch 017/500: loss=[32m5.494856[0m
+( 78.561s) Epoch 018/500: loss=[32m5.489104[0m
+( 87.288s) Epoch 019/500: loss=5.491951[0m
+( 87.046s) Epoch 020/500: loss=[32m5.480300[0m  ( 14.164s)  val_acc=[32m0.059285[0m test_acc=[32m0.045096[0m
+( 81.634s) Epoch 021/500: loss=[32m5.477672[0m
+( 78.003s) Epoch 022/500: loss=[32m5.472389[0m
+( 77.598s) Epoch 023/500: loss=[32m5.471876[0m
+( 77.209s) Epoch 024/500: loss=[32m5.465768[0m
+( 80.844s) Epoch 025/500: loss=[32m5.465045[0m  ( 14.353s)  val_acc=[32m0.063913[0m test_acc=[32m0.052049[0m
+( 77.988s) Epoch 026/500: loss=[32m5.460460[0m
+( 77.624s) Epoch 027/500: loss=[32m5.458051[0m
+( 79.184s) Epoch 028/500: loss=5.459353[0m
+( 87.370s) Epoch 029/500: loss=[32m5.455495[0m
+( 79.120s) Epoch 030/500: loss=5.460306[0m  ( 16.867s)  val_acc=[32m0.074337[0m test_acc=[32m0.053936[0m
+( 87.113s) Epoch 031/500: loss=[32m5.449102[0m
+( 78.934s) Epoch 032/500: loss=[32m5.447079[0m
+( 87.867s) Epoch 033/500: loss=5.447836[0m
+( 79.269s) Epoch 034/500: loss=5.452960[0m
+( 78.600s) Epoch 035/500: loss=[32m5.444390[0m  ( 16.430s)  val_acc=[32m0.075828[0m test_acc=[32m0.061141[0m
+( 81.161s) Epoch 036/500: loss=[32m5.440664[0m
+( 78.993s) Epoch 037/500: loss=[32m5.438043[0m
+( 79.980s) Epoch 038/500: loss=[32m5.436049[0m
+( 83.464s) Epoch 039/500: loss=[32m5.433892[0m
+( 81.385s) Epoch 040/500: loss=[32m5.432574[0m  ( 16.775s)  val_acc=[32m0.080513[0m test_acc=[32m0.061995[0m
+( 82.258s) Epoch 041/500: loss=5.435926[0m
+( 79.620s) Epoch 042/500: loss=5.440268[0m
+( 79.497s) Epoch 043/500: loss=5.433378[0m
+( 79.009s) Epoch 044/500: loss=5.439824[0m
+( 78.898s) Epoch 045/500: loss=[32m5.426769[0m  ( 16.023s)  val_acc=[32m0.092558[0m test_acc=[32m0.070758[0m
+( 79.699s) Epoch 046/500: loss=[32m5.425422[0m
+( 78.131s) Epoch 047/500: loss=[32m5.422768[0m
+( 78.561s) Epoch 048/500: loss=[32m5.422189[0m
+( 77.679s) Epoch 049/500: loss=[32m5.420415[0m
+( 77.864s) Epoch 050/500: loss=5.428538[0m  ( 16.076s)  val_acc=[32m0.107693[0m test_acc=[32m0.075436[0m
+( 79.417s) Epoch 051/500: loss=[32m5.419384[0m
+( 77.671s) Epoch 052/500: loss=[32m5.416709[0m
+( 82.662s) Epoch 053/500: loss=[32m5.414905[0m
+( 77.411s) Epoch 054/500: loss=5.420499[0m
+( 77.668s) Epoch 055/500: loss=5.417145[0m  ( 25.050s)  val_acc=0.100475[0m test_acc=[32m0.078888[0m
+( 99.468s) Epoch 056/500: loss=[32m5.412795[0m
+( 95.836s) Epoch 057/500: loss=[32m5.412277[0m
+( 79.598s) Epoch 058/500: loss=5.416722[0m
+( 80.412s) Epoch 059/500: loss=[32m5.410844[0m
+( 81.600s) Epoch 060/500: loss=[32m5.408476[0m  ( 19.608s)  val_acc=[32m0.110114[0m test_acc=[32m0.084469[0m
+( 88.947s) Epoch 061/500: loss=[32m5.407110[0m
+( 84.177s) Epoch 062/500: loss=[32m5.405380[0m
+( 83.655s) Epoch 063/500: loss=[32m5.403656[0m
+( 89.817s) Epoch 064/500: loss=5.405024[0m
+( 84.818s) Epoch 065/500: loss=[32m5.403284[0m  ( 16.816s)  val_acc=0.097385[0m test_acc=0.083146[0m
+( 84.902s) Epoch 066/500: loss=5.411657[0m
+( 82.791s) Epoch 067/500: loss=5.404197[0m
+( 83.165s) Epoch 068/500: loss=5.404086[0m
+( 92.299s) Epoch 069/500: loss=[32m5.401377[0m
+( 83.960s) Epoch 070/500: loss=5.408114[0m  ( 16.497s)  val_acc=0.108754[0m test_acc=[32m0.091442[0m
+( 87.676s) Epoch 071/500: loss=5.402488[0m
+( 80.987s) Epoch 072/500: loss=5.404142[0m
+( 84.110s) Epoch 073/500: loss=[32m5.400919[0m
+( 80.422s) Epoch 074/500: loss=[32m5.399504[0m
+( 79.998s) Epoch 075/500: loss=[32m5.396043[0m  ( 16.221s)  val_acc=0.103959[0m test_acc=0.087991[0m
+( 81.987s) Epoch 076/500: loss=5.396380[0m
+( 93.962s) Epoch 077/500: loss=[32m5.395067[0m
+( 81.671s) Epoch 078/500: loss=5.397274[0m
+( 79.538s) Epoch 079/500: loss=5.395394[0m
+( 82.554s) Epoch 080/500: loss=[32m5.394494[0m  ( 15.101s)  val_acc=[32m0.125581[0m test_acc=[32m0.095533[0m
+( 88.221s) Epoch 081/500: loss=5.398954[0m
+( 84.556s) Epoch 082/500: loss=5.394669[0m
+( 77.596s) Epoch 083/500: loss=[32m5.392481[0m
+( 77.808s) Epoch 084/500: loss=[32m5.392144[0m
+( 77.611s) Epoch 085/500: loss=5.392616[0m  ( 14.172s)  val_acc=0.120960[0m test_acc=0.094892[0m
+( 77.823s) Epoch 086/500: loss=5.392932[0m
+( 77.703s) Epoch 087/500: loss=[32m5.390842[0m
+( 82.164s) Epoch 088/500: loss=[32m5.389678[0m
+( 79.915s) Epoch 089/500: loss=5.389788[0m
+( 81.916s) Epoch 090/500: loss=5.391345[0m  ( 15.632s)  val_acc=0.125336[0m test_acc=[32m0.101793[0m
+( 81.485s) Epoch 091/500: loss=[32m5.388721[0m
+( 89.221s) Epoch 092/500: loss=5.391380[0m
+( 79.179s) Epoch 093/500: loss=[32m5.388100[0m
+( 79.410s) Epoch 094/500: loss=[32m5.387555[0m
+( 79.144s) Epoch 095/500: loss=[32m5.386976[0m  ( 16.271s)  val_acc=[32m0.131863[0m test_acc=[32m0.102344[0m
+( 99.872s) Epoch 096/500: loss=5.387395[0m
+( 84.291s) Epoch 097/500: loss=[32m5.385778[0m
+( 90.475s) Epoch 098/500: loss=5.386039[0m
+( 83.976s) Epoch 099/500: loss=[32m5.385634[0m
+( 83.123s) Epoch 100/500: loss=[32m5.385075[0m  ( 15.210s)  val_acc=[32m0.135095[0m test_acc=0.099537[0m
+( 83.794s) Epoch 101/500: loss=[32m5.383572[0m
+( 83.711s) Epoch 102/500: loss=[32m5.383504[0m
+( 84.368s) Epoch 103/500: loss=[32m5.382901[0m
+( 83.685s) Epoch 104/500: loss=5.396043[0m
+( 83.518s) Epoch 105/500: loss=5.397120[0m  ( 14.761s)  val_acc=[32m0.141020[0m test_acc=0.100856[0m
+( 84.045s) Epoch 106/500: loss=5.386928[0m
+( 83.438s) Epoch 107/500: loss=5.383659[0m
+( 83.197s) Epoch 108/500: loss=5.383206[0m
+( 89.182s) Epoch 109/500: loss=[32m5.382332[0m
+( 83.501s) Epoch 110/500: loss=5.382531[0m  ( 15.240s)  val_acc=[32m0.143875[0m test_acc=0.101102[0m
+( 86.568s) Epoch 111/500: loss=[32m5.380954[0m
+( 83.977s) Epoch 112/500: loss=[32m5.380080[0m
+( 83.641s) Epoch 113/500: loss=[32m5.379378[0m
+( 83.796s) Epoch 114/500: loss=5.379937[0m
+( 88.681s) Epoch 115/500: loss=5.380224[0m  ( 15.094s)  val_acc=0.140401[0m test_acc=[32m0.107312[0m
+( 88.150s) Epoch 116/500: loss=5.386748[0m
+( 84.186s) Epoch 117/500: loss=5.382062[0m
+( 83.876s) Epoch 118/500: loss=5.381839[0m
+(100.869s) Epoch 119/500: loss=5.380221[0m
+( 84.123s) Epoch 120/500: loss=[32m5.378482[0m  ( 15.274s)  val_acc=0.139040[0m test_acc=[32m0.114923[0m
+( 84.084s) Epoch 121/500: loss=[32m5.377957[0m
+(103.799s) Epoch 122/500: loss=[32m5.376634[0m
+( 88.937s) Epoch 123/500: loss=[32m5.376501[0m
+( 94.557s) Epoch 124/500: loss=5.377014[0m
+( 83.582s) Epoch 125/500: loss=5.376782[0m  ( 15.136s)  val_acc=0.136850[0m test_acc=0.107342[0m
+( 83.853s) Epoch 126/500: loss=5.376651[0m
+( 83.512s) Epoch 127/500: loss=[32m5.375271[0m
+( 83.338s) Epoch 128/500: loss=5.376155[0m
+( 83.493s) Epoch 129/500: loss=[32m5.373956[0m
+( 83.372s) Epoch 130/500: loss=5.376557[0m  ( 14.897s)  val_acc=0.137576[0m test_acc=0.111351[0m
+( 83.308s) Epoch 131/500: loss=[32m5.373614[0m
+( 83.451s) Epoch 132/500: loss=5.375721[0m
+( 83.722s) Epoch 133/500: loss=5.374381[0m
+( 83.533s) Epoch 134/500: loss=5.375979[0m
+( 83.649s) Epoch 135/500: loss=5.378756[0m  ( 16.881s)  val_acc=[32m0.147701[0m test_acc=0.108212[0m
+( 86.300s) Epoch 136/500: loss=5.375262[0m
+( 84.164s) Epoch 137/500: loss=5.374551[0m
+( 85.590s) Epoch 138/500: loss=5.373723[0m
+( 83.746s) Epoch 139/500: loss=[32m5.372774[0m
+( 91.227s) Epoch 140/500: loss=5.372943[0m  ( 21.146s)  val_acc=[32m0.155306[0m test_acc=[32m0.119220[0m
+( 84.305s) Epoch 141/500: loss=5.372791[0m
+( 86.485s) Epoch 142/500: loss=[32m5.372702[0m
+( 84.195s) Epoch 143/500: loss=[32m5.372113[0m
+( 83.593s) Epoch 144/500: loss=[32m5.371791[0m
+( 83.899s) Epoch 145/500: loss=5.371958[0m  ( 15.086s)  val_acc=[32m0.157634[0m test_acc=0.110026[0m
+( 83.809s) Epoch 146/500: loss=5.372723[0m
+( 86.612s) Epoch 147/500: loss=5.372423[0m
+( 84.622s) Epoch 148/500: loss=[32m5.371266[0m
+( 84.429s) Epoch 149/500: loss=[32m5.371114[0m
+( 84.347s) Epoch 150/500: loss=[32m5.369923[0m  ( 15.191s)  val_acc=0.135172[0m test_acc=0.111978[0m
+( 83.961s) Epoch 151/500: loss=[32m5.369148[0m
+( 84.119s) Epoch 152/500: loss=[32m5.368997[0m
+( 88.969s) Epoch 153/500: loss=5.369132[0m
+( 84.010s) Epoch 154/500: loss=5.370938[0m
+( 84.418s) Epoch 155/500: loss=5.370308[0m  ( 15.035s)  val_acc=0.147034[0m test_acc=0.112272[0m
+( 83.958s) Epoch 156/500: loss=5.376983[0m
+( 83.642s) Epoch 157/500: loss=5.369236[0m
+( 84.136s) Epoch 158/500: loss=5.371971[0m
+( 84.755s) Epoch 159/500: loss=[32m5.368988[0m
+( 84.136s) Epoch 160/500: loss=5.369244[0m  ( 14.974s)  val_acc=0.153944[0m test_acc=[32m0.125755[0m
+( 84.120s) Epoch 161/500: loss=[32m5.367424[0m
+( 83.869s) Epoch 162/500: loss=5.367478[0m
+( 83.779s) Epoch 163/500: loss=5.368075[0m
+( 83.830s) Epoch 164/500: loss=[32m5.366157[0m
+( 84.270s) Epoch 165/500: loss=5.366239[0m  ( 14.092s)  val_acc=[32m0.169082[0m test_acc=0.113462[0m
+( 77.946s) Epoch 166/500: loss=[32m5.366155[0m
+( 77.385s) Epoch 167/500: loss=5.366317[0m
+( 80.857s) Epoch 168/500: loss=[32m5.364270[0m
+( 77.359s) Epoch 169/500: loss=5.365688[0m
+( 76.840s) Epoch 170/500: loss=5.366200[0m  ( 14.613s)  val_acc=0.148094[0m test_acc=0.099283[0m
+( 78.093s) Epoch 171/500: loss=5.365481[0m
+( 85.264s) Epoch 172/500: loss=5.366409[0m
+( 76.973s) Epoch 173/500: loss=5.365348[0m
+( 77.800s) Epoch 174/500: loss=5.365216[0m
+( 77.792s) Epoch 175/500: loss=5.379250[0m  ( 13.970s)  val_acc=0.141822[0m test_acc=0.116434[0m
+( 77.875s) Epoch 176/500: loss=5.371032[0m
+( 84.050s) Epoch 177/500: loss=5.366298[0m
+( 82.766s) Epoch 178/500: loss=5.369312[0m
+( 86.517s) Epoch 179/500: loss=5.364972[0m
+( 84.081s) Epoch 180/500: loss=5.364508[0m  ( 21.615s)  val_acc=0.166576[0m test_acc=0.112031[0m
+( 77.968s) Epoch 181/500: loss=[32m5.363969[0m
+( 77.126s) Epoch 182/500: loss=[32m5.363171[0m
+( 77.311s) Epoch 183/500: loss=5.363804[0m
+( 77.566s) Epoch 184/500: loss=5.363382[0m
+( 81.105s) Epoch 185/500: loss=5.363418[0m  ( 15.766s)  val_acc=0.153029[0m test_acc=0.113473[0m
+( 77.908s) Epoch 186/500: loss=[32m5.362711[0m
+( 77.146s) Epoch 187/500: loss=[32m5.361957[0m
+( 77.111s) Epoch 188/500: loss=5.362670[0m
+( 80.078s) Epoch 189/500: loss=[32m5.360748[0m
+( 77.220s) Epoch 190/500: loss=5.361347[0m  ( 14.160s)  val_acc=[32m0.177234[0m test_acc=0.114232[0m
+( 77.809s) Epoch 191/500: loss=[32m5.360648[0m
+( 77.337s) Epoch 192/500: loss=5.362168[0m
+( 77.931s) Epoch 193/500: loss=5.360933[0m
+( 77.526s) Epoch 194/500: loss=[32m5.360067[0m
+( 81.315s) Epoch 195/500: loss=5.360280[0m  ( 14.605s)  val_acc=0.154790[0m test_acc=0.120427[0m
+( 78.508s) Epoch 196/500: loss=5.360762[0m
+( 84.901s) Epoch 197/500: loss=[32m5.359699[0m
+( 80.785s) Epoch 198/500: loss=5.359726[0m
+( 77.562s) Epoch 199/500: loss=[32m5.359506[0m
+(112.463s) Epoch 200/500: loss=5.359872[0m  ( 14.156s)  val_acc=0.155937[0m test_acc=0.118341[0m
+( 78.459s) Epoch 201/500: loss=[32m5.358647[0m
+( 86.894s) Epoch 202/500: loss=[32m5.358206[0m
+( 92.210s) Epoch 203/500: loss=5.358315[0m
+(112.282s) Epoch 204/500: loss=[32m5.357053[0m
+( 90.065s) Epoch 205/500: loss=5.359049[0m  ( 14.021s)  val_acc=0.173070[0m test_acc=0.118038[0m
+( 80.023s) Epoch 206/500: loss=5.358526[0m
+( 80.320s) Epoch 207/500: loss=5.357282[0m
+( 77.387s) Epoch 208/500: loss=5.357580[0m
+( 87.157s) Epoch 209/500: loss=[32m5.356756[0m
+( 78.950s) Epoch 210/500: loss=[32m5.356226[0m  ( 14.098s)  val_acc=0.160247[0m test_acc=0.120857[0m
+( 78.363s) Epoch 211/500: loss=5.358251[0m
+( 77.535s) Epoch 212/500: loss=5.357086[0m
+( 82.943s) Epoch 213/500: loss=5.372447[0m
+( 77.522s) Epoch 214/500: loss=5.360318[0m
+( 78.023s) Epoch 215/500: loss=5.358621[0m  ( 15.089s)  val_acc=0.164225[0m test_acc=[32m0.128939[0m
+( 78.583s) Epoch 216/500: loss=5.357627[0m
+( 78.637s) Epoch 217/500: loss=5.356751[0m
+( 78.634s) Epoch 218/500: loss=5.373090[0m
+( 77.785s) Epoch 219/500: loss=5.367576[0m
+( 78.350s) Epoch 220/500: loss=5.363256[0m  ( 14.280s)  val_acc=0.169278[0m test_acc=0.128324[0m
+( 78.124s) Epoch 221/500: loss=5.360585[0m
+( 78.604s) Epoch 222/500: loss=5.358372[0m
+( 78.763s) Epoch 223/500: loss=5.358315[0m
+( 78.553s) Epoch 224/500: loss=5.357022[0m
+( 78.184s) Epoch 225/500: loss=5.356710[0m  ( 14.064s)  val_acc=0.154396[0m test_acc=0.122596[0m
+( 78.798s) Epoch 226/500: loss=5.356339[0m
+( 80.634s) Epoch 227/500: loss=[32m5.356129[0m
+( 78.075s) Epoch 228/500: loss=[32m5.353932[0m
+( 77.983s) Epoch 229/500: loss=5.356596[0m
+( 78.433s) Epoch 230/500: loss=5.354624[0m  ( 14.111s)  val_acc=0.156927[0m test_acc=0.120660[0m
+( 78.831s) Epoch 231/500: loss=5.354722[0m
+( 77.913s) Epoch 232/500: loss=5.354601[0m
+( 77.598s) Epoch 233/500: loss=5.354236[0m
+( 77.369s) Epoch 234/500: loss=5.354515[0m
+( 77.511s) Epoch 235/500: loss=[32m5.352733[0m  ( 13.854s)  val_acc=0.164048[0m test_acc=[32m0.130957[0m
+( 77.915s) Epoch 236/500: loss=5.358520[0m
+( 78.043s) Epoch 237/500: loss=5.362297[0m
+( 80.239s) Epoch 238/500: loss=5.354552[0m
+( 77.654s) Epoch 239/500: loss=5.353773[0m
+( 81.276s) Epoch 240/500: loss=5.352812[0m  ( 18.582s)  val_acc=[32m0.180640[0m test_acc=0.125871[0m
+( 78.063s) Epoch 241/500: loss=5.352961[0m
+( 77.712s) Epoch 242/500: loss=5.352922[0m
+( 77.816s) Epoch 243/500: loss=5.353028[0m
+( 77.632s) Epoch 244/500: loss=[32m5.351763[0m
+( 77.299s) Epoch 245/500: loss=5.352026[0m  ( 14.233s)  val_acc=0.174125[0m test_acc=[32m0.135041[0m
+( 77.589s) Epoch 246/500: loss=5.352107[0m
+( 77.319s) Epoch 247/500: loss=[32m5.351716[0m
+( 79.792s) Epoch 248/500: loss=[32m5.350723[0m
+( 77.522s) Epoch 249/500: loss=[32m5.349788[0m
+( 79.057s) Epoch 250/500: loss=5.351685[0m  ( 14.272s)  val_acc=0.162940[0m test_acc=0.125752[0m
+( 77.184s) Epoch 251/500: loss=5.351559[0m
+( 85.251s) Epoch 252/500: loss=5.349907[0m
+( 77.834s) Epoch 253/500: loss=5.350513[0m
+( 77.047s) Epoch 254/500: loss=5.349833[0m
+( 81.537s) Epoch 255/500: loss=[32m5.348927[0m  ( 18.801s)  val_acc=0.170490[0m test_acc=0.131874[0m
+( 77.311s) Epoch 256/500: loss=5.348964[0m
+( 77.223s) Epoch 257/500: loss=[32m5.348884[0m
+( 86.613s) Epoch 258/500: loss=5.349727[0m
+( 81.574s) Epoch 259/500: loss=[32m5.347258[0m
+( 77.613s) Epoch 260/500: loss=5.362984[0m  ( 14.402s)  val_acc=0.165565[0m test_acc=0.124717[0m
+( 77.792s) Epoch 261/500: loss=5.354524[0m
+( 86.655s) Epoch 262/500: loss=5.350221[0m
+( 82.045s) Epoch 263/500: loss=5.349844[0m
+( 78.570s) Epoch 264/500: loss=5.348798[0m
+( 82.712s) Epoch 265/500: loss=5.348627[0m  ( 15.185s)  val_acc=0.175464[0m test_acc=0.121923[0m
+( 78.288s) Epoch 266/500: loss=5.347572[0m
+( 77.762s) Epoch 267/500: loss=5.348095[0m
+( 77.029s) Epoch 268/500: loss=5.347539[0m
+( 77.624s) Epoch 269/500: loss=[32m5.346022[0m
+( 77.748s) Epoch 270/500: loss=5.349393[0m  ( 14.385s)  val_acc=0.173099[0m test_acc=0.118815[0m
+( 77.767s) Epoch 271/500: loss=5.347579[0m
+( 77.365s) Epoch 272/500: loss=5.347457[0m
+( 77.556s) Epoch 273/500: loss=5.346073[0m
+( 76.652s) Epoch 274/500: loss=5.346242[0m
+( 77.738s) Epoch 275/500: loss=5.346209[0m  ( 14.248s)  val_acc=0.173218[0m test_acc=0.129813[0m
+( 83.433s) Epoch 276/500: loss=[32m5.345042[0m
+( 76.713s) Epoch 277/500: loss=[32m5.344847[0m
+( 76.860s) Epoch 278/500: loss=5.345144[0m
+( 76.953s) Epoch 279/500: loss=5.344992[0m
+( 76.749s) Epoch 280/500: loss=[32m5.344074[0m  ( 13.758s)  val_acc=0.165392[0m test_acc=[32m0.142800[0m
+( 76.500s) Epoch 281/500: loss=5.344480[0m
+( 77.095s) Epoch 282/500: loss=[32m5.343889[0m
+( 77.417s) Epoch 283/500: loss=[32m5.343037[0m
+( 77.650s) Epoch 284/500: loss=[32m5.342761[0m
+( 77.653s) Epoch 285/500: loss=[32m5.341890[0m  ( 14.442s)  val_acc=[32m0.183331[0m test_acc=0.131054[0m
+( 79.232s) Epoch 286/500: loss=5.342777[0m
+( 78.095s) Epoch 287/500: loss=5.342579[0m
+( 77.084s) Epoch 288/500: loss=5.342423[0m
+( 77.391s) Epoch 289/500: loss=5.343753[0m
+( 77.254s) Epoch 290/500: loss=5.342280[0m  ( 14.400s)  val_acc=[32m0.188395[0m test_acc=[32m0.144693[0m
+( 78.598s) Epoch 291/500: loss=[32m5.341626[0m
+( 77.514s) Epoch 292/500: loss=5.341845[0m
+( 81.025s) Epoch 293/500: loss=[32m5.341430[0m
+( 78.025s) Epoch 294/500: loss=5.341998[0m
+( 77.650s) Epoch 295/500: loss=[32m5.341167[0m  ( 14.279s)  val_acc=0.155463[0m test_acc=0.132212[0m
+( 78.737s) Epoch 296/500: loss=5.343500[0m
+( 77.554s) Epoch 297/500: loss=5.341302[0m
+( 78.116s) Epoch 298/500: loss=[32m5.339873[0m
+( 77.771s) Epoch 299/500: loss=5.339932[0m
+( 77.057s) Epoch 300/500: loss=5.340508[0m  ( 14.361s)  val_acc=0.173878[0m test_acc=0.133249[0m
+( 79.059s) Epoch 301/500: loss=[32m5.339589[0m
+( 77.743s) Epoch 302/500: loss=5.340500[0m
+( 77.443s) Epoch 303/500: loss=5.340343[0m
+( 77.592s) Epoch 304/500: loss=5.339679[0m
+( 78.316s) Epoch 305/500: loss=[32m5.339066[0m  ( 14.342s)  val_acc=0.182959[0m test_acc=0.137250[0m
+( 81.407s) Epoch 306/500: loss=[32m5.337925[0m
+( 77.957s) Epoch 307/500: loss=5.339326[0m
+( 77.575s) Epoch 308/500: loss=5.338776[0m
+( 80.351s) Epoch 309/500: loss=[32m5.337913[0m
+( 77.680s) Epoch 310/500: loss=5.338769[0m  ( 14.471s)  val_acc=0.163074[0m test_acc=0.138049[0m
+( 77.276s) Epoch 311/500: loss=[32m5.337845[0m
+( 77.978s) Epoch 312/500: loss=5.338802[0m
+( 77.717s) Epoch 313/500: loss=[32m5.337058[0m
+( 86.880s) Epoch 314/500: loss=[32m5.336997[0m
+( 82.813s) Epoch 315/500: loss=5.340781[0m  ( 16.441s)  val_acc=0.168880[0m test_acc=0.128984[0m
+( 78.476s) Epoch 316/500: loss=5.338262[0m
+( 83.035s) Epoch 317/500: loss=[32m5.336936[0m
+( 79.344s) Epoch 318/500: loss=[32m5.336508[0m
+( 77.755s) Epoch 319/500: loss=5.336756[0m
+( 77.404s) Epoch 320/500: loss=[32m5.335902[0m  ( 14.077s)  val_acc=[32m0.188494[0m test_acc=[32m0.153783[0m
+( 77.693s) Epoch 321/500: loss=5.335966[0m
+( 77.576s) Epoch 322/500: loss=[32m5.335866[0m
+( 77.568s) Epoch 323/500: loss=[32m5.334949[0m
+( 81.478s) Epoch 324/500: loss=[32m5.334699[0m
+( 85.627s) Epoch 325/500: loss=5.335522[0m  ( 14.269s)  val_acc=0.168919[0m test_acc=0.136471[0m
+( 77.520s) Epoch 326/500: loss=[32m5.334481[0m
+( 77.743s) Epoch 327/500: loss=5.334613[0m
+( 76.793s) Epoch 328/500: loss=5.334952[0m
+( 77.516s) Epoch 329/500: loss=[32m5.333480[0m
+( 77.972s) Epoch 330/500: loss=5.334014[0m  ( 14.322s)  val_acc=0.175307[0m test_acc=[32m0.155071[0m
+( 78.600s) Epoch 331/500: loss=5.334863[0m
+( 84.352s) Epoch 332/500: loss=[32m5.333061[0m
+( 77.494s) Epoch 333/500: loss=[32m5.332364[0m
+( 77.044s) Epoch 334/500: loss=5.333728[0m
+( 77.530s) Epoch 335/500: loss=5.333231[0m  ( 14.100s)  val_acc=[32m0.196888[0m test_acc=0.154414[0m
+( 77.965s) Epoch 336/500: loss=5.333124[0m
+( 77.333s) Epoch 337/500: loss=[32m5.332146[0m
+( 77.937s) Epoch 338/500: loss=[32m5.331538[0m
+( 77.394s) Epoch 339/500: loss=5.331649[0m
+( 76.950s) Epoch 340/500: loss=[32m5.330474[0m  ( 14.232s)  val_acc=0.171899[0m test_acc=0.140705[0m
+( 77.327s) Epoch 341/500: loss=5.332963[0m
+( 77.570s) Epoch 342/500: loss=5.332788[0m
+( 81.950s) Epoch 343/500: loss=5.330752[0m
+( 77.775s) Epoch 344/500: loss=5.331401[0m
+( 77.218s) Epoch 345/500: loss=5.331001[0m  ( 14.364s)  val_acc=0.193440[0m test_acc=0.146273[0m
+( 84.428s) Epoch 346/500: loss=[32m5.330337[0m
+( 78.368s) Epoch 347/500: loss=5.330592[0m
+( 77.349s) Epoch 348/500: loss=[32m5.329913[0m
+( 78.108s) Epoch 349/500: loss=5.330643[0m
+( 77.260s) Epoch 350/500: loss=5.330188[0m  ( 13.787s)  val_acc=0.192202[0m test_acc=0.131486[0m
+( 78.250s) Epoch 351/500: loss=[32m5.329464[0m
+( 77.486s) Epoch 352/500: loss=[32m5.329396[0m
+( 78.521s) Epoch 353/500: loss=5.329457[0m
+( 82.178s) Epoch 354/500: loss=[32m5.328861[0m
+( 78.454s) Epoch 355/500: loss=[32m5.328252[0m  ( 14.283s)  val_acc=0.178518[0m test_acc=0.148220[0m
+( 78.619s) Epoch 356/500: loss=[32m5.327367[0m
+( 77.062s) Epoch 357/500: loss=5.328040[0m
+( 77.273s) Epoch 358/500: loss=5.328740[0m
+( 81.574s) Epoch 359/500: loss=[32m5.327223[0m
+( 78.429s) Epoch 360/500: loss=[32m5.326995[0m  ( 14.504s)  val_acc=0.177177[0m test_acc=0.139533[0m
+( 78.950s) Epoch 361/500: loss=5.327730[0m
+( 77.546s) Epoch 362/500: loss=5.327288[0m
+( 77.287s) Epoch 363/500: loss=[32m5.326949[0m
+( 80.744s) Epoch 364/500: loss=[32m5.326075[0m
+( 77.355s) Epoch 365/500: loss=5.327208[0m  ( 14.523s)  val_acc=0.178664[0m test_acc=0.141070[0m
+( 78.555s) Epoch 366/500: loss=5.327354[0m
+( 77.822s) Epoch 367/500: loss=5.326803[0m
+( 77.415s) Epoch 368/500: loss=[32m5.325802[0m
+( 77.300s) Epoch 369/500: loss=5.326099[0m
+( 78.108s) Epoch 370/500: loss=[32m5.324730[0m  ( 18.156s)  val_acc=0.177160[0m test_acc=0.142499[0m
+( 81.058s) Epoch 371/500: loss=5.325478[0m
+( 77.994s) Epoch 372/500: loss=[32m5.324667[0m
+( 77.166s) Epoch 373/500: loss=5.325350[0m
+( 77.768s) Epoch 374/500: loss=5.324699[0m
+( 77.400s) Epoch 375/500: loss=[32m5.324047[0m  ( 14.257s)  val_acc=0.172783[0m test_acc=0.133843[0m
+( 89.252s) Epoch 376/500: loss=[32m5.323467[0m
+( 78.250s) Epoch 377/500: loss=[32m5.323454[0m
+( 77.335s) Epoch 378/500: loss=5.323924[0m
+( 85.572s) Epoch 379/500: loss=5.323874[0m
+( 85.698s) Epoch 380/500: loss=5.323827[0m  ( 14.895s)  val_acc=0.177891[0m test_acc=0.142893[0m
+( 79.161s) Epoch 381/500: loss=[32m5.322674[0m
+( 77.847s) Epoch 382/500: loss=5.322924[0m
+( 78.394s) Epoch 383/500: loss=5.323814[0m
+( 88.588s) Epoch 384/500: loss=[32m5.321869[0m
+( 77.848s) Epoch 385/500: loss=5.322617[0m  ( 14.499s)  val_acc=0.172895[0m test_acc=0.145709[0m
+( 78.821s) Epoch 386/500: loss=5.321942[0m
+( 77.836s) Epoch 387/500: loss=5.322451[0m
+( 77.568s) Epoch 388/500: loss=[32m5.320569[0m
+( 77.580s) Epoch 389/500: loss=5.321141[0m
+( 77.497s) Epoch 390/500: loss=5.321246[0m  ( 13.996s)  val_acc=0.181875[0m test_acc=0.143884[0m
+( 77.570s) Epoch 391/500: loss=5.321237[0m
+( 80.267s) Epoch 392/500: loss=5.320784[0m
+( 77.336s) Epoch 393/500: loss=[32m5.320128[0m
+( 77.346s) Epoch 394/500: loss=5.320281[0m
+( 77.913s) Epoch 395/500: loss=[32m5.320011[0m  ( 14.490s)  val_acc=0.178561[0m test_acc=0.145229[0m
+( 79.902s) Epoch 396/500: loss=5.320518[0m
+( 91.207s) Epoch 397/500: loss=5.320059[0m
+( 81.881s) Epoch 398/500: loss=[32m5.319404[0m
+( 81.333s) Epoch 399/500: loss=[32m5.319132[0m
+( 82.532s) Epoch 400/500: loss=5.319528[0m  ( 14.098s)  val_acc=0.177892[0m test_acc=0.145199[0m
+( 78.578s) Epoch 401/500: loss=5.319152[0m
+( 81.406s) Epoch 402/500: loss=[32m5.318901[0m
+( 77.716s) Epoch 403/500: loss=[32m5.318159[0m
+( 83.171s) Epoch 404/500: loss=5.318434[0m
+( 77.393s) Epoch 405/500: loss=5.319121[0m  ( 14.461s)  val_acc=0.178183[0m test_acc=0.136487[0m
+( 78.494s) Epoch 406/500: loss=[32m5.317057[0m
+( 77.158s) Epoch 407/500: loss=5.317558[0m
+( 77.373s) Epoch 408/500: loss=[32m5.316731[0m
+( 80.215s) Epoch 409/500: loss=5.317310[0m
+( 77.217s) Epoch 410/500: loss=5.317505[0m  ( 14.478s)  val_acc=0.183708[0m test_acc=0.144184[0m
+( 77.610s) Epoch 411/500: loss=[32m5.316713[0m
+( 77.197s) Epoch 412/500: loss=[32m5.316145[0m
+( 77.611s) Epoch 413/500: loss=5.316231[0m
+( 77.056s) Epoch 414/500: loss=5.317090[0m
+( 77.487s) Epoch 415/500: loss=[32m5.315886[0m  ( 14.012s)  val_acc=0.183015[0m test_acc=0.143962[0m
+( 80.256s) Epoch 416/500: loss=5.316678[0m
+( 77.144s) Epoch 417/500: loss=[32m5.315227[0m
+( 77.067s) Epoch 418/500: loss=5.315770[0m
+( 80.167s) Epoch 419/500: loss=5.315292[0m
+( 77.181s) Epoch 420/500: loss=[32m5.314903[0m  ( 14.222s)  val_acc=0.175191[0m test_acc=[32m0.158420[0m
+( 78.152s) Epoch 421/500: loss=[32m5.314399[0m
+( 77.230s) Epoch 422/500: loss=5.314915[0m
+( 78.474s) Epoch 423/500: loss=5.315483[0m
+( 77.183s) Epoch 424/500: loss=[32m5.314314[0m
+( 77.457s) Epoch 425/500: loss=5.314398[0m  ( 14.181s)  val_acc=0.179477[0m test_acc=0.145696[0m
+( 78.446s) Epoch 426/500: loss=[32m5.313748[0m
+( 77.915s) Epoch 427/500: loss=[32m5.313369[0m
+( 77.654s) Epoch 428/500: loss=5.313395[0m
+( 77.076s) Epoch 429/500: loss=5.313507[0m
+( 78.092s) Epoch 430/500: loss=5.314582[0m  ( 14.719s)  val_acc=0.186869[0m test_acc=0.146718[0m
+( 80.665s) Epoch 431/500: loss=[32m5.312697[0m
+( 83.264s) Epoch 432/500: loss=5.312941[0m
+( 77.141s) Epoch 433/500: loss=5.313085[0m
+( 84.350s) Epoch 434/500: loss=5.313250[0m
+( 83.446s) Epoch 435/500: loss=[32m5.312634[0m  ( 14.582s)  val_acc=[32m0.203114[0m test_acc=0.156893[0m
+( 78.650s) Epoch 436/500: loss=5.312643[0m
+( 77.856s) Epoch 437/500: loss=[32m5.312393[0m
+( 77.220s) Epoch 438/500: loss=[32m5.311317[0m
+( 77.216s) Epoch 439/500: loss=5.311624[0m
+( 83.346s) Epoch 440/500: loss=5.311694[0m  ( 14.962s)  val_acc=0.182997[0m test_acc=0.144435[0m
+( 78.332s) Epoch 441/500: loss=5.312132[0m
+( 77.271s) Epoch 442/500: loss=5.311529[0m
+( 77.081s) Epoch 443/500: loss=5.311328[0m
+( 77.127s) Epoch 444/500: loss=[32m5.311062[0m
+( 77.518s) Epoch 445/500: loss=5.311284[0m  ( 14.423s)  val_acc=0.177947[0m test_acc=0.142209[0m
+( 77.940s) Epoch 446/500: loss=[32m5.310133[0m
+( 77.407s) Epoch 447/500: loss=[32m5.310128[0m
+( 77.439s) Epoch 448/500: loss=5.310449[0m
+( 78.019s) Epoch 449/500: loss=5.310607[0m
+( 82.271s) Epoch 450/500: loss=5.310980[0m  ( 14.700s)  val_acc=0.179854[0m test_acc=0.147335[0m
+( 77.523s) Epoch 451/500: loss=[32m5.309832[0m
+( 77.482s) Epoch 452/500: loss=[32m5.309072[0m
+( 77.405s) Epoch 453/500: loss=5.310250[0m
+( 86.238s) Epoch 454/500: loss=5.309646[0m
+( 93.677s) Epoch 455/500: loss=5.309604[0m  ( 13.797s)  val_acc=0.187396[0m test_acc=0.142959[0m
+( 89.364s) Epoch 456/500: loss=5.309521[0m
+( 84.488s) Epoch 457/500: loss=5.309380[0m
+( 77.237s) Epoch 458/500: loss=5.309214[0m
+( 77.655s) Epoch 459/500: loss=5.309133[0m
+( 77.191s) Epoch 460/500: loss=5.309113[0m  ( 14.320s)  val_acc=0.186010[0m test_acc=[32m0.167910[0m
+( 78.639s) Epoch 461/500: loss=[32m5.308015[0m
+( 83.297s) Epoch 462/500: loss=5.309559[0m
+( 77.699s) Epoch 463/500: loss=5.308990[0m
+( 78.185s) Epoch 464/500: loss=5.308829[0m
+( 77.961s) Epoch 465/500: loss=5.309357[0m  ( 14.252s)  val_acc=0.199091[0m test_acc=0.151051[0m
+( 80.322s) Epoch 466/500: loss=5.309084[0m
+( 77.566s) Epoch 467/500: loss=5.309003[0m
+( 76.957s) Epoch 468/500: loss=5.308052[0m
+( 78.018s) Epoch 469/500: loss=5.308842[0m
+( 81.021s) Epoch 470/500: loss=5.308241[0m  ( 15.045s)  val_acc=0.177620[0m test_acc=0.153105[0m
+( 79.399s) Epoch 471/500: loss=[32m5.307901[0m
+( 78.750s) Epoch 472/500: loss=5.308515[0m
+( 77.714s) Epoch 473/500: loss=5.308295[0m
+( 77.744s) Epoch 474/500: loss=5.308221[0m
+( 78.174s) Epoch 475/500: loss=5.307994[0m  ( 14.445s)  val_acc=0.192675[0m test_acc=0.145737[0m
+( 78.326s) Epoch 476/500: loss=[32m5.307389[0m
+( 78.078s) Epoch 477/500: loss=5.308281[0m
+( 84.776s) Epoch 478/500: loss=5.308586[0m
+( 78.432s) Epoch 479/500: loss=5.307760[0m
+( 77.324s) Epoch 480/500: loss=5.308239[0m  ( 13.991s)  val_acc=0.173668[0m test_acc=0.151732[0m
+( 78.212s) Epoch 481/500: loss=5.307899[0m
+( 77.545s) Epoch 482/500: loss=[32m5.307029[0m
+( 77.102s) Epoch 483/500: loss=5.307502[0m
+( 77.207s) Epoch 484/500: loss=5.307973[0m
+( 82.397s) Epoch 485/500: loss=5.307382[0m  ( 14.650s)  val_acc=0.182028[0m test_acc=0.152703[0m
+( 78.280s) Epoch 486/500: loss=[32m5.306936[0m
+( 77.722s) Epoch 487/500: loss=5.307157[0m
+( 77.183s) Epoch 488/500: loss=[32m5.306252[0m
+( 77.653s) Epoch 489/500: loss=5.307843[0m
+( 82.335s) Epoch 490/500: loss=5.307911[0m  ( 14.218s)  val_acc=0.167941[0m test_acc=0.140387[0m
+( 78.949s) Epoch 491/500: loss=5.308174[0m
+( 78.946s) Epoch 492/500: loss=5.307784[0m
+( 85.553s) Epoch 493/500: loss=5.306613[0m
+( 78.456s) Epoch 494/500: loss=5.307625[0m
+( 77.762s) Epoch 495/500: loss=5.307374[0m  ( 14.669s)  val_acc=0.183468[0m test_acc=0.145754[0m
+( 77.422s) Epoch 496/500: loss=5.308074[0m
+( 78.570s) Epoch 497/500: loss=5.308349[0m
+( 84.865s) Epoch 498/500: loss=5.307167[0m
+( 90.756s) Epoch 499/500: loss=5.307984[0m
+( 77.755s) Epoch 500/500: loss=5.307515[0m  ( 14.886s)  val_acc=0.195380[0m test_acc=0.154599[0m
+Training for 500 epochs took 40292.294s total and 80.585s average
+Calculating mean of transformed dataset using the best model state ... 22.913s
+Saving best model and options to /home/aditya.bharti/FewShot/miniImgnet_500epoch/CropColor.pth

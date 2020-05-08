@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -A research
-#SBATCH --cpus-per-gpu=2
-#SBATCH --gpus=4
+#SBATCH --cpus-per-gpu=3
+#SBATCH --gpus=1
 #SBATCH --mem-per-cpu=4096
-#SBATCH --time=24:00:00
+#SBATCH --time=3-00:00:00
 #SBATCH --job-name=cf100fs
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=END
@@ -21,9 +21,8 @@ function runner {
     out_file="$save_dir/$exp_name.out"
     model_save="$save_dir/$exp_name.pth"
 
-    # python -u main.py \
-    python -u -m torch.distributed.launch --nproc_per_node=4 main.py \
-        --distributed \
+    # python -u -m torch.distributed.launch --nproc_per_node=4 main.py --distributed \
+    python -u main.py --no_distributed \
         --simple_opt --dataset="cifar100fs" \
         --eval_freq=20 --loss_function="NTXent" \
         --first_augment="$aug1" --second_augment="$aug2" \
@@ -38,7 +37,7 @@ source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot/fsl";
 # runner exp_name save_dir aug1 aug2
 
-exp_dir="cifar100fs_500epoch";
+exp_dir=$( readlink -f "../cifar100fs_500epoch");
 runner "CropGauss" "$exp_dir" "CropResize" "GaussBlur";
 runner "ColorGauss" "$exp_dir" "ColorDistort" "GaussBlur";
 runner "CropColor" "$exp_dir" "CropResize" "ColorDistort";

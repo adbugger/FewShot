@@ -1,7 +1,6 @@
 import sys
 
 from torch import optim
-# from torchlars import LARS
 
 __all__ = ['get_optimizer', 'get_scheduler']
 
@@ -14,11 +13,7 @@ def get_optimizer(model, options):
         dampening=options.dampening,
         nesterov=options.nesterov)
 
-    optimizer = base_optimizer
-    # if not options.simple_opt:
-    #    optimizer = getattr(sys.modules[__name__], options.secondary_optimizer)(optimizer=base_optimizer)
-
-    return optimizer
+    return base_optimizer
 
 def get_scheduler(optimizer, options):
     return getattr(optim.lr_scheduler, options.scheduler)(

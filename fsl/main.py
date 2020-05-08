@@ -75,9 +75,9 @@ def train_loop(options):
 
     test_eval = Value(-1e6, max, name="test_acc")
     val_eval = Value(-1e6, max, name="val_acc")
-    train_eval = Value(-1e6, max, name="train_acc")
+    # train_eval = Value(-1e6, max, name="train_acc")
     eval_printer = ValuePrinter()
-    eval_printer.track(train_eval)
+    # eval_printer.track(train_eval)
     eval_printer.track(val_eval)
     eval_printer.track(test_eval)
 
@@ -93,7 +93,7 @@ def train_loop(options):
         # epoch start
         epoch_start = time.time()
 
-        for aug1, aug2, targets in train_loader:
+        for aug1, aug2, _ in train_loader:
             final_optimizer.zero_grad()
             feat1 = model(aug1.to(device=options.cuda_device))
             feat2 = model(aug2.to(device=options.cuda_device))
@@ -118,7 +118,7 @@ def train_loop(options):
             eval_start = time.time()
             model.eval()
 
-            train_eval.update(kmeans_on_data(model, plain_train_loader, options))
+            # train_eval.update(kmeans_on_data(model, plain_train_loader, options))
             val_eval.update(kmeans_on_data(model, valid_loader, options))
             test_eval.update(kmeans_on_data(model, test_loader, options))
 

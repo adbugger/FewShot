@@ -22,17 +22,19 @@ from utils import ( get_printer,
 def few_shot_loop(options):
     Print = get_printer(options)
 
+    options.cuda_device = f"cuda:{get_gpu_ids()[0]}"
     # distributed stuff
-    gpus = get_gpu_ids()
-    options.cuda_device = f"cuda:{options.local_rank}"
-    torch.cuda.set_device(options.local_rank)
     if options.distributed:
-        torch.distributed.init_process_group(
-            backend='nccl',
-            init_method="env://",
-            world_size=len(gpus),
-            rank=options.local_rank
-        )
+        gpus = get_gpu_ids()
+        options.cuda_device = f"cuda:{options.local_rank}"
+        torch.cuda.set_device(options.local_rank)
+        if options.distributed:
+            torch.distributed.init_process_group(
+                backend='nccl',
+                init_method="env://",
+                world_size=len(gpus),
+                rank=options.local_rank
+            )
 
     model, old_opts = get_old_state(options)
     model.eval()
@@ -53,7 +55,7 @@ def few_shot_loop(options):
         full_data = model(full_data.to(options.cuda_device)).detach().cpu().numpy()
         full_labels = full_labels.cpu().numpy()
 
-        # SimplsShot center and unit norm
+        # SimpleShot center and unit norm
         if scaler is not None:
             full_data = scaler.transform(full_data)
         full_data = normalizer.transform(full_data)

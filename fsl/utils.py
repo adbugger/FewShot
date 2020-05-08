@@ -15,7 +15,7 @@ def get_gpu_ids():
     return [int(x) for x in os.environ['CUDA_VISIBLE_DEVICES'].split(',')]
 
 def do_nothing(*args, **kwargs):
-    pass
+    return
 
 def get_func_on_master(func, options):
     if options.local_rank==0:

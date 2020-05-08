@@ -1,0 +1,3 @@
+(0.015s avg / 150.048s) Using file /home/aditya.bharti/FewShot/cifar100fs_500epoch/CropGauss.pth: 0.3836826666667008
+(0.015s avg / 148.685s) Using file /home/aditya.bharti/FewShot/cifar100fs_500epoch/CropColor.pth: 0.5291333333333413
+(0.015s avg / 151.384s) Using file /home/aditya.bharti/FewShot/cifar100fs_500epoch/ColorGauss.pth: 0.25545600000000185

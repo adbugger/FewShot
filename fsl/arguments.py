@@ -4,11 +4,12 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Two Phase Few Shot Learning")
 
     # Distributed stuff
-    parser.add_argument("--local_rank", type=int, default=0)
+    dist_args = parser.add_argument_group("Distributed Arguments")
+    dist_args.add_argument("--local_rank", type=int, default=0)
     
-    parser.add_argument("--distributed", dest='distributed', action='store_true')
-    parser.add_argument("--no_distributed", dest='distributed', action='store_false')
-    parser.set_defaults(distributed=True)
+    dist_args.add_argument("--distributed", dest='distributed', action='store_true')
+    dist_args.add_argument("--no_distributed", dest='distributed', action='store_false')
+    dist_args.set_defaults(distributed=True)
 
     # Train Arguments
     train_args = parser.add_argument_group("Train Arguments")
@@ -28,6 +29,12 @@ def parse_args():
     fewshot_args.add_argument("--num_test_tasks", type=int, default=int(1e4))
     fewshot_args.add_argument("--num_query", type=int, default=15)
 
+    # Fine Tune Arguments
+    ft_args = parser.add_argument_group("Fine Tune Arguments")
+    ft_args.add_argument("--data_percent", type=int, default=20)
+    ft_args.add_argument("--fine_tune_epochs", type=int, default=20)
+    ft_args.add_argument("--fine_tune_save_path", type=str, default='ft0.pth')
+
     # Optimizer Arguments
     opt_args = parser.add_argument_group("Optimizer Arguments")
     opt_args.add_argument("--base_learning_rate", type=float, default=1e-2)
@@ -37,7 +44,7 @@ def parse_args():
     opt_args.set_defaults(simple_opt=True)
 
     opt_args.add_argument("--base_optimizer", type=str, default="SGD")
-    opt_args.add_argument("--secondary_optimizer", type=str, default="LARS")
+    # opt_args.add_argument("--secondary_optimizer", type=str, default="LARS")
 
     opt_args.add_argument("--momentum", type=float, default=0.0)
     opt_args.add_argument("--weight_decay", type=float, default=0.0)
