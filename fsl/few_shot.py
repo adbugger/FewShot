@@ -22,6 +22,7 @@ from utils import ( get_printer,
 def few_shot_loop(options):
     Print = get_printer(options)
 
+    # In --no_distributed mode, the GPU id may not be the local rank
     options.cuda_device = f"cuda:{get_gpu_ids()[0]}"
     # distributed stuff
     if options.distributed:
@@ -60,11 +61,23 @@ def few_shot_loop(options):
             full_data = scaler.transform(full_data)
         full_data = normalizer.transform(full_data)
 
+        # The train data is at the start of the mini batch
         num_train = options.n_way * options.k_shot
         train_data, test_data = full_data[:num_train], full_data[num_train:]
         train_labels, test_labels = full_labels[:num_train], full_labels[num_train:]
 
-        classifier.fit(train_data, train_labels)
+        if options.k_shot == 1:
+            classifier.fit(train_data, train_labels)
+        elif options.k_shot == 5:
+            # For 5 shots we need to calculate the centroids for every k_shot group
+            fit_data =  numpy.empty((options.n_way, train_data.shape[1]))
+            fit_labels = numpy.empty(options.n_way)
+            idx = 0
+            while idx < options.n_way:
+                fit_data[idx] = numpy.mean(train_data[idx*options.k_shot : (idx+1)*options.k_shot], axis=0)
+                fit_labels[idx] = train_labels[idx*options.k_shot]
+                idx += 1
+            classifier.fit(fit_data, fit_labels)
         score = classifier.score(test_data, test_labels)
         score_track.accumulate(score)
         

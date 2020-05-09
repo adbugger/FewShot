@@ -10,10 +10,8 @@ from sklearn.metrics import adjusted_mutual_info_score, adjusted_rand_score
 from utils import get_printer
 __all__ = ['kmeans_on_data']
 
-
+# This seems to stall in a distributed setting, do not call with --distributed
 def kmeans_on_data(model, data_loader, options):
-    # Printer = get_printer(options)
-    # Printer("doing kmeans on data")
     scaler = StandardScaler(copy=False)
 
     num_examples = len(data_loader.dataset)
@@ -23,10 +21,9 @@ def kmeans_on_data(model, data_loader, options):
     features = np.empty(shape=(num_examples, options.projection_dim))
     targets = np.empty(shape=num_examples)
 
+    Print = get_printer(options)
     idx = 0
-    # s = time.time()
     for data, labels in data_loader:
-        # Printer(f"data cycling at idx {idx} of {num_examples}")
         # feat = model.module.backbone(data.to(device=options.cuda_device)).detach().cpu().numpy()
         feat = model(data.to(device=options.cuda_device)).detach().cpu().numpy()
         num_batch = feat.shape[0]
@@ -34,18 +31,16 @@ def kmeans_on_data(model, data_loader, options):
         targets[idx:idx+num_batch] = labels.numpy()
         idx += num_batch
 
+        t = time.time()
         scaler.partial_fit(feat)
-    # Printer(f"data cycle time: {time.time() - s}")
+        t = time.time() - t
+        Print(f"Partial feat took {t}s, cycle {idx} of {num_examples}")
 
-    # s = time.time()
     feat_scaled = scaler.transform(features)
-    # Printer(f"transform time: {time.time() - s}")
 
-    # s = time.time()
     assigned_labels = MiniBatchKMeans(
                         n_clusters=num_classes,
-                        batch_size=512
+                        batch_size=256
                     ).fit_predict(feat_scaled)
-    # Printer(f"KMeans time: {time.time() - s}")
     # return adjusted_mutual_info_score(targets, assigned_labels)
     return adjusted_rand_score(targets, assigned_labels)

@@ -21,7 +21,7 @@ function tester {
     # python -m torch.distributed.launch --nproc_per_node=1
     python -u fsl/few_shot.py --no_distributed \
         --load_from="$load_from" --log_file="$out_file" \
-        --n_way=5 --k_shot=1;
+        --n_way=5 --k_shot=5;
 }
 
 source "/home/aditya.bharti/python_env/bin/activate";
@@ -29,7 +29,7 @@ pushd "/home/aditya.bharti/FewShot";
 
 for pth_file in $( find *_500epoch -type f -name "*.pth" -exec readlink -f {} \; ); do
     # tester filename directory model_file
-    tester "500ep_5way_1shot" "tests" "$pth_file";
+    tester "500ep_5way_5shot" "tests" "$pth_file";
 done;
 
 popd;
