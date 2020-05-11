@@ -7,7 +7,7 @@ from sklearn.cluster import MiniBatchKMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import adjusted_mutual_info_score, adjusted_rand_score
 
-from utils import get_printer
+# from utils import get_printer
 __all__ = ['kmeans_on_data']
 
 # This seems to stall in a distributed setting, do not call with --distributed
@@ -21,7 +21,7 @@ def kmeans_on_data(model, data_loader, options):
     features = np.empty(shape=(num_examples, options.projection_dim))
     targets = np.empty(shape=num_examples)
 
-    Print = get_printer(options)
+    # Print = get_printer(options)
     idx = 0
     for data, labels in data_loader:
         # feat = model.module.backbone(data.to(device=options.cuda_device)).detach().cpu().numpy()
@@ -34,7 +34,7 @@ def kmeans_on_data(model, data_loader, options):
         t = time.time()
         scaler.partial_fit(feat)
         t = time.time() - t
-        Print(f"Partial feat took {t}s, cycle {idx} of {num_examples}")
+        # Print(f"Partial feat took {t}s, cycle {idx} of {num_examples}")
 
     feat_scaled = scaler.transform(features)
 

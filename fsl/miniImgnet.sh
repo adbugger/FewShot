@@ -38,7 +38,7 @@ pushd "/home/aditya.bharti/FewShot";
 # runner exp_name save_dir aug1 aug2
 
 exp_dir=$( readlink -f "miniImgnet_1000epoch");
-runner "CropGauss" "$exp_dir" "CropResize" "GaussBlur";
+# runner "CropGauss" "$exp_dir" "CropResize" "GaussBlur";
 runner "ColorGauss" "$exp_dir" "ColorDistort" "GaussBlur";
 runner "CropColor" "$exp_dir" "CropResize" "ColorDistort";
 

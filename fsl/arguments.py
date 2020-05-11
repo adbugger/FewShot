@@ -65,7 +65,8 @@ def parse_args():
 
     # Backbone arguments
     backbone_args = parser.add_argument_group("Backbone Arguments")
-    backbone_args.add_argument("--backbone", type=str, default='resnet50', choices=['resnet50'])
+    backbone_args.add_argument("--backbone", type=str, default='resnet50',
+                                choices=['resnet50', 'resnet18'])
 
     backbone_args.add_argument("--pretrained", dest='pretrained', action='store_true')
     backbone_args.add_argument("--no_pretrained", dest='pretrained', action='store_false')
