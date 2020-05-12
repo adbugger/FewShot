@@ -8,7 +8,7 @@
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=END
 
-NUM_EPOCHS=1000;
+NUM_EPOCHS=500;
 function runner {
     exp_name="$1";
     save_dir="$2";
@@ -23,7 +23,7 @@ function runner {
 
     # python -u fsl/main.py --no_distributed \
     python -u -m torch.distributed.launch --nproc_per_node=4 fsl/main.py --distributed \
-        --simple_opt --dataset="miniImagenet" \
+        --simple_opt --dataset="miniImagenet" --backbone="resnet18" \
         --eval_freq=2000 --loss_function="NTXent" \
         --first_augment="$aug1" --second_augment="$aug2" \
         --num_epochs=$NUM_EPOCHS --batch_size=256 \
@@ -37,8 +37,8 @@ source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot";
 # runner exp_name save_dir aug1 aug2
 
-exp_dir=$( readlink -f "miniImgnet_1000epoch");
-# runner "CropGauss" "$exp_dir" "CropResize" "GaussBlur";
+exp_dir=$( readlink -f "miniImgnet_resnet18 ");
+runner "CropGauss" "$exp_dir" "CropResize" "GaussBlur";
 runner "ColorGauss" "$exp_dir" "ColorDistort" "GaussBlur";
 runner "CropColor" "$exp_dir" "CropResize" "ColorDistort";
 

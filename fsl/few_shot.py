@@ -14,15 +14,17 @@ from optimizers import get_optimizer
 import datasets
 import losses
 import episode_strat
+import testing_strat
 
 from utils import ( get_printer,
                     get_gpu_ids,
                     AverageMeter)
 
+
 def few_shot_loop(options):
     Print = get_printer(options)
 
-    # In --no_distributed mode, the GPU id may not be the local rank
+    # In --no_distributed / single GPU mode, the GPU id may not be the local rank
     options.cuda_device = f"cuda:{get_gpu_ids()[0]}"
     # distributed stuff
     if options.distributed:
@@ -40,45 +42,23 @@ def few_shot_loop(options):
     model, old_opts = get_old_state(options)
     model.eval()
 
-    classifier = KNeighborsClassifier(n_neighbors=1)
-    scaler = old_opts.train_scaler if hasattr(old_opts, "train_scaler") else None
-    normalizer = Normalizer(copy=False)
+    options.scaler = old_opts.train_scaler if hasattr(old_opts, "train_scaler") else None
+    options.normalizer = Normalizer(copy=False)
 
     episode_loader = getattr(episode_strat, options.episode_strat)(old_opts).episode_loader(options)
-    # episode_num = 1
+    classifier = getattr(testing_strat, options.testing_strat)
 
     score_track = AverageMeter()
     time_track = AverageMeter()
     for full_data, full_labels in episode_loader:
         start_time = time.time()
 
-        # full_data = model.module.backbone(full_data.to(options.cuda_device)).detach().cpu().numpy()
-        full_data = model(full_data.to(options.cuda_device)).detach().cpu().numpy()
-        full_labels = full_labels.cpu().numpy()
+        # full_data = model.module.backbone(full_data.to(options.cuda_device))
+        full_data = model(full_data.to(options.cuda_device))
+        # full_labels = full_labels.cpu().numpy()
 
-        # SimpleShot center and unit norm
-        if scaler is not None:
-            full_data = scaler.transform(full_data)
-        full_data = normalizer.transform(full_data)
-
-        # The train data is at the start of the mini batch
-        num_train = options.n_way * options.k_shot
-        train_data, test_data = full_data[:num_train], full_data[num_train:]
-        train_labels, test_labels = full_labels[:num_train], full_labels[num_train:]
-
-        if options.k_shot == 1:
-            classifier.fit(train_data, train_labels)
-        elif options.k_shot == 5:
-            # For 5 shots we need to calculate the centroids for every k_shot group
-            fit_data =  numpy.empty((options.n_way, train_data.shape[1]))
-            fit_labels = numpy.empty(options.n_way)
-            idx = 0
-            while idx < options.n_way:
-                fit_data[idx] = numpy.mean(train_data[idx*options.k_shot : (idx+1)*options.k_shot], axis=0)
-                fit_labels[idx] = train_labels[idx*options.k_shot]
-                idx += 1
-            classifier.fit(fit_data, fit_labels)
-        score = classifier.score(test_data, test_labels)
+        # call to classifier here
+        score = classifier(options, full_data, full_labels)
         score_track.accumulate(score)
         
         time_track.accumulate(time.time() - start_time)

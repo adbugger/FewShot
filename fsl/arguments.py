@@ -23,7 +23,10 @@ def parse_args():
     # Few Shot Arguments
     fewshot_args = parser.add_argument_group("Fewshot Arguments")
     fewshot_args.add_argument("--load_from", type=argparse.FileType('r'))
-    fewshot_args.add_argument("--episode_strat", type=str, choices=['SimpleShotEpisodes'], default='SimpleShotEpisodes')
+    fewshot_args.add_argument("--episode_strat", type=str,
+        choices=['SimpleShotEpisodes'], default='SimpleShotEpisodes')
+    fewshot_args.add_argument("--testing_strat", type=str,
+        choices=['Classify1NN', 'SoftCosAttn'], default='Classify1NN')
     fewshot_args.add_argument("--n_way", type=int, default=5)
     fewshot_args.add_argument("--k_shot", type=int, default=5)
     fewshot_args.add_argument("--num_test_tasks", type=int, default=int(1e4))
