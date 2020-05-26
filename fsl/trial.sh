@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH -A aditya.bharti
+#SBATCH -A research
 #SBATCH --cpus-per-gpu=3
 #SBATCH --gpus=1
 #SBATCH --mem-per-cpu=2048
-#SBATCH --time=4:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=END
 #SBATCH --job-name=resnet18_tests
@@ -17,13 +17,15 @@ function tester {
     test_strat="$5";
     
     mkdir -p "$save_dir";
-    out_file="$save_dir/$test_name.out"
-    echo "testing file $3 with $4 shots $5 testing strat" | tee -a "$out_file";
+    out_file="$save_dir/$test_name.out";
+    echo -n "Doing $3, saving to ${out_file}, ";
+    echo -n "5way-${num_shot}shot ${test_strat} " | tee -a "$out_file";
+    echo;
 
     # python -u fsl/few_shot.py --no_distributed \
     python -u -m torch.distributed.launch --nproc_per_node=1 fsl/few_shot.py --distributed \
         --load_from="$load_from" --log_file="$out_file" \
-        --n_way=5 --k_shot="$num_shot" --test_strat="$test_strat";
+        --n_way=5 --k_shot="$num_shot" --testing_strat="$test_strat";
 }
 
 source "/home/aditya.bharti/python_env/bin/activate";

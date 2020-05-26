@@ -1,0 +1,9 @@
+5way-1shot SoftCosAttn (0.007s avg / 73.589s) Using file /home/aditya.bharti/FewShot/cifar100fs_resnet18/CropGauss.pth: 0.3744000000000327
+5way-1shot SoftCosAttn (0.007s avg / 73.348s) Using file /home/aditya.bharti/FewShot/cifar100fs_resnet18/CropColor.pth: 0.4615626666666666
+5way-1shot SoftCosAttn (0.007s avg / 73.219s) Using file /home/aditya.bharti/FewShot/cifar100fs_resnet18/ColorGauss.pth: 0.2630013333333361
+5way-1shot SoftCosAttn (0.011s avg / 113.434s) Using file /home/aditya.bharti/FewShot/fc100_resnet18/CropGauss.pth: 0.33232266666669574
+5way-1shot SoftCosAttn (0.011s avg / 113.366s) Using file /home/aditya.bharti/FewShot/fc100_resnet18/CropColor.pth: 0.36172266666669534
+5way-1shot SoftCosAttn (0.011s avg / 110.531s) Using file /home/aditya.bharti/FewShot/fc100_resnet18/ColorGauss.pth: 0.2476893333333335
+5way-1shot SoftCosAttn (0.011s avg / 113.595s) Using file /home/aditya.bharti/FewShot/miniImgnet_resnet18/CropGauss.pth: 0.32932400000002715
+5way-1shot SoftCosAttn (0.011s avg / 112.962s) Using file /home/aditya.bharti/FewShot/miniImgnet_resnet18/CropColor.pth: 0.44644400000000767
+5way-1shot SoftCosAttn (0.011s avg / 113.682s) Using file /home/aditya.bharti/FewShot/miniImgnet_resnet18/ColorGauss.pth: 0.2260946666666684
