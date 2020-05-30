@@ -36,4 +36,5 @@ def make_cfg(options):
     cfg.BN = Namespace(EPS=1e-5, MOM=0.1, ZERO_INIT_FINAL_GAMMA=False)
     cfg.EN = Namespace(
         DROPOUT_RATIO=0.0, DC_RATIO=0.0,
-        STEM_W=32, DEPTHS=[], WIDTHS=[], EXP_RATIOS=[], SE_R=0.25, )
+        STEM_W=32, DEPTHS=[], WIDTHS=[], EXP_RATIOS=[], SE_R=0.25,
+        STRIDES=[], KERNELS=[], )
