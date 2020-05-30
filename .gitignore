@@ -1,5 +1,9 @@
-# VSCode pylinter file
-.pylintrc
+# VSCode folder (Why is this generated?)
+.vscode
+
+# MOCO style pretrained weights
+pretrained_weights/
+*.pth.tar
 
 # Pytorch saved files
 *.pt

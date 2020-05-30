@@ -1,24 +1,14 @@
 import sys
-import os
 
 import torch
-nn = torch.nn
+import torch.nn as nn
 
-import backbones
-import heads
+from .SimCLR import SimCLRModel
+from .MoCo import MoCoModel
 
-__all__ = ['get_model', 'get_old_state']
+__all__ = ['get_model', 'get_old_state', 'SimCLRModel', 'MoCoModel']
 
-class SimCLRModel(nn.Module):
-    def __init__(self, options):
-        super(SimCLRModel, self).__init__()
-
-        self.backbone = getattr(backbones, options.backbone)(options)
-        self.head = getattr(heads, options.head)(options)
-
-    def forward(self, x):
-        return self.head(self.backbone(x))
-
+# Each model must be initialized with model(options)
 def get_model(options):
     model = (getattr(sys.modules[__name__], options.model)(options))
     if options.distributed:

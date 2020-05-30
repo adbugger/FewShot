@@ -16,7 +16,8 @@ def Classify1NN(options, full_data, full_labels):
     # SimpleShot center and unit norm
     if options.scaler is not None:
         full_data = options.scaler.transform(full_data)
-    full_data = options.normalizer.transform(full_data)
+    if options.normalizer is not None:
+        full_data = options.normalizer.transform(full_data)
 
     # The train data is at the start of the mini-batch
     num_train = options.n_way * options.k_shot

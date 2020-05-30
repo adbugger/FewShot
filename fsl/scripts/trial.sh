@@ -24,6 +24,7 @@ function tester {
 
     # python -u fsl/few_shot.py --no_distributed \
     python -u -m torch.distributed.launch --nproc_per_node=1 fsl/few_shot.py --distributed \
+        --model="MoCoModel" --dataset="miniImageNet"
         --load_from="$load_from" --log_file="$out_file" \
         --n_way=5 --k_shot="$num_shot" --testing_strat="$test_strat";
 }
