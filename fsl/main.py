@@ -48,8 +48,11 @@ def train_loop(options):
     # Print(model)
 
     dataset = getattr(datasets, options.dataset)(options)
-    train_loader = get_loader(dataset.train_set, options)
-    num_train_classes = len(dataset.train_set.dataset.classes)
+    if options.use_trainval:
+        train_loader = get_loader(dataset.trainval_set, options)
+    else:
+        train_loader = get_loader(dataset.train_set, options)
+    num_train_classes = len(train_loader.dataset.classes)
 
     # Switch off for validation and testing
     options.shuffle = False

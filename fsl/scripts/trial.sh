@@ -5,8 +5,9 @@
 #SBATCH --mem-per-cpu=2048
 #SBATCH --time=1-00:00:00
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
-#SBATCH --mail-type=END
-#SBATCH --job-name=resnet18_tests
+#SBATCH --mail-type=ALL
+#SBATCH --job-name=trainval_tests
+#SBATCH --nodes=1
 
 # cuda and cudnn already loaded in .bashrc
 function tester {
@@ -24,7 +25,6 @@ function tester {
 
     # python -u fsl/few_shot.py --no_distributed \
     python -u -m torch.distributed.launch --nproc_per_node=1 fsl/few_shot.py --distributed \
-        --model="MoCoModel" --dataset="miniImageNet"
         --load_from="$load_from" --log_file="$out_file" \
         --n_way=5 --k_shot="$num_shot" --testing_strat="$test_strat";
 }
@@ -32,21 +32,16 @@ function tester {
 source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot";
 
-# resnet18 with both test strats
-for pth_file in $( find *_resnet18 -type f -name "*.pth" -exec readlink -f {} \; ); do
-    # tester filename directory model_file num_shot test_strat
-    for num_shot in 1 5; do
-        tester "resnet18_5way_${num_shot}shot" "tests" "$pth_file" "$num_shot" "Classify1NN";
-        tester "resnet18_5way_${num_shot}shot" "tests_matchnet" "$pth_file" "$num_shot" "SoftCosAttn";        
+# trainval with both test strats
+for pth_file in $( find *_trainval/ -type f -name "*.pth"; ); do
+    for class in "Classify1NN" "SoftCosAttn"; do
+        for ns in 1 5; do
+            # tester filename directory model_file num_shot test_strat
+            tester "trainval_5way_${ns}shot" "tests_trainval" "$pth_file" "$ns" "$class";
+        done;
     done;
 done;
 
-# do the old resnet50 with SoftCosAttn strat
-for pth_file in $( find *_500epoch *_1000epoch -type f -name "*.pth" -exec readlink -f {} \; ); do
-    # tester filename directory model_file num_shot test_strat
-    for num_shot in 1 5; do
-        tester "resnet50_5way_${num_shot}shot" "tests_matchnet" "$pth_file" "$num_shot" "SoftCosAttn";
-    done;
-done;
+# tester "trainval_5way_5shot" "tests_trainval" "cifar100fs_trainval/CropGauss.pth" "5" "SoftCosAttn";
 
 popd;

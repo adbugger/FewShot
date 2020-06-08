@@ -73,7 +73,9 @@ def few_shot_loop(options):
         
         time_track.accumulate(time.time() - start_time)
 
-    Print(f"({time_track.latest():.3f}s avg / {time_track.total():.3f}s) Using file {options.load_from.name}: {score_track.value()}")
+    m, h = score_track.conf()
+    Print(f"({time_track.latest():.3f}s avg / {time_track.total():.3f}s) "
+          f"Using file {options.load_from.name}: {m*100:.4f} \u00b1 {h*100:.4f}")
     return
 
 if __name__ == '__main__':

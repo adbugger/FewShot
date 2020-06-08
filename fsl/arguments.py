@@ -20,6 +20,10 @@ def parse_args():
     train_args.add_argument("--no_save_model", dest='save_model', action='store_false')
     train_args.set_defaults(save_model=True)
 
+    train_args.add_argument("--use_trainval", dest='use_trainval', action='store_true')
+    train_args.add_argument("--no_use_trainval", dest='use_trainval', action='store_false')
+    train_args.set_defaults(use_trainval=False)
+
     # Few Shot Arguments
     fewshot_args = parser.add_argument_group("Fewshot Arguments")
     fewshot_args.add_argument("--load_from", type=argparse.FileType('r'))

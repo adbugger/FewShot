@@ -3,8 +3,10 @@ from __future__ import division, print_function
 import functools
 import random
 import numpy as np
+import scipy.stats
 import os
 import abc
+import pickle
 
 import torch
 from torch.utils.data import DataLoader
@@ -85,11 +87,14 @@ class AverageMeter(AbstractMeter):
         self.last_val = val
         self.sum_val = val
         self.count = count
+        self.history = []
 
     def accumulate(self, value):
         self.count += 1
         self.sum_val += value
         self.last_val = value
+
+        self.history.append(value)
 
     def value(self):
         return self.sum_val / self.count if self.count !=0 else 0
@@ -99,6 +104,17 @@ class AverageMeter(AbstractMeter):
 
     def latest(self):
         return self.last_val
+
+    def conf(self):
+        # https://stackoverflow.com/a/15034143/6479208
+        a = np.array(self.history)
+        # filter nans and infinities
+        a = a[np.isfinite(a)] 
+        n = len(a)
+        m, se = np.mean(a), scipy.stats.sem(a)
+        # 95% confidence interval
+        h = se * scipy.stats.t.ppf((1 + 0.95) / 2., n-1)
+        return m, h
 
 class ValuePrinter():
     GREEN = u"\u001b[32m"
@@ -140,16 +156,8 @@ class Value():
             self.best = self.current
 
 if __name__ == "__main__":
-    vp = ValuePrinter()
-    val1 = Value(-0.5, max, "want more")
-    val2 = Value(-5000.236, min, "want less")
-
-    vp.track(val1)
-    vp.track(val2)
-
-    vp.get_formatted_line()
-    
-    val1.update(1.0)
-    val2.update(1.0)
-
-    vp.get_formatted_line()
+    track = AverageMeter()
+    track.accumulate(0.35)
+    track.accumulate(1.25)
+    track.accumulate(1.5)
+    print(track.conf())
