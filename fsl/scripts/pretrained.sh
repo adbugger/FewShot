@@ -6,7 +6,7 @@
 #SBATCH --time=2-00:00:00
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=END
-#SBATCH --job-name=pre50
+#SBATCH --job-name=moco50
 
 # cuda and cudnn already loaded in .bashrc
 function test_moco {
@@ -15,7 +15,7 @@ function test_moco {
   num_shot="$3";
 
   moco_weights="pretrained_weights/moco_v2_800ep_pretrain.pth.tar";
-  save_file="tests_moco/tests_moco.out";
+  save_file="tests_moco/moco_5way_${num_shot}shot.out";
   mkdir -p $( dirname "$save_file" );
 
   echo -n "${dataset} 5-way-${num_shot}-shot ${test_strat} " | tee -a "$save_file";

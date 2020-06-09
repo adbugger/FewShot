@@ -32,16 +32,14 @@ function tester {
 source "/home/aditya.bharti/python_env/bin/activate";
 pushd "/home/aditya.bharti/FewShot";
 
-# trainval with both test strats
-for pth_file in $( find *_trainval/ -type f -name "*.pth"; ); do
+# 500 epoch, only train set, all test strats, confidence intervals
+for pth_file in $( find *_500epoch/ -type f -name "*.pth"; ); do
     for class in "Classify1NN" "SoftCosAttn"; do
         for ns in 1 5; do
             # tester filename directory model_file num_shot test_strat
-            tester "trainval_5way_${ns}shot" "tests_trainval" "$pth_file" "$ns" "$class";
+            tester "onlytrain_5way_${ns}shot" "tests_onlytrain" "$pth_file" "$ns" "$class";
         done;
     done;
 done;
-
-# tester "trainval_5way_5shot" "tests_trainval" "cifar100fs_trainval/CropGauss.pth" "5" "SoftCosAttn";
 
 popd;
