@@ -46,7 +46,13 @@ def few_shot_loop(options):
         options.scaler = None
         options.normalizer = None
         # options.normalizer = Normalizer(copy=False)
+        episode_loader = getattr(episode_strat, options.episode_strat)(options).episode_loader(options)
+    elif options.model == "SelfLabelModel":
+        model = get_model(options)
+        model.eval()
 
+        options.scaler = None
+        options.normalizer = Normalizer(copy=False)
         episode_loader = getattr(episode_strat, options.episode_strat)(options).episode_loader(options)
     else:
         model, old_opts = get_old_state(options)
@@ -54,7 +60,6 @@ def few_shot_loop(options):
 
         options.scaler = old_opts.train_scaler if hasattr(old_opts, "train_scaler") else None
         options.normalizer = Normalizer(copy=False)
-
         episode_loader = getattr(episode_strat, options.episode_strat)(old_opts).episode_loader(options)
     classifier = getattr(testing_strat, options.testing_strat)
 

@@ -5,8 +5,9 @@ import torch.nn as nn
 
 from .SimCLR import SimCLRModel
 from .MoCo import MoCoModel
+from .SelfLabel import SelfLabelModel
 
-__all__ = ['get_model', 'get_old_state', 'SimCLRModel', 'MoCoModel']
+__all__ = ['get_model', 'get_old_state', 'SimCLRModel', 'MoCoModel', 'SelfLabelModel']
 
 # Each model must be initialized with model(options)
 def get_model(options):

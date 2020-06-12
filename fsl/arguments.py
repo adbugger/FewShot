@@ -68,7 +68,8 @@ def parse_args():
 
     # Model Arugments
     model_args = parser.add_argument_group("Model Arguments")
-    model_args.add_argument("--model", type=str, default='SimCLRModel', choices=['SimCLRModel', 'MoCoModel'])
+    model_args.add_argument("--model", type=str, default='SimCLRModel',
+                            choices=['SimCLRModel', 'MoCoModel', 'SelfLabelModel'])
 
     # Backbone arguments
     backbone_args = parser.add_argument_group("Backbone Arguments")
