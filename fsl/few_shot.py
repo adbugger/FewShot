@@ -4,8 +4,10 @@ import time
 import torch
 
 import numpy
+from sklearn.pipeline import Pipeline
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler, Normalizer
+from sklearn.decomposition import IncrementalPCA
 
 from arguments import parse_args
 from models import ( get_model, get_old_state )
@@ -18,9 +20,40 @@ import testing_strat
 
 from utils import ( get_printer,
                     get_gpu_ids,
-                    AverageMeter)
+                    AverageMeter,
+                    get_loader)
 
 
+def get_pre_classifier_pipeline(options, model):
+    full_train_set = getattr(datasets, options.dataset)(options).plain_train_set
+    loader = get_loader(full_train_set, options)
+    
+    # standardize the scaler for all classifiers
+    scaler = StandardScaler(copy=False)
+    for batch, _ in loader:
+        out = model(batch).detach().cpu().numpy()
+        scaler.partial_fit(out)
+
+    if options.model == "MoCoModel":
+        steps = [('scaler', scaler)]
+    elif options.model == "SelfLabelModel":
+        ipca = IncrementalPCA(copy=False, n_components=128,
+                              batch_size=options.batch_size)
+        for batch, _ in loader:
+            out = model(batch).detach().cpu().numpy()
+            ipca.partial_fit(scaler.transform(out))
+
+        steps = [('scaler', scaler), ('ipca', ipca)]
+    elif options.model == "SimCLRModel":
+        steps = [('scaler', scaler)]
+    else:
+        raise NotImplementedError(f"Classifier pipeline for {model} not implemented")
+
+    pipeline = Pipeline(steps)
+    options.pre_classifier_pipeline = pipeline
+    return pipeline
+
+@torch.no_grad()
 def few_shot_loop(options):
     Print = get_printer(options)
 
@@ -39,43 +72,31 @@ def few_shot_loop(options):
                 rank=options.local_rank
             )
 
+    # define sklearn.pipeline.Pipeline to be applied to network outputs
     if options.model == 'MoCoModel':
         model = get_model(options)
-        model.eval()
-
-        options.scaler = None
-        options.normalizer = None
-        # options.normalizer = Normalizer(copy=False)
         episode_loader = getattr(episode_strat, options.episode_strat)(options).episode_loader(options)
     elif options.model == "SelfLabelModel":
         model = get_model(options)
-        model.eval()
-
-        options.scaler = None
-        options.normalizer = Normalizer(copy=False)
         episode_loader = getattr(episode_strat, options.episode_strat)(options).episode_loader(options)
-    else:
+    elif options.model == "SimCLRModel":
         model, old_opts = get_old_state(options)
-        model.eval()
-
-        options.scaler = old_opts.train_scaler if hasattr(old_opts, "train_scaler") else None
-        options.normalizer = Normalizer(copy=False)
         episode_loader = getattr(episode_strat, options.episode_strat)(old_opts).episode_loader(options)
-    classifier = getattr(testing_strat, options.testing_strat)
+    else:
+        raise NotImplementedError(f"Few Shot on {options.model} not implemented")
 
     score_track = AverageMeter()
     time_track = AverageMeter()
+    model.eval()
+    get_pre_classifier_pipeline(options, model)
+    classifier = getattr(testing_strat, options.testing_strat)
+
     for full_data, full_labels in episode_loader:
         start_time = time.time()
-
-        # full_data = model.module.backbone(full_data.to(options.cuda_device))
         full_data = model(full_data.to(options.cuda_device))
-        # full_labels = full_labels.cpu().numpy()
-
-        # call to classifier here
         score = classifier(options, full_data, full_labels)
+
         score_track.accumulate(score)
-        
         time_track.accumulate(time.time() - start_time)
 
     m, h = score_track.conf()

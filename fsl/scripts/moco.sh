@@ -15,7 +15,7 @@ function test_moco {
   num_shot="$3";
 
   moco_weights="pretrained_weights/moco_v2_800ep_pretrain.pth.tar";
-  save_file="tests_moco/moco_5way_${num_shot}shot.out";
+  save_file="tests_moco2/moco_5way_${num_shot}shot.out";
   mkdir -p $( dirname "$save_file" );
 
   echo -n "${dataset} 5-way-${num_shot}-shot ${test_strat} " | tee -a "$save_file";

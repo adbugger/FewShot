@@ -57,6 +57,7 @@ class FewShotDataset():
             transform_list=multi_transforms, options=options
         )
         self.plain_train_set = tv_datasets.ImageFolder(root=self.train_root, transform=other_transform)
+        self.plain_trainval_set = tv_datasets.ImageFolder(root=self.trainval_root, transform=other_transform)
         self.test_set = tv_datasets.ImageFolder(root=self.test_root, transform=other_transform)
         self.valid_set = tv_datasets.ImageFolder(root=self.valid_root, transform=other_transform)
 
