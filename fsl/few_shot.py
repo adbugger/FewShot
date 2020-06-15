@@ -37,13 +37,16 @@ def get_pre_classifier_pipeline(options, model):
     if options.model == "MoCoModel":
         steps = [('scaler', scaler)]
     elif options.model == "SelfLabelModel":
-        ipca = IncrementalPCA(copy=False, n_components=128,
-                              batch_size=options.batch_size)
-        for batch, _ in loader:
-            out = model(batch).detach().cpu().numpy()
-            ipca.partial_fit(scaler.transform(out))
+        if options.ipca:
+            ipca = IncrementalPCA(copy=False, n_components=128,
+                                batch_size=options.batch_size)
+            for batch, _ in loader:
+                out = model(batch).detach().cpu().numpy()
+                ipca.partial_fit(scaler.transform(out))
 
-        steps = [('scaler', scaler), ('ipca', ipca)]
+            steps = [('scaler', scaler), ('ipca', ipca)]
+        else:
+            steps = [('scaler', scaler)]
     elif options.model == "SimCLRModel":
         steps = [('scaler', scaler)]
     else:

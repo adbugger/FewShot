@@ -122,8 +122,17 @@ def parse_args():
     # Loss function parameters
     loss_args = parser.add_argument_group("Loss Function Arguments")
     loss_args.add_argument("--loss_function", type=str, default="NTXent", choices=["NTXent"])
-    # loss_args.add_argument("--loss_function", type=str, default="NTXent", choices=["NTXent", "PyMetricNTXent"])
     loss_args.add_argument("--ntxent_temp", type=float, default=1.0)
+
+    # Do PCA on features before sending to classifier
+    pre_class_args = parser.add_argument_group("Pre Classifier Pipeline Arguments")
+    pre_class_args.add_argument("--scaler", dest='scaler', action='store_true')
+    pre_class_args.add_argument("--no_scaler", dest='scaler', action='store_false')
+    pre_class_args.set_defaults(scaler=True)
+
+    pre_class_args.add_argument("--ipca", dest="ipca", action='store_true')
+    pre_class_args.add_argument("--no_ipca", dest="ipca", action='store_false')
+    pre_class_args.set_defaults(ipca=False)
 
     # Test set kmeans evaluation
     eval_args = parser.add_argument_group("Test Evaluation Arguments")

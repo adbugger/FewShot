@@ -1,0 +1,6 @@
+miniImagenet 5-way-5-shot Classify1NN (0.032s avg / 316.772s) Using file pretrained_weights/moco_v2_800ep_pretrain.pth.tar: 61.2717 ± 0.1769
+miniImagenet 5-way-5-shot SoftCosAttn (0.029s avg / 288.687s) Using file pretrained_weights/moco_v2_800ep_pretrain.pth.tar: 73.1283 ± 0.1581
+cifar100fs 5-way-5-shot Classify1NN (0.015s avg / 146.957s) Using file pretrained_weights/moco_v2_800ep_pretrain.pth.tar: 45.1223 ± 0.1568
+cifar100fs 5-way-5-shot SoftCosAttn (0.012s avg / 120.945s) Using file pretrained_weights/moco_v2_800ep_pretrain.pth.tar: 56.6523 ± 0.1704
+fc100 5-way-5-shot Classify1NN (0.032s avg / 316.161s) Using file pretrained_weights/moco_v2_800ep_pretrain.pth.tar: 41.3052 ± 0.1560
+fc100 5-way-5-shot SoftCosAttn (0.029s avg / 286.696s) Using file pretrained_weights/moco_v2_800ep_pretrain.pth.tar: 47.3743 ± 0.1662

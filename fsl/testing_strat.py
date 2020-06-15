@@ -47,8 +47,6 @@ def SoftCosAttn(options, full_data, full_labels):
     assert attn_kernel.shape == (num_test, num_train)
 
     # predict labels based on argmax instead of the mean
-    predict_labels = train_labels[attn_kernel.argmax(dim=1)]
+    predict_labels = train_labels[attn_kernel.argmax(axis=1)]
 
-    return accuracy_score(
-        y_true=test_labels.cpu().numpy(),
-        y_pred=predict_labels.cpu().numpy())
+    return accuracy_score(y_true=test_labels, y_pred=predict_labels)
