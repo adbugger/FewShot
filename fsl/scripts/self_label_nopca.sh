@@ -24,7 +24,8 @@ function test_sf {
   python -u fsl/few_shot.py --no_distributed \
   --model="SelfLabelModel" --dataset="$dataset" --load_from="$sf_weights" \
   --n_way=5 --k_shot="$num_shot" --testing_strat="$test_strat" \
-  --no_ipca --log_file="$save_file";
+  --no_ipca \
+  --log_file="$save_file";
 }
 
 source "/home/aditya.bharti/python_env/bin/activate";

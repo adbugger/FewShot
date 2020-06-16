@@ -26,6 +26,7 @@ from utils import ( get_printer,
 
 def get_pre_classifier_pipeline(options, model):
     full_train_set = getattr(datasets, options.dataset)(options).plain_train_set
+    options.batch_size = 2048
     loader = get_loader(full_train_set, options)
     
     # standardize the scaler for all classifiers
@@ -38,7 +39,7 @@ def get_pre_classifier_pipeline(options, model):
         steps = [('scaler', scaler)]
     elif options.model == "SelfLabelModel":
         if options.ipca:
-            ipca = IncrementalPCA(copy=False, n_components=128,
+            ipca = IncrementalPCA(copy=False, n_components=options.ipca_dim,
                                 batch_size=options.batch_size)
             for batch, _ in loader:
                 out = model(batch).detach().cpu().numpy()

@@ -134,6 +134,8 @@ def parse_args():
     pre_class_args.add_argument("--no_ipca", dest="ipca", action='store_false')
     pre_class_args.set_defaults(ipca=False)
 
+    pre_class_args.add_argument("--ipca_dim", type=int, default=128)
+
     # Test set kmeans evaluation
     eval_args = parser.add_argument_group("Test Evaluation Arguments")
     eval_args.add_argument("--eval_freq", type=int, default=1, help="Evaluate KMeans on test set after these many epochs")
