@@ -1,0 +1,6 @@
+miniImagenet 5-way-5-shot Classify1NN (0.059s avg / 606.032s) Using file pretrained_weights/self-label-resnet-10x3k.pth: 61.1393 ± 0.1811
+miniImagenet 5-way-5-shot SoftCosAttn (0.060s avg / 530.240s) Using file pretrained_weights/self-label-resnet-10x3k.pth: 68.1524 ± 0.1701
+cifar100fs 5-way-5-shot Classify1NN (0.046s avg / 498.080s) Using file pretrained_weights/self-label-resnet-10x3k.pth: 56.0740 ± 0.1754
+cifar100fs 5-way-5-shot SoftCosAttn (0.038s avg / 381.357s) Using file pretrained_weights/self-label-resnet-10x3k.pth: 61.6563 ± 0.1749
+fc100 5-way-5-shot Classify1NN (0.054s avg / 541.369s) Using file pretrained_weights/self-label-resnet-10x3k.pth: 38.9195 ± 0.1556
+fc100 5-way-5-shot SoftCosAttn (0.047s avg / 472.878s) Using file pretrained_weights/self-label-resnet-10x3k.pth: 41.4515 ± 0.1562
