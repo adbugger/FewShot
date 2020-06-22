@@ -35,6 +35,10 @@ def parse_args():
     fewshot_args.add_argument("--k_shot", type=int, default=5)
     fewshot_args.add_argument("--num_test_tasks", type=int, default=int(1e4))
     fewshot_args.add_argument("--num_query", type=int, default=15)
+    
+    fewshot_args.add_argument("--centroid", dest='centroid', action='store_true')
+    fewshot_args.add_argument("--no_centroid", dest='centroid', action='store_false')
+    fewshot_args.set_defaults(centroid=False)
 
     # Fine Tune Arguments
     ft_args = parser.add_argument_group("Fine Tune Arguments")

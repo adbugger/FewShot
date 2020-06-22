@@ -1,0 +1,6 @@
+5way-5shot Classify1NN (0.023s avg / 230.348s) Using file cifar100fs_hyperparam/CropGauss.pth: 42.8352 ± 0.1542
+5way-5shot SoftCosAttn (0.021s avg / 213.794s) Using file cifar100fs_hyperparam/CropGauss.pth: 46.4488 ± 0.1660
+5way-5shot Classify1NN (0.024s avg / 238.451s) Using file cifar100fs_hyperparam/CropColor.pth: 56.5825 ± 0.1887
+5way-5shot SoftCosAttn (0.020s avg / 202.160s) Using file cifar100fs_hyperparam/CropColor.pth: 59.6389 ± 0.1870
+5way-5shot Classify1NN (0.023s avg / 229.973s) Using file cifar100fs_hyperparam/ColorGauss.pth: 27.0340 ± 0.1193
+5way-5shot SoftCosAttn (0.020s avg / 204.571s) Using file cifar100fs_hyperparam/ColorGauss.pth: 29.5325 ± 0.1338

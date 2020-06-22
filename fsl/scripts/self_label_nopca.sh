@@ -6,7 +6,7 @@
 #SBATCH --time=2-00:00:00
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=END
-#SBATCH --job-name=sf50
+#SBATCH --job-name=cent_sf
 
 # cuda and cudnn already loaded in .bashrc
 function test_sf {
@@ -15,7 +15,7 @@ function test_sf {
   num_shot="$3";
 
   sf_weights="pretrained_weights/self-label-resnet-10x3k.pth";
-  save_file="tests_sf_nopca/sf_5way_${num_shot}shot.out";
+  save_file="tests_centroid/sf_centroid.out";
   mkdir -p $( dirname "$save_file" );
 
   echo -n "${dataset} 5-way-${num_shot}-shot ${test_strat} " | tee -a "$save_file";
@@ -24,7 +24,7 @@ function test_sf {
   python -u fsl/few_shot.py --no_distributed \
   --model="SelfLabelModel" --dataset="$dataset" --load_from="$sf_weights" \
   --n_way=5 --k_shot="$num_shot" --testing_strat="$test_strat" \
-  --no_ipca \
+  --no_ipca --centroid \
   --log_file="$save_file";
 }
 
@@ -34,9 +34,7 @@ pushd "/home/aditya.bharti/FewShot";
 # iterate over datasets and num shot and testing strategy
 for dataset in "miniImagenet" "cifar100fs" "fc100"; do
   for testing_strat in "Classify1NN" "SoftCosAttn"; do
-    for num_shot in 1 5; do
-      test_sf "$dataset" "$testing_strat" "$num_shot";
-    done;
+    test_sf "$dataset" "$testing_strat" 5;
   done;
 done;
 

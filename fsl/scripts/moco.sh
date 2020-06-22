@@ -6,7 +6,7 @@
 #SBATCH --time=2-00:00:00
 #SBATCH --mail-user=aditya.bharti@research.iiit.ac.in
 #SBATCH --mail-type=END
-#SBATCH --job-name=moco50
+#SBATCH --job-name=cent_moco
 
 # cuda and cudnn already loaded in .bashrc
 function test_moco {
@@ -15,7 +15,7 @@ function test_moco {
   num_shot="$3";
 
   moco_weights="pretrained_weights/moco_v2_800ep_pretrain.pth.tar";
-  save_file="tests_moco2/moco_5way_${num_shot}shot.out";
+  save_file="tests_centroid/moco_centroid.out";
   mkdir -p $( dirname "$save_file" );
 
   echo -n "${dataset} 5-way-${num_shot}-shot ${test_strat} " | tee -a "$save_file";
@@ -23,7 +23,7 @@ function test_moco {
 
   python -u fsl/few_shot.py --no_distributed \
   --model="MoCoModel" --dataset="$dataset" --load_from="$moco_weights" \
-  --n_way=5 --k_shot="$num_shot" --testing_strat="$test_strat" \
+  --n_way=5 --k_shot="$num_shot" --testing_strat="$test_strat" --centroid \
   --log_file="$save_file";
 }
 
@@ -33,9 +33,7 @@ pushd "/home/aditya.bharti/FewShot";
 # iterate over datasets and num shot and testing strategy
 for dataset in "miniImagenet" "cifar100fs" "fc100"; do
   for testing_strat in "Classify1NN" "SoftCosAttn"; do
-    for num_shot in 1 5; do
-      test_moco "$dataset" "$testing_strat" "$num_shot";
-    done;
+    test_moco "$dataset" "$testing_strat" 5;
   done;
 done;
 
