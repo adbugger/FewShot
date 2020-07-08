@@ -1,1 +1,18 @@
-5way-5shot Classify1NN 
+5way-5shot Classify1NN (0.026s avg / 263.256s) Using file cifar100fs_500epoch/CropGauss.pth: 50.2311 ± 0.1814
+5way-5shot SoftCosAttn (0.021s avg / 211.909s) Using file cifar100fs_500epoch/CropGauss.pth: 50.5923 ± 0.1819
+5way-5shot Classify1NN (0.025s avg / 247.354s) Using file cifar100fs_500epoch/CropColor.pth: 65.7877 ± 0.2045
+5way-5shot SoftCosAttn (0.023s avg / 224.663s) Using file cifar100fs_500epoch/CropColor.pth: 63.8143 ± 0.1970
+5way-5shot Classify1NN (0.025s avg / 249.105s) Using file cifar100fs_500epoch/ColorGauss.pth: 31.0885 ± 0.1518
+5way-5shot SoftCosAttn (0.022s avg / 220.686s) Using file cifar100fs_500epoch/ColorGauss.pth: 31.4629 ± 0.1526
+5way-5shot Classify1NN (0.038s avg / 381.933s) Using file fc100_500epoch/CropGauss.pth: 43.3885 ± 0.1645
+5way-5shot SoftCosAttn (0.036s avg / 357.269s) Using file fc100_500epoch/CropGauss.pth: 43.4324 ± 0.1664
+5way-5shot Classify1NN (0.039s avg / 385.522s) Using file fc100_500epoch/CropColor.pth: 47.2461 ± 0.1826
+5way-5shot SoftCosAttn (0.036s avg / 357.253s) Using file fc100_500epoch/CropColor.pth: 45.9981 ± 0.1834
+5way-5shot Classify1NN (0.039s avg / 389.573s) Using file fc100_500epoch/ColorGauss.pth: 26.1312 ± 0.1121
+5way-5shot SoftCosAttn (0.036s avg / 357.498s) Using file fc100_500epoch/ColorGauss.pth: 26.3173 ± 0.1140
+5way-5shot Classify1NN (0.038s avg / 379.896s) Using file miniImgnet_500epoch/CropGauss.pth: 45.9764 ± 0.1764
+5way-5shot SoftCosAttn (0.036s avg / 357.435s) Using file miniImgnet_500epoch/CropGauss.pth: 46.2829 ± 0.1696
+5way-5shot Classify1NN (0.039s avg / 388.258s) Using file miniImgnet_500epoch/CropColor.pth: 64.5501 ± 0.1775
+5way-5shot SoftCosAttn (0.036s avg / 359.651s) Using file miniImgnet_500epoch/CropColor.pth: 63.5907 ± 0.1726
+5way-5shot Classify1NN (0.039s avg / 393.079s) Using file miniImgnet_500epoch/ColorGauss.pth: 25.3652 ± 0.1058
+5way-5shot SoftCosAttn (0.036s avg / 360.400s) Using file miniImgnet_500epoch/ColorGauss.pth: 25.6192 ± 0.1096
