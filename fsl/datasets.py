@@ -28,6 +28,43 @@ class MultiTransformDataset(Dataset):
     def classes(self):
         return self.dataset.classes
 
+
+class Imagenet1k():
+    def __init__(self, options):
+        self.dataset_root = abspath(getattr_or_default(options, 'dataset_root', '/ssd_scratch/cvit/aditya.bharti/Imagenet-orig'))
+
+        # Repeat the other steps as for FewShotDataset. Maybe find a way to absorb this common code into something?
+        self.image_size = 256
+        self.image_channels = 3
+
+        self.mean = (0.5071, 0.4867, 0.4408)
+        self.std = (0.2675, 0.2565, 0.2761)
+
+        options.image_size = self.image_size
+        options.image_channels = self.image_channels
+        
+        options.image_mean = self.mean
+        options.image_std = self.std
+
+        multi_transforms = get_transforms(options)
+        other_transform = tv_transforms.Compose([
+            tv_transforms.Resize(size=(self.image_size, self.image_size)),
+            tv_transforms.ToTensor(),
+            tv_transforms.Normalize(self.mean, self.std),
+        ])
+
+        self.train_set = MultiTransformDataset(
+            tv_datasets.ImageNet(root=self.dataset_root, split="train", transform=tv_transforms.Resize(size=(self.image_size, self.image_size))),
+            transform_list=multi_transforms, options=options
+        )
+        self.trainval_set = self.train_set
+
+        self.plain_train_set = tv_datasets.ImageNet(root=self.dataset_root, split="train", transform=other_transform)
+        self.plain_trainval_set = self.plain_train_set
+
+        self.test_set = tv_datasets.ImageNet(root=self.dataset_root, split="val", transform=other_transform)
+        self.valid_set = tv_datasets.ImageNet(root=self.dataset_root, split="val", transform=other_transform)
+
 class FewShotDataset():
     def __init__(self, options):
         # needs self. (dataset_root, image_size, image_channels, mean, std)
@@ -95,14 +132,14 @@ class miniImagenet(FewShotDataset):
 
         self.image_channels = 3
         self.image_size = 84
-        super(miniImagenet, self).__init__(options)
+        super(miniImagenet, self).__init__(options)      
 
 
 if __name__ == "__main__":
     from arguments import parse_args
     opts = parse_args()
 
-    for dataset in [fc100, miniImagenet, cifar100fs]:
+    for dataset in [fc100, miniImagenet, cifar100fs, Imagenet1k]:
         d = dataset(opts)
         print(str(d), "loaded")
         if(hasattr(d, "trainval_set")):

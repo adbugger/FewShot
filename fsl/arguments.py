@@ -96,7 +96,7 @@ def parse_args():
     # Data arguments
     data_args = parser.add_argument_group("Dataset Arguments")
     data_args.add_argument("--dataset", type=str, default='cifar100fs',
-            choices=['cifar100fs', 'fc100', 'miniImagenet'])
+            choices=['cifar100fs', 'fc100', 'miniImagenet', 'Imagenet1k'])
     data_args.add_argument("--dataset_root", type=str, required=False)
 
     # Data loader arguments
