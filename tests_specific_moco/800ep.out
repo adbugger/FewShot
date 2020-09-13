@@ -1,0 +1,12 @@
+moco-mini-imagenet-800ep miniImagenet 5-way-1-shot Classify1NN (0.032s avg / 316.551s) 25.9087 ± 0.1085
+moco-cifar100-800ep cifar100fs 5-way-1-shot Classify1NN (0.015s avg / 163.846s) 26.6552 ± 0.1400
+moco-fc100-800ep fc100 5-way-1-shot Classify1NN (0.031s avg / 314.111s) 24.1015 ± 0.1095
+moco-mini-imagenet-800ep miniImagenet 5-way-5-shot Classify1NN (0.037s avg / 373.402s) 34.2153 ± 0.1330
+moco-cifar100-800ep cifar100fs 5-way-5-shot Classify1NN (0.027s avg / 260.842s) 31.1400 ± 0.1515
+moco-fc100-800ep fc100 5-way-5-shot Classify1NN (0.037s avg / 372.544s) 27.7437 ± 0.1206
+moco-mini-imagenet-800ep miniImagenet 5-way-1-shot SoftCosAttn (0.025s avg / 265.946s) 31.5477 ± 0.1507
+moco-cifar100-800ep cifar100fs 5-way-1-shot SoftCosAttn (0.013s avg / 137.111s) 27.9104 ± 0.1477
+moco-fc100-800ep fc100 5-way-1-shot SoftCosAttn (0.027s avg / 270.452s) 25.7499 ± 0.1273
+moco-mini-imagenet-800ep miniImagenet 5-way-5-shot SoftCosAttn (0.034s avg / 338.942s) 40.0231 ± 0.1501
+moco-cifar100-800ep cifar100fs 5-way-5-shot SoftCosAttn (0.022s avg / 212.765s) 32.3315 ± 0.1548
+moco-fc100-800ep fc100 5-way-5-shot SoftCosAttn (0.034s avg / 339.217s) 29.2072 ± 0.1280

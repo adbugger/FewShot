@@ -1,0 +1,12 @@
+/home/aditya.bharti/moco-mod/moco-mini-imagenet.pth.tar miniImagenet 5-way-1-shot Classify1NN (0.029s avg / 291.159s) 28.3104 ± 0.1274
+/home/aditya.bharti/moco-mod/moco-cifar100.pth.tar cifar100fs 5-way-1-shot Classify1NN (0.017s avg / 167.954s) 25.9680 ± 0.1269
+/home/aditya.bharti/moco-mod/moco-fc100.pth.tar fc100 5-way-1-shot Classify1NN (0.029s avg / 286.345s) 28.0963 ± 0.1413
+/home/aditya.bharti/moco-mod/moco-mini-imagenet.pth.tar miniImagenet 5-way-5-shot Classify1NN (0.038s avg / 381.451s) 35.9167 ± 0.1396
+/home/aditya.bharti/moco-mod/moco-cifar100.pth.tar cifar100fs 5-way-5-shot Classify1NN (0.025s avg / 253.057s) 31.0687 ± 0.1380
+/home/aditya.bharti/moco-mod/moco-fc100.pth.tar fc100 5-way-5-shot Classify1NN (0.038s avg / 381.209s) 33.1659 ± 0.1530
+/home/aditya.bharti/moco-mod/moco-mini-imagenet.pth.tar miniImagenet 5-way-1-shot SoftCosAttn (0.027s avg / 267.956s) 31.7573 ± 0.1477
+/home/aditya.bharti/moco-mod/moco-cifar100.pth.tar cifar100fs 5-way-1-shot SoftCosAttn (0.014s avg / 140.427s) 27.4688 ± 0.1402
+/home/aditya.bharti/moco-mod/moco-fc100.pth.tar fc100 5-way-1-shot SoftCosAttn (0.027s avg / 267.601s) 30.4492 ± 0.1611
+/home/aditya.bharti/moco-mod/moco-mini-imagenet.pth.tar miniImagenet 5-way-5-shot SoftCosAttn (0.035s avg / 353.390s) 39.4539 ± 0.1467
+/home/aditya.bharti/moco-mod/moco-cifar100.pth.tar cifar100fs 5-way-5-shot SoftCosAttn (0.022s avg / 220.202s) 32.6960 ± 0.1441
+/home/aditya.bharti/moco-mod/moco-fc100.pth.tar fc100 5-way-5-shot SoftCosAttn (0.035s avg / 353.821s) 35.1988 ± 0.1632
