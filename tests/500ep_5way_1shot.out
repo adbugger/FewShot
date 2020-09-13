@@ -1,9 +1,0 @@
-(0.017s avg / 173.030s) Using file /home/aditya.bharti/FewShot/cifar100fs_500epoch/CropGauss.pth: 0.3852386666667014
-(0.017s avg / 170.718s) Using file /home/aditya.bharti/FewShot/cifar100fs_500epoch/CropColor.pth: 0.5287413333333376
-(0.017s avg / 169.554s) Using file /home/aditya.bharti/FewShot/cifar100fs_500epoch/ColorGauss.pth: 0.2556826666666676
-(0.029s avg / 289.942s) Using file /home/aditya.bharti/FewShot/fc100_500epoch/CropGauss.pth: 0.33336666666669545
-(0.030s avg / 296.598s) Using file /home/aditya.bharti/FewShot/fc100_500epoch/CropColor.pth: 0.36986400000003006
-(0.030s avg / 296.049s) Using file /home/aditya.bharti/FewShot/fc100_500epoch/ColorGauss.pth: 0.23194400000000032
-(0.029s avg / 289.964s) Using file /home/aditya.bharti/FewShot/miniImgnet_500epoch/CropGauss.pth: 0.349812000000033
-(0.029s avg / 295.233s) Using file /home/aditya.bharti/FewShot/miniImgnet_500epoch/CropColor.pth: 0.49760400000000127
-(0.030s avg / 296.257s) Using file /home/aditya.bharti/FewShot/miniImgnet_500epoch/ColorGauss.pth: 0.22620800000000243

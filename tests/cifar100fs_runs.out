@@ -1,9 +1,0 @@
-(0.018s avg / 175.551s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run6.pth: 0.34076666666669087
-(0.018s avg / 176.729s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run8.pth: 0.3438080000000257
-(0.017s avg / 174.060s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run7.pth: 0.3322226666666916
-(0.017s avg / 174.478s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run3.pth: 0.3381240000000239
-(0.017s avg / 175.062s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run4.pth: 0.3437773333333555
-(0.017s avg / 173.363s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run5.pth: 0.3442293333333568
-(0.017s avg / 174.302s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run1.pth: 0.3390226666666905
-(0.018s avg / 173.423s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/CropResize_GaussBlur_runs/run2.pth: 0.3388786666666911
-(0.017s avg / 173.721s) Using file /home/aditya.bharti/FewShot/fsl/cifar100fs_experiments/ColorDistort_GaussBlur_runs/run1.pth: 0.2571533333333371

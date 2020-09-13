@@ -1,0 +1,3 @@
+SimCLR: *_500epoch/ tests_onlytrain2/
+MoCo (ImgNet1k): pretrained_weights/ tests_moco2/
+MoCo (specific): moco_mod/ tests_specific_moco/ tests_moco_high_lr/

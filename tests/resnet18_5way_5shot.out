@@ -1,9 +1,0 @@
-5way-5shot Classify1NN (0.011s avg / 115.121s) Using file /home/aditya.bharti/FewShot/cifar100fs_resnet18/CropGauss.pth: 0.49129866666666505
-5way-5shot Classify1NN (0.011s avg / 114.054s) Using file /home/aditya.bharti/FewShot/cifar100fs_resnet18/CropColor.pth: 0.5896933333333731
-5way-5shot Classify1NN (0.011s avg / 113.726s) Using file /home/aditya.bharti/FewShot/cifar100fs_resnet18/ColorGauss.pth: 0.3206213333333579
-5way-5shot Classify1NN (0.018s avg / 181.294s) Using file /home/aditya.bharti/FewShot/fc100_resnet18/CropGauss.pth: 0.4302546666666851
-5way-5shot Classify1NN (0.018s avg / 181.528s) Using file /home/aditya.bharti/FewShot/fc100_resnet18/CropColor.pth: 0.45597866666667053
-5way-5shot Classify1NN (0.018s avg / 181.026s) Using file /home/aditya.bharti/FewShot/fc100_resnet18/ColorGauss.pth: 0.2908280000000159
-5way-5shot Classify1NN (0.018s avg / 181.864s) Using file /home/aditya.bharti/FewShot/miniImgnet_resnet18/CropGauss.pth: 0.42829733333335446
-5way-5shot Classify1NN (0.018s avg / 182.330s) Using file /home/aditya.bharti/FewShot/miniImgnet_resnet18/CropColor.pth: 0.5812413333333736
-5way-5shot Classify1NN (0.018s avg / 183.418s) Using file /home/aditya.bharti/FewShot/miniImgnet_resnet18/ColorGauss.pth: 0.2554680000000004
